@@ -127,6 +127,7 @@ int main()
                         resultadoSuma = primerOperando + segundoOperando;
                         resultadoResta = primerOperando - segundoOperando;
                         resultadoMultiplicacion = primerOperando * segundoOperando;
+
                         if(segundoOperando != 0)
                         {
                             resultadoDivision = (float)primerOperando / segundoOperando;
@@ -145,37 +146,47 @@ int main()
                         banderaCase3 = 1;
                     }else
                     {
-                        printf("Error! Se le debe asignar un valor a ambos operandos para calcularlos!");
+                        printf("\n   Error! Se le debe asignar un valor a ambos operadores para calcularlos!\n\n");
                     }
                     break;
 
                 case 4:
-                    if(banderaCase1 == 1 && banderaCase2 == 1 && banderaCase3)
+                    if(banderaCase1 == 1 && banderaCase2 == 1 && banderaCase3 == 1)
                     {
-                        printf("\na) El resultado de %d+%d es: %d\n", primerOperando, segundoOperando, resultadoSuma);
-                        printf("b) El resultado de %d-%d es: %d\n", primerOperando, segundoOperando, resultadoResta);
+                        printf("\n   a) El resultado de %d+%d es: %d\n", primerOperando, segundoOperando, resultadoSuma);
+                        printf("   b) El resultado de %d-%d es: %d\n", primerOperando, segundoOperando, resultadoResta);
 
                         if(segundoOperando != 0)
                         {
-                            printf("c) El resultado de %d/%d es: %.2f\n", primerOperando, segundoOperando, resultadoDivision);
+                            printf("   c) El resultado de %d/%d es: %.2f\n", primerOperando, segundoOperando, resultadoDivision);
                         }else
                         {
-                            printf("No es posible dividir por cero\n");
+                            printf("   No es posible dividir por cero\n");
                         }
 
-                        printf("d) El resultado de %d*%d es: %d\n", primerOperando, segundoOperando, resultadoMultiplicacion);
-                        printf("e) El factorial de %d es: %d y El factorial de %d es: %d", primerOperando, resultadoFactorialA, segundoOperando, resultadoFactorialB);
+                        printf("   d) El resultado de %d*%d es: %d\n", primerOperando, segundoOperando, resultadoMultiplicacion);
+                        printf("   e) El factorial de %d es: %d y El factorial de %d es: %d\n\n", primerOperando, resultadoFactorialA, segundoOperando, resultadoFactorialB);
                     }else
                     {
-                        printf("Error! Se le debe asignar un valor a ambos operandos y calcularlos!");
+                        if(banderaCase1 == 0 || banderaCase2 == 0)
+                        {
+                            if(banderaCase3 == 0)
+                            {
+                                printf("\n   Error! Se le debe asignar un valor a ambos operadores y calcularlos para informar los resultados!\n\n");
+                            }
+                        }else
+                        {
+                            if(banderaCase3 == 0)
+                            {
+                                printf("\n   Error! Se debe calcular los operadores para informar los resultados!\n\n");
+                            }
+                        }
                     }
                     break;
 
                 default:
                     break;
-
             }
-
             system("pause");
             system("cls");
     }
@@ -185,5 +196,3 @@ int main()
 }
 
 // Te quedaste en el caso 4 antes de cortar... fijate de volver a revisar los IF, por un tema de eficiencia!
-
-//Probando lalala
