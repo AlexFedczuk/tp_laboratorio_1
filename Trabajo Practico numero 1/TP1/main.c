@@ -195,4 +195,4 @@ int main()
     return 0;
 }
 
-// Te quedaste en el caso 4 antes de cortar... fijate de volver a revisar los IF, por un tema de eficiencia!
+//Bien! Faltaria ahora transformar en modulos las tareas del main!
