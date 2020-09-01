@@ -3,7 +3,14 @@
 	<stdio.h>
 	<stdlib.h>
 
-1598968042 source:c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\main.c
+1598993108 source:c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\main.c
 	<stdio.h>
 	<stdlib.h>
+	"Funciones.h"
+
+1598993108 c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\funciones.h
+	<stdio.h>
+
+1598993108 source:c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\funciones.c
+	"Funciones.h"
 

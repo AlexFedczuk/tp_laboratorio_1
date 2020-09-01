@@ -31,6 +31,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "Funciones.h"
 
 int main()
 {
@@ -61,87 +62,36 @@ int main()
 
     do
     {
-        printf("     **** MENU PRINCIPAL ****\n");
+        MostrarMenu(banderaPrimerOperando,
+                    primerOperando,
+                    banderaSegundoOperando,
+                    segundoOperando);
 
-        if(banderaPrimerOperando == 0)
-        {
-            printf("\n   1. Ingresar 1er operando (A=x)\n");
-        }else
-        {
-            printf("\n   1. Ingresar 1er operando (A=%d)\n", primerOperando);
-        }
-
-        if(banderaSegundoOperando == 0)
-        {
-            printf("   2. Ingresar 2do operando (B=y)\n");
-        }else
-        {
-            printf("   2. Ingresar 2do operando (B=%d)\n", segundoOperando);
-        }
-
-        printf("   3. Calcular todas las operaciones\n");
-        printf("   4. Informar resultados\n");
-        printf("   5. Salir\n");
-
-        do
-        {
-            printf("\n   Elija una opcion: ");
-            scanf("%d", &opcionElegida);
-
-            if(opcionElegida <1 || opcionElegida > 5)
-            {
-                printf("\n   Error! La opcion elegida es invalida!\n");
-            }
-        }
-        while(opcionElegida < 1 || opcionElegida > 5);
+        opcionElegida = TomarOpcionElegida(opcionElegida);
 
         switch(opcionElegida)
             {
                 case 1:
-                    printf("\n   Ingrese el primer operando: ");
-                    scanf("%d", &primerOperando);
-
-                    if(banderaPrimerOperando == 0)
-                    {
-                        banderaPrimerOperando = 1;
-                    }
-
+                    primerOperando = PedirNumeroEntero("\n   Ingrese el primer operando: ");
+                    banderaPrimerOperando = HacerLogicaBanderaOperador(banderaPrimerOperando);
                     banderaCase1 = 1;
                     break;
 
                 case 2:
-                    printf("\n   Ingrese el segundo operando: ");
-                    scanf("%d", &segundoOperando);
-
-                    if(banderaSegundoOperando == 0)
-                    {
-                        banderaSegundoOperando = 1;
-                    }
-
+                    segundoOperando = PedirNumeroEntero("\n   Ingrese el segundo operando: ");
+                    banderaPrimerOperando = HacerLogicaBanderaOperador(banderaSegundoOperando);
                     banderaCase2 = 1;
                     break;
 
                 case 3:
                     if(banderaCase1 == 1 && banderaCase2 == 1)
                     {
-                        resultadoSuma = primerOperando + segundoOperando;
-                        resultadoResta = primerOperando - segundoOperando;
-                        resultadoMultiplicacion = primerOperando * segundoOperando;
-
-                        if(segundoOperando != 0)
-                        {
-                            resultadoDivision = (float)primerOperando / segundoOperando;
-                        }
-
-                        for(int i = 1; i <= primerOperando; i++)
-                        {
-                            resultadoFactorialA = resultadoFactorialA * i;
-                        }
-
-                        for(int i = 1; i <= segundoOperando; i++)
-                        {
-                            resultadoFactorialB = resultadoFactorialB * i;
-                        }
+                        resultadoSuma = SumarDosEnteros(primerOperando, segundoOperando);
+                        resultadoResta = RestarDosEnteros(primerOperando, segundoOperando);
+                        resultadoMultiplicacion = MultiplicarDosEnteros(primerOperando, segundoOperando);
+                        resultadoDivision = DividirDosEnteros(primerOperando, segundoOperando);
+                        resultadoFactorialA = FactorizarUnEntero(primerOperando);
+                        resultadoFactorialB = FactorizarUnEntero(segundoOperando);
 
                         banderaCase3 = 1;
                     }else
@@ -194,5 +144,3 @@ int main()
 
     return 0;
 }
-
-//Bien! Faltaria ahora transformar en modulos las tareas del main!
