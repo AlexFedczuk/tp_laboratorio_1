@@ -65,53 +65,48 @@ int HacerLogicaBanderaOperador(int banderaOperando)
     return banderaOperando;
 }
 
-int SumarDosEnteros(int primerOperador, int segundoOperador)
+void mostrarResultados(int banderaCase1,
+                       int banderaCase2,
+                       int banderaCase3,
+                       int primerOperando,
+                       int segundoOperando,
+                       int resultadoSuma,
+                       int resultadoResta,
+                       float resultadoDivision,
+                       int resultadoMultiplicacion,
+                       int resultadoFactorialA,
+                       int resultadoFactorialB)
 {
-    int resultado;
-
-    resultado = primerOperador + segundoOperador;
-
-    return resultado;
-}
-
-int RestarDosEnteros(int primerOperador, int segundoOperador)
-{
-    int resultado;
-
-    resultado = primerOperador - segundoOperador;
-
-    return resultado;
-}
-
-int MultiplicarDosEnteros(int primerOperador, int segundoOperador)
-{
-    int resultado;
-
-    resultado = primerOperador * segundoOperador;
-
-    return resultado;
-}
-
-float DividirDosEnteros(int primerOperador, int segundoOperador)
-{
-    int resultado;
-
-    if(segundoOperador != 0)
+    if(banderaCase1 == 1 && banderaCase2 == 1 && banderaCase3 == 1)
     {
-        resultado = (float)primerOperador / segundoOperador;
-    }
+        printf("\n   a) El resultado de %d+%d es: %d\n", primerOperando, segundoOperando, resultadoSuma);
+        printf("   b) El resultado de %d-%d es: %d\n", primerOperando, segundoOperando, resultadoResta);
 
-    return resultado;
-}
+        if(segundoOperando != 0)
+        {
+            printf("   c) El resultado de %d/%d es: %.2f\n", primerOperando, segundoOperando, resultadoDivision);
+        }else
+        {
+            printf("   c) No es posible dividir por cero\n");
+        }
 
-int FactorizarUnEntero(int operador)
-{
-    int resultado;
+        printf("   d) El resultado de %d*%d es: %d\n", primerOperando, segundoOperando, resultadoMultiplicacion);
+        printf("   e) El factorial de %d es: %d y El factorial de %d es: %d\n\n", primerOperando, resultadoFactorialA, segundoOperando, resultadoFactorialB);
 
-    for(int i = 1; i <= operador; i++)
+    }else
     {
-        resultado = operador * i;
+        if(banderaCase1 == 0 || banderaCase2 == 0)
+        {
+            if(banderaCase3 == 0)
+            {
+                printf("\n   Error! Se le debe asignar un valor a ambos operadores y calcularlos para informar los resultados!\n\n");
+            }
+        }else
+        {
+            if(banderaCase3 == 0)
+            {
+                printf("\n   Error! Se debe calcular los operadores para informar los resultados!\n\n");
+            }
+        }
     }
-
-    return resultado;
 }

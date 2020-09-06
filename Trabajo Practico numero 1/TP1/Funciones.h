@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-
 /** \brief Mostrar el menu de opciones de la calculadora
  *
  * \param banderaPrimerOperando sera utilizada para saber
@@ -43,46 +42,21 @@ int PedirNumeroEntero(char mensaje[30]);
  */
 int HacerLogicaBanderaOperador(int banderaOperando);
 
-/** \brief Sumar dos enteros y devolver el resultado
+/** \brief Se encarga de mostrar los resultados solicitados a la calculadora
  *
- * \param primerOperador int
- * \param segundoOperador int
- * \return El resultado de la suma realizada
- *
- */
-int SumarDosEnteros(int primerOperador, int segundoOperador);
-
-/** \brief Restar dos enteros y devolver el resultado
- *
- * \param primerOperador int
- * \param segundoOperador int
- * \return El resultado de la resta
+ * \param
+ * \param
+ * \return
  *
  */
-int RestarDosEnteros(int primerOperador, int segundoOperador);
-
-/** \brief Multiplicar dos enteros y devolver el resultado
- *
- * \param primerOperador int
- * \param segundoOperador int
- * \return El resultado de la multiplicacion realizada
- *
- */
-int MultiplicarDosEnteros(int primerOperador, int segundoOperador);
-
-/** \brief Dividir dos enteros  y devolver el resultado, evitando divisiones por cero
- *
- * \param primerOperador int
- * \param segundoOperador int
- * \return El resultado de la operacion realizada
- *
- */
-float DividirDosEnteros(int primerOperador, int segundoOperador);
-
-/** \brief Factorizar un numero entero y devolver el resultado
- *
- * \param operador int
- * \return El resultado de la factorizacion de el entero
- *
- */
-int FactorizarUnEntero(int operador);
+void mostrarResultados(int banderaCase1,
+                       int banderaCase2,
+                       int banderaCase3,
+                       int primerOperando,
+                       int segundoOperando,
+                       int resultadoSuma,
+                       int resultadoResta,
+                       float resultadoDivision,
+                       int resultadoMultiplicacion,
+                       int resultadoFactorialA,
+                       int resultadoFactorialB);

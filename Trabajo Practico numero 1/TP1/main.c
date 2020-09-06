@@ -32,6 +32,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Funciones.h"
+#include "operacionesMatematicas.h"
 
 int main()
 {
@@ -79,7 +80,7 @@ int main()
 
                 case 2:
                     segundoOperando = PedirNumeroEntero("\n   Ingrese el segundo operando: ");
-                    banderaPrimerOperando = HacerLogicaBanderaOperador(banderaSegundoOperando);
+                    banderaSegundoOperando = HacerLogicaBanderaOperador(banderaSegundoOperando);
                     banderaCase2 = 1;
                     break;
 
@@ -90,8 +91,8 @@ int main()
                         resultadoResta = RestarDosEnteros(primerOperando, segundoOperando);
                         resultadoMultiplicacion = MultiplicarDosEnteros(primerOperando, segundoOperando);
                         resultadoDivision = DividirDosEnteros(primerOperando, segundoOperando);
-                        resultadoFactorialA = FactorizarUnEntero(primerOperando);
-                        resultadoFactorialB = FactorizarUnEntero(segundoOperando);
+                        resultadoFactorialA = FactorizarUnEntero(primerOperando); //FactorizarUnEntero(primerOperando);
+                        resultadoFactorialB = FactorizarUnEntero(segundoOperando); //FactorizarUnEntero(segundoOperando);
 
                         banderaCase3 = 1;
                     }else
@@ -101,37 +102,17 @@ int main()
                     break;
 
                 case 4:
-                    if(banderaCase1 == 1 && banderaCase2 == 1 && banderaCase3 == 1)
-                    {
-                        printf("\n   a) El resultado de %d+%d es: %d\n", primerOperando, segundoOperando, resultadoSuma);
-                        printf("   b) El resultado de %d-%d es: %d\n", primerOperando, segundoOperando, resultadoResta);
-
-                        if(segundoOperando != 0)
-                        {
-                            printf("   c) El resultado de %d/%d es: %.2f\n", primerOperando, segundoOperando, resultadoDivision);
-                        }else
-                        {
-                            printf("   No es posible dividir por cero\n");
-                        }
-
-                        printf("   d) El resultado de %d*%d es: %d\n", primerOperando, segundoOperando, resultadoMultiplicacion);
-                        printf("   e) El factorial de %d es: %d y El factorial de %d es: %d\n\n", primerOperando, resultadoFactorialA, segundoOperando, resultadoFactorialB);
-                    }else
-                    {
-                        if(banderaCase1 == 0 || banderaCase2 == 0)
-                        {
-                            if(banderaCase3 == 0)
-                            {
-                                printf("\n   Error! Se le debe asignar un valor a ambos operadores y calcularlos para informar los resultados!\n\n");
-                            }
-                        }else
-                        {
-                            if(banderaCase3 == 0)
-                            {
-                                printf("\n   Error! Se debe calcular los operadores para informar los resultados!\n\n");
-                            }
-                        }
-                    }
+                    mostrarResultados(banderaCase1,
+                                      banderaCase2,
+                                      banderaCase3,
+                                      primerOperando,
+                                      segundoOperando,
+                                      resultadoSuma,
+                                      resultadoResta,
+                                      resultadoDivision,
+                                      resultadoMultiplicacion,
+                                      resultadoFactorialA,
+                                      resultadoFactorialB);
                     break;
 
                 default:
@@ -144,3 +125,5 @@ int main()
 
     return 0;
 }
+
+// Quedaria por terminar de revisar el problema del factoreo, cuando se desborda la variable!
