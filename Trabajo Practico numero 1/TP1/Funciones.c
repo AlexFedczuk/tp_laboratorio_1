@@ -91,8 +91,26 @@ void mostrarResultados(int banderaCase1,
         }
 
         printf("   d) El resultado de %d*%d es: %d\n", primerOperando, segundoOperando, resultadoMultiplicacion);
-        printf("   e) El factorial de %d es: %d y El factorial de %d es: %d\n\n", primerOperando, resultadoFactorialA, segundoOperando, resultadoFactorialB);
 
+        if(primerOperando < 13 && segundoOperando < 13)
+        {
+            printf("   e) El factorial de %d es: %d y El factorial de %d es: %d\n\n", primerOperando, resultadoFactorialA, segundoOperando, resultadoFactorialB);
+        }else
+        {
+            if(primerOperando < 13 && segundoOperando > 12)
+            {
+                printf("   e) El factorial de %d es: %d. Esta calculadora no esta capacitada para factorear numeros mas grandes que 12\n\n", primerOperando, resultadoFactorialA);
+            }else
+            {
+                if(primerOperando > 12 && segundoOperando < 13)
+                {
+                    printf("   e) Esta calculadora no esta capacitada para factorear numeros mas grandes que 12. El factorial de %d es: %d\n\n", segundoOperando, resultadoFactorialB);
+                }else
+                {
+                    printf("   e) Esta calculadora no esta capacitada para factorear numeros mas grandes que 12\n\n");
+                }
+            }
+        }
     }else
     {
         if(banderaCase1 == 0 || banderaCase2 == 0)

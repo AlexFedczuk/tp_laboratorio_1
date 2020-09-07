@@ -3,20 +3,20 @@
 	<stdio.h>
 	<stdlib.h>
 
-1599417658 source:c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\main.c
+1599509959 source:c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\main.c
 	<stdio.h>
 	<stdlib.h>
 	"Funciones.h"
 	"operacionesMatematicas.h"
 
-1599417597 c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\funciones.h
+1599418427 c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\funciones.h
 	<stdio.h>
 
-1599417597 source:c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\funciones.c
+1599418427 source:c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\funciones.c
 	"Funciones.h"
 
-1599418204 c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\operacionesmatematicas.h
+1599418427 c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\operacionesmatematicas.h
 
-1599418204 source:c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\operacionesmatematicas.c
+1599418427 source:c:\users\pc\desktop\tp_laboratorio_1\trabajo practico numero 1\tp1\operacionesmatematicas.c
 	"operacionesMatematicas.h"
 
