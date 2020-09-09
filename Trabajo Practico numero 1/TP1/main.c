@@ -60,10 +60,20 @@ int main()
                         resultadoResta = RestarDosEnteros(primerOperando, segundoOperando);
                         resultadoMultiplicacion = MultiplicarDosEnteros(primerOperando, segundoOperando);
                         resultadoDivision = DividirDosEnteros(primerOperando, segundoOperando);
-                        resultadoFactorialA = FactorizarUnEntero(primerOperando); //FactorizarUnEntero(primerOperando);
-                        resultadoFactorialB = FactorizarUnEntero(segundoOperando); //FactorizarUnEntero(segundoOperando);
+                        resultadoFactorialA = FactorizarUnEntero(primerOperando);
+                        resultadoFactorialB = FactorizarUnEntero(segundoOperando);
 
-                        banderaCase3 = 1;
+                        if(banderaCase3 == 0)
+                        {
+                            banderaCase3 = 1;
+                        }else
+                        {
+                            if(banderaCase3 == 1)
+                            {
+                                banderaCase3 = 0;
+                            }
+                        }
+
                     }else
                     {
                         printf("\n   Error! Se le debe asignar un valor a ambos operadores para calcularlos!\n\n");
