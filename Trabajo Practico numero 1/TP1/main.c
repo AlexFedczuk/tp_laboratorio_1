@@ -62,18 +62,7 @@ int main()
                         resultadoDivision = DividirDosEnteros(primerOperando, segundoOperando);
                         resultadoFactorialA = FactorizarUnEntero(primerOperando);
                         resultadoFactorialB = FactorizarUnEntero(segundoOperando);
-
-                        if(banderaCase3 == 0)
-                        {
-                            banderaCase3 = 1;
-                        }else
-                        {
-                            if(banderaCase3 == 1)
-                            {
-                                banderaCase3 = 0;
-                            }
-                        }
-
+                        banderaCase3 = 1;
                     }else
                     {
                         printf("\n   Error! Se le debe asignar un valor a ambos operadores para calcularlos!\n\n");
