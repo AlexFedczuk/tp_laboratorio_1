@@ -8,8 +8,8 @@
  ============================================================================
 
  Nota: 10/04/2022
- 	 	 FALTARIA REALIZAR EL FUNCIONAMIENTO DE LA OPCION 3,4,5
- 	 	 PODRIA AGREGAR UN SUB MENU EN LA SEGUNDA OPCION, SI QUIERO...
+ 	 	 FALTARIA REALIZAR EL FUNCIONAMIENTO DE LA OPCION 4,5
+ 	 	 PODRIA AGREGAR UN SUB MENU EN LA OPCION 2, SI QUIERO...
 
  	 	 COMENTAR TODAS LA FUNCIONES!!!
 
@@ -20,24 +20,25 @@
 int main()
 {
 	setbuf(stdout, NULL);
-    // A este valor abria que hacerle una validacion, ya que se puede ingresar basura. VALIDAR QUE ES UN ENTERO
     int opcionMenu;
-    // Esta bandera para indicar si muestro al menu estatico o dinamico.
     int opcionUnoCargada;
     int opcionDosCargada;
     int opcionTresCargada;
     float kmIngresados;
-    float precioAereolineas;
     float precioLatam;
+    float precioAereolineas;
+    float latamDebito;
+    float latamCredito;
+    float latamBitcoin;
+    float latamUnitario;
+    float aereolineasDebito;
+    float aereolineasCredito;
+    float aereolineasBitcoin;
+    float aereolineasUnitario;
+    float diferencia;
 
     opcionUnoCargada = 0;
     opcionDosCargada = 0;
-    opcionTresCargada = 0;
-    //kmIngresados = -1;
-    //precioAereolineas = -1;
-    //precioLatam = -1;
-
-
 
     do{
         mostrarMenu(opcionUnoCargada, opcionDosCargada, kmIngresados, precioAereolineas, precioLatam);
@@ -46,20 +47,29 @@ int main()
         switch(opcionMenu)
         {
             case 1:
-                kmIngresados = pedirValorNoNegativo("Ingrese los Km: "); // VALIDAR NUMEROS NEGATIVOS
+                kmIngresados = pedirValorNoNegativo("Ingrese los Km: ");
                 opcionUnoCargada = 1;
+                opcionTresCargada = 0;
                 break;
             case 2:
-            	precioAereolineas = pedirValorNoNegativo("Ingrese el precio de vuelo Aereolineas: "); // VALIDAR NUMEROS NEGATIVOS
+            	precioAereolineas = pedirValorNoNegativo("Ingrese el precio de vuelo Aereolineas: ");
             	precioLatam = pedirValorNoNegativo("Ingrese el precio de vuelo Latam: ");
-            	// VALIDAR NUMEROS NEGATIVOS
                 opcionDosCargada = 1;
+                opcionTresCargada = 0;
                 break;
             case 3:
-                if(opcionUnoCargada == 1 && opcionDosCargada == 1)// Para validar que hay datos para calcular!
-                {
-                    // Aca realizaria los calculos...
+                if(opcionUnoCargada == 1 && opcionDosCargada == 1){
+                	latamDebito = aplicarDescuento(precioLatam, DESCUENTO);
+                	latamCredito = aplicarAumento(precioLatam, AUMENTO);
+                	latamBitcoin = pesosABitcoin(precioLatam, VALOR_BITCOIN);
+                	latamUnitario = calcularPrecioUnitario(kmIngresados, precioLatam);
+                	aereolineasDebito = aplicarDescuento(precioAereolineas, DESCUENTO);
+                	aereolineasCredito = aplicarAumento(precioAereolineas, AUMENTO);
+                	aereolineasBitcoin = pesosABitcoin(precioAereolineas, VALOR_BITCOIN);
+                	aereolineasUnitario = calcularPrecioUnitario(kmIngresados, precioAereolineas);
+                	diferencia = calcularDiferencia(precioLatam, precioAereolineas);
                 	opcionTresCargada = 1;
+                	printf("\nLos costos se han calculado!\n");
                 }else if(opcionUnoCargada == 0 && opcionDosCargada == 1){
                     printf("\nERROR! Debe ingresar datos, faltaria cargar los Kilometros!\n");
                 }else if(opcionUnoCargada == 1 && opcionDosCargada == 0){
@@ -69,22 +79,31 @@ int main()
                 }
                 break;
             case 4:
-            	if(opcionTresCargada == 1)// Para validar que hay datos para calcular!
+            	if(opcionTresCargada == 1)
             	{
-            		//informarResultados();// Falta terminar funcion...
+            		informarResultados(
+            				latamDebito,
+            				latamCredito,
+            				latamBitcoin,
+            				latamUnitario,
+            				aereolineasDebito,
+            				aereolineasCredito,
+            				aereolineasBitcoin,
+            				aereolineasUnitario,
+            				diferencia);
             	}else{
-            		printf("\nERROR! Debe calcular los costos, para poder informar los resultados!\n");
+            		printf("\nERROR! Debe calcular los costos antes, para poder informar los resultados!\n");
             	}
                 break;
             case 5:
-                // Consultar bien que sucede en esta opcion.
+                // Esta en el GDB Online lo que hace!
                 break;
             default:
             	if(opcionMenu < 1 || opcionMenu > 6)
             	{
             		printf("\nERROR! Ingrese una opcion del menu principal!\n");
             	}
-                system("pause"); // Una pausa para el usuario.
+                system("pause");
                 system("cls");// Por alguna razon, no la reconoce la funcion...
                 break;
         }

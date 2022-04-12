@@ -20,20 +20,31 @@
 #ifndef FUNCIONES_H_
 #define FUNCIONES_H_
 
-// Por alguna razon se queda en un bucle, al ingresar una opcion en el GDB Online.
+// Menues
 void mostrarMenu(int opcionUnoCargada, int opcionDosCargada, float kmIngresados, float precioAereolineas, float precioLatam);
-void informarResultados(float kmIngresados, float precioTotalLatam, float precioTotalAereolines);
-float pedirNumeroFlotante(char mensaje[]);
+void informarResultados(
+		float latamDebito,
+		float latamCredito,
+		float latamBitcoin,
+		float latamUnitario,
+		float aereolineasDebito,
+		float aereolineasCredito,
+		float aereolineasBitcoin,
+		float aereolineasUnitario,
+		float diferencia);
+// Parsers
 bool parseInt(char *string, int *integer);
-int pedirNumeroEntero(char mensaje[]);
 bool parseFloat(char *string, float *nfloat);
+// Pedir
 float pedirNumeroFlotante(char mensaje[]);
+int pedirNumeroEntero(char mensaje[]);
 float pedirValorNoNegativo(char mensaje[]);
+// Opcion 3
 float aplicarDescuento(float numero, int descuento);
 float aplicarAumento(float numero, int aumento);
 float bitcoinAPesos(float bitcoin, float valorBitcoin);
 float pesosABitcoin(float pesos, float valorPesos);
-float calcularPreciosUnitarios(float pesos, float km);
+float calcularPrecioUnitario(float pesos, float km);
 float calcularDiferencia(float valorUno, float valorDos);
 
 #endif /* FUNCIONES_H_ */

@@ -18,19 +18,28 @@ void mostrarMenu(int opcionUnoCargada, int opcionDosCargada, float kmIngresados,
     printf("6. Salir\n\n");
 }
 
-void informarResultados(float kmIngresados, float precioTotalLatam, float precioTotalAereolines)
+void informarResultados(
+		float latamDebito,
+		float latamCredito,
+		float latamBitcoin,
+		float latamUnitario,
+		float aereolineasDebito,
+		float aereolineasCredito,
+		float aereolineasBitcoin,
+		float aereolineasUnitario,
+		float diferencia)
 {
     printf("\nLatam:\n");
-    printf("a) Precio con tarjeta de débito: %.2f\n", aplicarDescuento(precioTotalLatam, DESCUENTO));
-    printf("b) Precio con tarjeta de crédito: %.2f\n", aplicarAumento(precioTotalLatam, AUMENTO));
-    printf("c) Precio pagando con bitcoin : %.2f\n", pesosABitcoin(precioTotalLatam, VALOR_BITCOIN));
-    printf("d) Precio unitario: %.2f\n\n", calcularPreciosUnitarios(precioTotalLatam, kmIngresados));
+    printf("a) Precio con tarjeta de débito: %.2f\n", latamDebito);
+    printf("b) Precio con tarjeta de crédito: %.2f\n", latamCredito);
+    printf("c) Precio pagando con bitcoin : %.2f\n", latamBitcoin);
+    printf("d) Precio unitario: %.2f\n\n", latamUnitario);
     printf("Aerolíneas:\n");
-    printf("a) Precio con tarjeta de débito: %.2f\n", aplicarDescuento(precioTotalAereolines, DESCUENTO));
-    printf("b) Precio con tarjeta de crédito: %.2f\n", aplicarAumento(precioTotalAereolines, AUMENTO));
-    printf("c) Precio pagando con bitcoin : %.2f\n", pesosABitcoin(precioTotalAereolines, VALOR_BITCOIN));
-    printf("d) Precio unitario: %.2f\n\n", calcularPreciosUnitarios(precioTotalAereolines, kmIngresados));
-    printf("La diferencia de precio es : %.2f\n\n", calcularDiferencia(precioTotalLatam, precioTotalAereolines));
+    printf("a) Precio con tarjeta de débito: %.2f\n", aereolineasDebito);
+    printf("b) Precio con tarjeta de crédito: %.2f\n", aereolineasCredito);
+    printf("c) Precio pagando con bitcoin : %.2f\n", aereolineasBitcoin);
+    printf("d) Precio unitario: %.2f\n\n", aereolineasUnitario);
+    printf("La diferencia de precio es : %.2f\n\n", diferencia);
 }
 
 bool parseInt(char *string, int *integer) {
@@ -267,7 +276,7 @@ float pesosABitcoin(float pesos, float valorPesos){
     return resultado;
 }
 
-float calcularPreciosUnitarios(float pesos, float km){
+float calcularPrecioUnitario(float pesos, float km){
     float resultado;
 
     if(km != 0){
