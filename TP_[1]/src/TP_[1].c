@@ -6,16 +6,16 @@
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
  ============================================================================
-
- Nota: 15/04/2022
- 	 	 COMENTAR TODAS LA FUNCIONES!
  */
 #include <conio.h>
 #include "funciones.h"
+#include "inputFuntions.h"
+#include "calculos.h"
 
 int main()
 {
 	setbuf(stdout, NULL);
+
     int opcionMenu;
     int opcionUnoCargada;
     int opcionDosCargada;
@@ -129,5 +129,3 @@ int main()
 
     return 0;
 }
-
-
