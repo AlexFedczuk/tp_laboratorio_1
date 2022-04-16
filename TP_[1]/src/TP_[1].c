@@ -7,14 +7,10 @@
  Description : Hello World in C, Ansi-style
  ============================================================================
 
- Nota: 10/04/2022
- 	 	 FALTARIA REALIZAR EL FUNCIONAMIENTO DE LA OPCION 4,5
- 	 	 PODRIA AGREGAR UN SUB MENU EN LA OPCION 2, SI QUIERO...
-
- 	 	 COMENTAR TODAS LA FUNCIONES!!!
-
- 	 	 CUIDADO CON LAS CONTANTES!
+ Nota: 15/04/2022
+ 	 	 COMENTAR TODAS LA FUNCIONES!
  */
+#include <conio.h>
 #include "funciones.h"
 
 int main()
@@ -62,11 +58,11 @@ int main()
                 	latamDebito = aplicarDescuento(precioLatam, DESCUENTO);
                 	latamCredito = aplicarAumento(precioLatam, AUMENTO);
                 	latamBitcoin = pesosABitcoin(precioLatam, VALOR_BITCOIN);
-                	latamUnitario = calcularPrecioUnitario(kmIngresados, precioLatam);
+                	latamUnitario = calcularPrecioUnitario(precioLatam, kmIngresados);
                 	aereolineasDebito = aplicarDescuento(precioAereolineas, DESCUENTO);
                 	aereolineasCredito = aplicarAumento(precioAereolineas, AUMENTO);
                 	aereolineasBitcoin = pesosABitcoin(precioAereolineas, VALOR_BITCOIN);
-                	aereolineasUnitario = calcularPrecioUnitario(kmIngresados, precioAereolineas);
+                	aereolineasUnitario = calcularPrecioUnitario(precioAereolineas, kmIngresados);
                 	diferencia = calcularDiferencia(precioLatam, precioAereolineas);
                 	opcionTresCargada = 1;
                 	printf("\nLos costos se han calculado!\n");
@@ -96,7 +92,29 @@ int main()
             	}
                 break;
             case 5:
-                // Esta en el GDB Online lo que hace!
+            	hardcodearValores(&kmIngresados,&precioLatam,&precioAereolineas);
+            	latamDebito = aplicarDescuento(precioLatam, DESCUENTO);
+            	latamCredito = aplicarAumento(precioLatam, AUMENTO);
+            	latamBitcoin = pesosABitcoin(precioLatam, VALOR_BITCOIN);
+            	latamUnitario = calcularPrecioUnitario(precioLatam, kmIngresados);
+            	aereolineasDebito = aplicarDescuento(precioAereolineas, DESCUENTO);
+            	aereolineasCredito = aplicarAumento(precioAereolineas, AUMENTO);
+            	aereolineasBitcoin = pesosABitcoin(precioAereolineas, VALOR_BITCOIN);
+            	aereolineasUnitario = calcularPrecioUnitario(precioAereolineas, kmIngresados);
+            	diferencia = calcularDiferencia(precioLatam, precioAereolineas);
+            	informarCargaForzada(
+            			precioLatam,
+            			precioAereolineas,
+            			kmIngresados,
+            			latamDebito,
+            			latamCredito,
+            			latamBitcoin,
+            			latamUnitario,
+            			aereolineasDebito,
+            			aereolineasCredito,
+            			aereolineasBitcoin,
+            			aereolineasUnitario,
+            			diferencia);
                 break;
             default:
             	if(opcionMenu < 1 || opcionMenu > 6)

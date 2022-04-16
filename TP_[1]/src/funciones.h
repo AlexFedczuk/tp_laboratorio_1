@@ -5,7 +5,6 @@
  *      Author: Alex Yago Fedczuk
  */
 
-#include <conio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
@@ -32,6 +31,19 @@ void informarResultados(
 		float aereolineasBitcoin,
 		float aereolineasUnitario,
 		float diferencia);
+void informarCargaForzada(
+		float precioLatam,
+		float precioAereolineas,
+		float kmIngresados,
+		float latamDebito,
+		float latamCredito,
+		float latamBitcoin,
+		float latamUnitario,
+		float aereolineasDebito,
+		float aereolineasCredito,
+		float aereolineasBitcoin,
+		float aereolineasUnitario,
+		float diferencia);
 // Parsers
 bool parseInt(char *string, int *integer);
 bool parseFloat(char *string, float *nfloat);
@@ -46,5 +58,6 @@ float bitcoinAPesos(float bitcoin, float valorBitcoin);
 float pesosABitcoin(float pesos, float valorPesos);
 float calcularPrecioUnitario(float pesos, float km);
 float calcularDiferencia(float valorUno, float valorDos);
+void hardcodearValores(float* kmIngresados, float* precioLatam, float* precioAereolineas);
 
 #endif /* FUNCIONES_H_ */
