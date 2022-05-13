@@ -33,13 +33,13 @@ int main()
     if(inicializarEntidades(passengerList, LEN) == -1)
             printf("\nError! Invalid length or NULL pointer, al inicializar la lista de pasageros!\n");
 
-    contadorId = hardcodearEntidades(passengerList, LEN);
+    /*contadorId = hardcodearEntidades(passengerList, LEN);
     if(contadorId == -1)
-    	printf("\nError! Invalid length or NULL pointer, al hardcodear la lista de pasageros!\n");
+    	printf("\nError! Invalid length or NULL pointer, al hardcodear la lista de pasageros!\n");*/
 
     do{
         mostrarMenu();
-        getNumeroInt(&opcionMenu, "Ingrese una opcion del menu principal: ", "\nError! Valor ingresado invalido!\n", 1, 5, 0, BUFFER_SIZE); // Por alguna razon salta el mensaje de error caudo termino de realizar una ALTA.
+        getNumeroInt(&opcionMenu, "Ingrese una opcion del menu principal: ", "\nError! Valor ingresado invalido!\n", 1, 6, 0, BUFFER_SIZE); // Por alguna razon salta el mensaje de error caudo termino de realizar una ALTA.
         switch(opcionMenu)
         {
             case 1:
@@ -84,12 +84,18 @@ int main()
             		printf("\nERROR! Se debe ingresar algun pasajero para realizar un informe!\n");
             	}
                 break;
+            case 5:
+            	// En este caso se permite el hardcodeo de x cantidad de pasajeros.
+            	contadorId = hardcodearEntidades(passengerList, LEN, &contadorId);
+            	printf("\nSe a realizado la carga forzada de Pasajeros.\n");
+            	opcionUnoCargada = 1;
+                break;
             default:
                 system("pause");
                 system("cls");// Por alguna razon, no la reconoce la funcion...
                 break;
         }
-    }while(opcionMenu != 5);
+    }while(opcionMenu != 6);
 
     return 0;
 }
