@@ -51,6 +51,13 @@ int inicializarEntidades(ePassenger* list, int len);
 */
 int cargarPasajero(ePassenger list[], int len, int contadorId);
 
+/** \brief Formaliza la cadena de caracteres ingresada por parametros.
+* \param char* cadena, la cadena de caracteres a formalizar.
+* \param len int, el tamanio de la cadena.
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*/
+int formalizarNombre(char* cadena, int len);
+
 /** \brief add in a existing list of passengers the values received as parameters
 * in the first empty position
 * \param list passenger*
@@ -133,5 +140,63 @@ int menuModificacion(ePassenger* list, int index, int buffer);
 *   \return void
 */
 void mostarMenuModificacion();
+
+/** \brief Sort the elements in the array of passengers, the argument order
+*          indicate UP or DOWN order
+* \param list Passenger*
+* \param len int
+* \param order int [1] indicate UP - [0] indicate DOWN
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*/
+int sortPassengers(ePassenger* list, int len, int order);
+
+/** \brief Se encarga de dar de ordenar la lista alfabeticamente de la A a Z, y por tipo de pasajero.
+*
+* \param list Passenger*, la direccion de memoria a la lista.
+* \param len int, El tamanio de la lista.
+* \return Return (-1) if [Invalid length or NULL pointer received or passenger not found] or (0) if Ok.
+*/
+int ordenarAlfabeticamenteAaZ(ePassenger* list, int len);
+
+/** \brief Se encarga de dar de ordenar la lista alfabeticamente de la A a Z, y por tipo de pasajero.
+*
+* \param list Passenger*, la direccion de memoria a la lista.
+* \param len int, El tamanio de la lista.
+* \return Return (-1) if [Invalid length or NULL pointer received or passenger not found] or (0) if Ok.
+*/
+int ordenarAlfabeticamenteZaA(ePassenger* list, int len);
+
+/** \brief Muestra aquellos en la lista que tienen ACTIVO su estado de vuelo
+*
+*   \param list Passenger*
+*   \param length int
+*   \return Devuelve (-1) si se ingresa algun parametro invalido - (0) so Ok.
+*/
+int printPassengerByCode(ePassenger* list, int length);
+
+/** \brief Sort the elements in the array of passengers, the argument order
+*          indicate UP or DOWN order
+*   \param list Passenger*
+*   \param len int
+*   \param order int [1] indicate UP - [0] indicate DOWN
+*   \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*/
+int sortPassengersByCode(ePassenger* list, int len, int order);
+
+/** \brief Se encarga de dar de ordenar la lista alfabeticamente de la A a Z, y por estado de vuelo.
+*
+* \param list Passenger*, la direccion de memoria a la lista.
+* \param len int, El tamanio de la lista.
+* \return Return (-1) if [Invalid length or NULL pointer received or passenger not found] or (0) if Ok.
+*/
+int ordenarPorCodigoUP(ePassenger* list, int len);
+
+/** \brief Se encarga de dar de ordenar la lista alfabeticamente de la Z a A, y por estado de vuelo.
+*
+* \param list Passenger*, la direccion de memoria a la lista.
+* \param len int, El tamanio de la lista.
+* \return Return (-1) if [Invalid length or NULL pointer received or passenger not found] or (0) if Ok.
+*/
+int ordenarPorCodigoDOWN(ePassenger* list, int len);
 
 #endif /* ARRAYPASSENGER_H_ */

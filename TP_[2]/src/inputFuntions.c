@@ -152,7 +152,7 @@ float pedirNumeroFlotante(char mensaje[]) {
 	char buffer[BUFFER_SIZE];
 
 	do {
-		printf(mensaje);
+		printf("%s",mensaje);
 		/* Aqui procedo a guradar la cadena de caracteres que ingreso el usuario. */
 		fgets(buffer, BUFFER_SIZE, stdin);
 
@@ -175,7 +175,7 @@ int pedirNumeroEntero(char mensaje[]) {
 	char buffer[BUFFER_SIZE];
 
 	do {
-		printf(mensaje);
+		printf("%s",mensaje);
 		/* Aqui procedo a guradar la cadena de caracteres que ingreso el usuario. */
 		fgets(buffer, BUFFER_SIZE, stdin);
 
@@ -205,12 +205,12 @@ float pedirValorNoNegativo(char mensaje[]){
 }
 
 void pedirUnaCadenaAlpha(char cadena[], char mensaje[], int buffer){ // Falta probar y terminar! (Falta poquitooo)
-    char cadenaAux[buffer];
+    /*char cadenaAux[buffer];
     int resultIsAlpha;
     int stringLen;
 
     do{
-		printf(mensaje);
+		printf("%s",mensaje);
 		gets(cadenaAux);
 		stringLen = strlen(cadenaAux);
 		for(int i = 0; i < stringLen; i++)
@@ -223,7 +223,7 @@ void pedirUnaCadenaAlpha(char cadena[], char mensaje[], int buffer){ // Falta pr
 				strcpy(cadena, cadenaAux);
 			}
 		}
-	}while(resultIsAlpha == 0);
+	}while(resultIsAlpha == 0);*/
 }
 
 int removerEspacios(char* cadena)

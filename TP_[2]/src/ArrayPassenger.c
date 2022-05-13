@@ -63,28 +63,30 @@ int cargarPasajero(ePassenger list[], int len, int contadorId)
 
         printf("\nIngrese el nombre del pasajero: ");
         myGets(name, NAMES_LEN);
-        //pedirUnaCadenaAlpha(name, "\nIngrese el nombre del pasajero: ", 51); // Luego cambiar el '51' por BUFFE una CONSTANTER, validar el LEN, sino no entra
+        formalizarNombre(name, strlen(name));
+        
         printf("\nIngrese el apellido del pasajero: ");
         myGets(lastName, NAMES_LEN);
-        //pedirUnaCadenaAlpha(lastName, "\nIngrese el apellido del pasajero: ", 51);// Luego cambiar el '51' por BUFFE una CONSTANTER, validar el LEN, sino no entra
-
+        formalizarNombre(lastName, strlen(lastName));
+        
         getNumeroFloat(&price, "\nIngrese el precio: ", "\nError! Valor ingresado invalido!\n", 0, 999999999, 0, BUFFER_SIZE);
-        //price = pedirNumeroFlotante("\nIngrese el precio: ");
 
         printf("\nIngrese el codigo de vuelo: ");
         myGets(flyCode, 10);
 
         getNumeroInt(&typePassenger, "\nIngrese tipo de pasajero (0) o (1): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
-        //typePassenger = pedirNumeroEntero("\nIngrese tipo de pasajero (0) o (1): "); //Esto habria que validarlo...
         getNumeroInt(&statusFlight, "\nIngrese el estado del vuelo (0) o (1): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
-        //statusFlight = pedirNumeroEntero("\nIngrese el estado del vuelo (0) o (1): "); //Esto habria que validarlo...
 
-        if(addPassenger(list, len, id, name, lastName, price, typePassenger, statusFlight, flyCode) == -1) // LE FALTA TERMINAR
-        	printf("\nError! Invalid length or NULL pointer, al agregar el pasajero a la lista!\n");
-
+        if(addPassenger(list, len, id, name, lastName, price, typePassenger, statusFlight, flyCode) == -1){
+            printf("\nError! Invalid length or NULL pointer, al agregar el pasajero a la lista!\n");
+        }else{
+            printf("\nEl pasajero se a dado de alta.\n");
+        }
+        
         printf("\nDesea cargar otro pasajero(s/n)?: ");
         fflush(stdin);
         scanf("%c", &respuesta);
+        //getUnCaracter(&respuesta,"\nDesea cargar otro pasajero(s/n)?: ", "\nError! Valor ingresado invalido!\n", 0, BUFFER_SIZE);
         respuesta = tolower(respuesta);
         if(respuesta == 'n')
             break;
@@ -95,6 +97,21 @@ int cargarPasajero(ePassenger list[], int len, int contadorId)
     //fflush(stdin);
 
     return id;
+}
+
+int formalizarNombre(char* cadena, int len){
+    int retorno = -1;
+    if(cadena != NULL && len > 0){
+        for(int i = 0; i < len; i++){
+            if((i == 0 && isalpha(cadena[i])) || (cadena[i - 1] == ' ' && isalpha(cadena[i]))){
+                cadena[i] = toupper(cadena[i]);
+            }else{ 
+                cadena[i] = tolower(cadena[i]);
+            }
+        }
+        retorno = 0;
+    }
+    return retorno;
 }
 
 int addPassenger(ePassenger* list, int len, int id, char name[],char lastName[],float price,int typePassenger, int statusFlight, char flyCode[]){
@@ -111,7 +128,7 @@ int addPassenger(ePassenger* list, int len, int id, char name[],char lastName[],
 	    list[espacioVacio].price = price;
 	    strcpy(list[espacioVacio].flyCode, flyCode);
 	    list[espacioVacio].typePassenger = typePassenger;
-	    list[espacioVacio].statusFlight = statusFlight; // Parece que se olvido de este parametro?
+	    list[espacioVacio].statusFlight = statusFlight;
 	    list[espacioVacio].isEmpty = 0;
 	    resultado = 0;
 	}
@@ -133,7 +150,7 @@ int buscarEspacioVacio(ePassenger* list, int len){
             }
         }
     }
-    return result; // -1 si el puntero es NULL o LEN invalido, -2 si no hay espacios vacios. Si hay espacio, devuelvo el indice [i] de esa ubicacion.
+    return result;
 }
 
 int printPassenger(ePassenger* list, int length)
@@ -166,7 +183,7 @@ int findPassengerById(ePassenger* list, int len, int id){
 	if(list != NULL && len > 0 && id > 0){
 		for(int i = 0; i < len; i++){
 			if(list[i].id == id){
-				index = list[i].id;
+				index = i;
 				break;
 			}
 		}
@@ -227,10 +244,14 @@ int modificarPasajero(ePassenger* list, int len){
 			if(index == -1){
 				printf("\nError! Invalid length or NULL pointer received or passenger not found!\n");
 			}else{
-				if(menuModificacion(list, index, NAMES_LEN) == -1) // ------------------------------------------> Esto habria que cambiarlo, 51 por una CONSTANTE...
-					printf("\nError! Invalid length or NULL pointer received or passenger not found!\n");
+				if(menuModificacion(list, index, NAMES_LEN) == -1){
+				    printf("\nError! Invalid length or NULL pointer received or passenger not found!\n");
+				}else{
+				    printf("\nEl pasajero a sido modificado.\n");
+				}
 			}
 		}while(index == -1);
+		result = 0;
 	}
 	return result;
 }
@@ -282,4 +303,153 @@ void mostarMenuModificacion(){
 	printf("\t6. Salir\n\n");
 }
 
+int sortPassengers(ePassenger* list, int len, int order)
+{
+    int retorno = -1;
+    
+    if(list != NULL && len > 0 && (order == 0 || order == 1)){
+        if(order == 0){
+            ordenarAlfabeticamenteAaZ(list, len);
+        }else{
+            ordenarAlfabeticamenteZaA(list, len);
+        }
+        retorno = 0;
+    }
+    return retorno;
+}
 
+int ordenarAlfabeticamenteAaZ(ePassenger* list, int len){
+    int result = -1;
+    ePassenger aux;
+    if(list != NULL && len > 0){
+       for(int i = 0; i < len - 1; i++){
+            for(int j = i + 1; j < len; j++){
+                if(strcmp(list[i].lastName,list[j].lastName) > 0){
+                    aux = list[i];
+                    list[i] = list[j];
+                    list[j] = aux;
+                }else if(strcmp(list[i].lastName, list[j].lastName) == 0){
+                    if(list[i].typePassenger > list[j].typePassenger){
+                        aux = list[i];
+                        list[i] = list[j];
+                        list[j] = aux;
+                    }
+                }
+            }
+        } 
+        result = 0;
+    }
+    return result;
+}
+
+int ordenarAlfabeticamenteZaA(ePassenger* list, int len){
+    int result = -1;
+    ePassenger aux;
+    if(list != NULL && len > 0){
+       for(int i = 0; i < len - 1; i++){
+            for(int j = i + 1; j < len; j++){
+                if(strcmp(list[i].lastName,list[j].lastName) < 0){
+                        aux = list[i];
+                        list[i] = list[j];
+                        list[j] = aux;
+                }else if(strcmp(list[i].lastName, list[j].lastName) == 0){
+                    if(list[i].typePassenger > list[j].typePassenger){
+                        aux = list[i];
+                        list[i] = list[j];
+                        list[j] = aux;
+                    }
+                }
+            }
+        } 
+        result = 0;
+    }
+    return result;
+}
+
+int printPassengerByCode(ePassenger* list, int length)
+{
+    int result = -1;
+
+    if(list != NULL && length > 0){
+        printf("\n");
+        for(int i = 0; i < length; i++){
+        	if(list[i].isEmpty == 0 && list[i].statusFlight == 1){
+        		printf("ID: %04d, Name: %20s, Last Name: %20s, Price: %11.2f, Fly Code: %10s, Type Passenger: %2d, Status Flight: %2d\n",
+                                                                                                                                    list[i].id,
+                                                                                                                                    list[i].name,
+                                                                                                                                    list[i].lastName,
+                                                                                                                                    list[i].price,
+                                                                                                                                    list[i].flyCode,
+                                                                                                                                    list[i].typePassenger,
+                                                                                                                                    list[i].statusFlight);
+        	}
+        }
+        result = 0;
+    }
+
+    return result;
+}
+
+int sortPassengersByCode(ePassenger* list, int len, int order){
+    int retorno = -1;
+    
+    if(list != NULL && len > 0 && (order == 0 || order == 1)){
+        // Aca el ordenamiento...
+        if(order == 0){
+            ordenarPorCodigoUP(list, len);
+        }else{
+            ordenarPorCodigoDOWN(list, len);
+        }
+        retorno = 0;
+    }
+    
+    return retorno;
+}
+
+int ordenarPorCodigoUP(ePassenger* list, int len){
+    int result = -1;
+    ePassenger aux;
+    if(list != NULL && len > 0){
+       for(int i = 0; i < len - 1; i++){
+            for(int j = i + 1; j < len; j++){
+                if(strcmp(list[i].flyCode,list[j].flyCode) > 0){
+                    aux = list[i];
+                    list[i] = list[j];
+                    list[j] = aux;
+                }else if(strcmp(list[i].flyCode, list[j].flyCode) == 0){
+                    if(list[i].statusFlight < list[j].statusFlight){
+                        aux = list[i];
+                        list[i] = list[j];
+                        list[j] = aux;
+                    }
+                }
+            }
+        } 
+        result = 0;
+    }
+    return result;
+}
+
+int ordenarPorCodigoDOWN(ePassenger* list, int len){
+    int result = -1;
+    ePassenger aux;
+    if(list != NULL && len > 0){
+       for(int i = 0; i < len - 1; i++){
+            for(int j = i + 1; j < len; j++){
+                if(strcmp(list[i].flyCode,list[j].flyCode) < 0){
+                    aux = list[i];
+                    list[i] = list[j];
+                    list[j] = aux;
+                }else if(strcmp(list[i].flyCode, list[j].flyCode) == 0){
+                    if(list[i].statusFlight > list[j].statusFlight){
+                        aux = list[i];
+                        list[i] = list[j];
+                        list[j] = aux;
+                    }
+                }
+            }
+        } 
+        result = 0;
+    }
+    return result;
+}
