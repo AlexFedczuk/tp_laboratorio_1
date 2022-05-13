@@ -7,8 +7,6 @@
  Description : Hello World in C, Ansi-style
  ============================================================================
  */
-
-/*Probando otra manera de commitear*/
 #include <stdio.h>
 #include <stdlib.h>
 #include "miBiblioteca.h"
@@ -20,6 +18,10 @@ int main()
     int opcionMenu;
     int opcionUnoCargada;
     int contadorId;
+    int orden;
+    float totalPrecios;
+    float promedioPrecios;
+    int cantidadPasajerosMasPromedio;
 
     ePassenger passengerList[LEN];
 
@@ -37,24 +39,22 @@ int main()
 
     do{
         mostrarMenu();
-        opcionMenu = pedirNumeroEntero("Ingrese una opcion del menu principal: ");
-
+        getNumeroInt(&opcionMenu, "Ingrese una opcion del menu principal: ", "\nError! Valor ingresado invalido!\n", 1, 5, 0, BUFFER_SIZE); // Por alguna razon salta el mensaje de error caudo termino de realizar una ALTA.
         switch(opcionMenu)
         {
             case 1:
             	if(buscarEspacioVacio(passengerList, LEN) != -2){
             		contadorId++;
-            		contadorId = cargarPasajero(passengerList, LEN, contadorId);// Falta pulir la carga de pasajeros(?)
+            		contadorId = cargarPasajero(passengerList, LEN, contadorId);
             		opcionUnoCargada = 1;
             	}else{
             		printf("\nERROR! Ya no quedan espacios en el programa para ingresar mas pasajeros!\n");
             	}
-
                 break;
             case 2:
             	if(opcionUnoCargada == 1){
             		printPassenger(passengerList, LEN);
-            		if(modificarPasajero(passengerList, LEN) == -1)// Falta pulir la carga de pasajeros(?)
+            		if(modificarPasajero(passengerList, LEN) == -1)
             		            printf("\nError! Invalid length or NULL pointer, al querer ingresar a la opcion 2 del Menu Principal!\n");
             	}else{
             	    printf("\nERROR! Se debe ingresar algun pasajero para realizar una modificacion!\n");
@@ -69,16 +69,22 @@ int main()
                 }
                 break;
             case 4:
-            	//printPassenger(passengerList, LEN);
             	if(opcionUnoCargada == 1){
+            	    getNumeroInt(&orden, "\nIngrese tipo de orden del listado de pasajeros A a Z(0) o Z a A(1): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+            	    sortPassengers(passengerList, LEN, orden);
             		printPassenger(passengerList, LEN);
+            		totalPrecios = calcularTotal(passengerList, LEN);
+            		promedioPrecios = calcularPromedio(passengerList, LEN, totalPrecios);
+            		cantidadPasajerosMasPromedio = calcularPasajerosMasPromedio(passengerList, LEN, promedioPrecios);
+            		informarInformacion(&totalPrecios, &promedioPrecios, &cantidadPasajerosMasPromedio);
+            		getNumeroInt(&orden, "\nIngrese tipo de orden del listado de pasajeros por Codigo de Vuelo A a Z(0) o Z a A(1): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+            		sortPassengersByCode(passengerList, LEN, orden);
+            		printPassengerByCode(passengerList, LEN);
             	}else{
             		printf("\nERROR! Se debe ingresar algun pasajero para realizar un informe!\n");
             	}
                 break;
             default:
-            	if(opcionMenu < 1 || opcionMenu > 5)
-            		printf("\nERROR! Debe ingresar una opcion del menu principal!\n");
                 system("pause");
                 system("cls");// Por alguna razon, no la reconoce la funcion...
                 break;
