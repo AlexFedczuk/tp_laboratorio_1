@@ -14,13 +14,14 @@ void mostrarMenu(){
     printf("2. MODIFICAR\n");
     printf("3. BAJA\n");
     printf("4. INFORMAR\n");
-    printf("5. Salir\n\n");
+    printf("5. Alta Forzada de pasajeros\n");
+    printf("6. Salir\n\n");
 }
 
-int hardcodearEntidades(ePassenger* list, int len){
-	int idAux[5] = {1,2,8,4,5};
-	char nameAux[5][50] = {"ana Sara","fara fareeha","bastion metzen","brigitte lindholm","coto argentino"};
-	char lastNameAux[5][50] = {"amari","amari","fortaleza","reinhardt","yoteconosco"};
+int hardcodearEntidades(ePassenger* list, int len, int* contadorId){
+	int idAux[5] = {*contadorId + 1,*contadorId + 2,*contadorId + 3,*contadorId + 4,*contadorId + 5};
+	char nameAux[5][50] = {"Ana Sara","Fara Fareeha","Bastion Metzen","Brigitte Lindholm","Coto Argentino"};
+	char lastNameAux[5][50] = {"Amari","Amari","Fortaleza","Reinhardt","Yo Te Conosco"};
 	int priceAux[5] = {15000.234,20500.12,2225750.56,55400.78,42600.12};
 	char flyCodeAux[5][50] = {"ar 1140","br 3251","eu 1234","ar 1278","ar 4500"};
 	int typePassengerAux[5] = {0,1,1,0,1};
@@ -63,7 +64,7 @@ int calcularIntMayor(int vec[], int len){
 
 float calcularTotal(ePassenger* list, int len){
     float retorno = -1;
-    
+
     if(list != NULL && len > 0){
         retorno = 0;
         for(int i = 0; i < len; i++){
@@ -72,21 +73,21 @@ float calcularTotal(ePassenger* list, int len){
             }
         }
     }
-    
+
     return retorno;
 }
 
 float calcularPromedio(ePassenger* list, int len, float total){
     float retorno = -1;
     int contador = 0;
-    
+
     if(list != NULL && len > 0){
         for(int i = 0; i < len; i++){
             if(list[i].isEmpty == 0){
                 contador++;
             }
         }
-        
+
         if(contador != 0){
             retorno = total / contador;
         }
@@ -96,7 +97,7 @@ float calcularPromedio(ePassenger* list, int len, float total){
 
 int calcularPasajerosMasPromedio(ePassenger* list, int len, float promedio){
     int contador = -1;
-    
+
     if(list != NULL && len > 0){
         contador = 0;
         for(int i = 0; i < len; i++){
@@ -112,9 +113,9 @@ int informarInformacion(float* total, float* promedio, int* cantidad){
     int retorno = -1;
     float totalAux,promedioAux;
     int cantidadAux;
-    
-    
-    
+
+
+
     if(total != NULL && promedio != NULL && cantidad != NULL){
         totalAux = *total;
         promedioAux = *promedio;

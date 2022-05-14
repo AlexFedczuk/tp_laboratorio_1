@@ -17,9 +17,10 @@ void mostrarMenu();
 /** \brief Esta funcion hardcodea x cantidad de entidades dentro de la lista indicada.
 *   \param list Passenger* Pointer to array of passenger
 *   \param len int Array length
+*   \param int* contadorId, direccion de memoria del contador de IDs.
 *   \return int Return (-1) if Error [Invalid length or NULL pointer] - Devuelve el ID mas grande, de los valores hardcodeados.
 */
-int hardcodearEntidades(ePassenger* list, int len);
+int hardcodearEntidades(ePassenger* list, int len, int* contadorId);
 
 /** \brief Esta funcion devuelve el valor mayor de un vector de enteros.
 *   \param int vec

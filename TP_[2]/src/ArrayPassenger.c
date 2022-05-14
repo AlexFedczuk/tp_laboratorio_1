@@ -64,11 +64,11 @@ int cargarPasajero(ePassenger list[], int len, int contadorId)
         printf("\nIngrese el nombre del pasajero: ");
         myGets(name, NAMES_LEN);
         formalizarNombre(name, strlen(name));
-        
+
         printf("\nIngrese el apellido del pasajero: ");
         myGets(lastName, NAMES_LEN);
         formalizarNombre(lastName, strlen(lastName));
-        
+
         getNumeroFloat(&price, "\nIngrese el precio: ", "\nError! Valor ingresado invalido!\n", 0, 999999999, 0, BUFFER_SIZE);
 
         printf("\nIngrese el codigo de vuelo: ");
@@ -82,7 +82,7 @@ int cargarPasajero(ePassenger list[], int len, int contadorId)
         }else{
             printf("\nEl pasajero se a dado de alta.\n");
         }
-        
+
         printf("\nDesea cargar otro pasajero(s/n)?: ");
         fflush(stdin);
         scanf("%c", &respuesta);
@@ -105,7 +105,7 @@ int formalizarNombre(char* cadena, int len){
         for(int i = 0; i < len; i++){
             if((i == 0 && isalpha(cadena[i])) || (cadena[i - 1] == ' ' && isalpha(cadena[i]))){
                 cadena[i] = toupper(cadena[i]);
-            }else{ 
+            }else{
                 cadena[i] = tolower(cadena[i]);
             }
         }
@@ -306,7 +306,7 @@ void mostarMenuModificacion(){
 int sortPassengers(ePassenger* list, int len, int order)
 {
     int retorno = -1;
-    
+
     if(list != NULL && len > 0 && (order == 0 || order == 1)){
         if(order == 0){
             ordenarAlfabeticamenteAaZ(list, len);
@@ -336,7 +336,7 @@ int ordenarAlfabeticamenteAaZ(ePassenger* list, int len){
                     }
                 }
             }
-        } 
+        }
         result = 0;
     }
     return result;
@@ -360,7 +360,7 @@ int ordenarAlfabeticamenteZaA(ePassenger* list, int len){
                     }
                 }
             }
-        } 
+        }
         result = 0;
     }
     return result;
@@ -392,7 +392,7 @@ int printPassengerByCode(ePassenger* list, int length)
 
 int sortPassengersByCode(ePassenger* list, int len, int order){
     int retorno = -1;
-    
+
     if(list != NULL && len > 0 && (order == 0 || order == 1)){
         // Aca el ordenamiento...
         if(order == 0){
@@ -402,7 +402,7 @@ int sortPassengersByCode(ePassenger* list, int len, int order){
         }
         retorno = 0;
     }
-    
+
     return retorno;
 }
 
@@ -424,7 +424,7 @@ int ordenarPorCodigoUP(ePassenger* list, int len){
                     }
                 }
             }
-        } 
+        }
         result = 0;
     }
     return result;
@@ -448,7 +448,7 @@ int ordenarPorCodigoDOWN(ePassenger* list, int len){
                     }
                 }
             }
-        } 
+        }
         result = 0;
     }
     return result;
