@@ -4,6 +4,8 @@
 #include "Controller.h"
 #include "Passenger.h"
 
+#define ARCH "data.csv"
+
 /****************************************************
     Menu:
      1. Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).
@@ -16,14 +18,14 @@
      8. Guardar los datos de los pasajeros en el archivo data.csv (modo texto).
      9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario).
     10. Salir
+    
+    NOTAS:
+        Acordate de consultar a Gianni o otro de los chicos, si me ueden explicar otra vez cual es la forma "correcta de abrir un Archivo con fopen();"!
 *****************************************************/
-
-
-
 int main()
 {
 	setbuf(stdout, NULL);
-	int cantidad;
+	/*int cantidad;
 	int order = 0;
 
     //int option = 0;
@@ -59,19 +61,50 @@ int main()
     for(int i = 0; i < cantidad; i++){
     	aux = (Passenger*) ll_get(listaPasajeros, i); // Hay que castear que tipo de direccion de memoria, tipo de dato devuelve, ya que sino devuelve algo generico
     	printf("id: %4d, nombre: %s, tipo pasajero: %d\n",aux->id, aux->nombre, aux->tipoPasajero);
-    }
+    }*/
+    
+    int option = 0;
+    
+    LinkedList* listaPasajeros = ll_newLinkedList();
 
-
-    /*do{
+    do{
+        mostrarMenu();
+        getNumeroInt(&option, "Ingrese una opcion del menu principal: ", "\nError! Valor ingresado invalido!\n", 1, 10, 0, BUFFER_SIZE);
         switch(option)
         {
             case 1:
-                controller_loadFromText("data.csv",listaPasajeros);
+                controller_loadFromText(ARCH,listaPasajeros);
+                break;
+            case 2:
+                controller_loadFromBinary(ARCH, listaPasajeros);
+                break;
+            case 3:
+                controller_addPassenger(listaPasajeros);
+                break;
+            case 4:
+                controller_editPassenger(listaPasajeros);
+                break;
+            case 5:
+                controller_removePassenger(listaPasajeros);
+                break;
+            case 6:
+                controller_ListPassenger(listaPasajeros);
+                break;
+            case 7:
+                controller_sortPassenger(listaPasajeros);
+                break;
+            case 8:
+                controller_saveAsText(ARCH, listaPasajeros);
+                break;
+            case 9:
+                controller_saveAsBinary(ARCH, listaPasajeros);
+                break;
+            default:
+                printf("Saliendo del programa...\n");
                 break;
         }
-    }while(option != 10);*/
+    }while(option != 10);
 
-    //puts("Hello world");
+
     return 0;
 }
-

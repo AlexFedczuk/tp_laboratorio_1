@@ -22,6 +22,7 @@ typedef struct
 
 Passenger* Passenger_new();
 Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajeroStr);
+Passenger* Passenger_newParametrosCompletos(char* idStr, char* nombreStr, char* apellidoStr, char* auxPrecioStr, char* tipoPasajeroStr, char* auxCodigoVueloStr);
 
 // Aca le agrego el parametro de el puntero a donde apunta la entidad que quiero borrar.
 void Passenger_delete(Passenger* this);
@@ -43,6 +44,9 @@ int Passenger_getTipoPasajero(Passenger* this,int* tipoPasajero);
 
 int Passenger_setPrecio(Passenger* this,float precio);
 int Passenger_getPrecio(Passenger* this,float* precio);
+
+int Passenger_setIsEmpty(Passenger* this,int isEmpty);
+int Passenger_getIsEmpty(Passenger* this,int* isEmpty);
 
 // Va a trabajar con direcciones de memoria para comparar los datos.
 int Passenger_CompareByName(void* pUno, void* pDos);
