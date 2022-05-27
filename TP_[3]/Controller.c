@@ -11,7 +11,7 @@
  * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
  *
  */
-int controller_loadFromText(char* path , LinkedList* pArrayListPassenger)
+int controller_loadFromText(char* path, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
     FILE* pArchivo;
@@ -41,7 +41,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListPassenger)
  * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
  *
  */
-int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger)
+int controller_loadFromBinary(char* path, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
     FILE* pArchivo;
@@ -106,6 +106,9 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
     int retorno = -1;
     
     if(pArrayListPassenger != NULL){
+        // DEBERIA MOSTRAR UN LISTADO DE TODOS LOS EMPLEADOS
+        // PEDIR AL USUARIO UN ENTERO, REPRESENTADO EL ID DEL PASAJERO 
+        // POR ULTIMO, USO LA FUNCION PARA "REMOVERLO" DE LA LISTA.
         retorno = 0;
     }
     
@@ -122,6 +125,7 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
     int retorno = -1;
     
     if(pArrayListPassenger != NULL){
+        ListPassengers(pArrayListPassenger);
         retorno = 0;
     }
     
@@ -151,11 +155,18 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
  * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
  *
  */
-int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
+int controller_saveAsText(char* path, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
+    int len;
+    FILE* pFile;
     
-    if(path != NULL && pArrayListPassenger != NULL){
+    if(path != NULL){
+        pFile = fopen(path, "w");
+        if(pFile != NULL && pArrayListPassenger != NULL){
+            parser_PassengerToText(pFile, pArrayListPassenger);
+        }
+        fclose(pFile);
         retorno = 0;
     }
     
@@ -169,11 +180,17 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
  * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
  *
  */
-int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
+int controller_saveAsBinary(char* path, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
+    FILE* pFile;
     
-    if(path != NULL && pArrayListPassenger != NULL){
+    if(path != NULL){
+        pFile = fopen(path, "wb");
+        if(pFile != NULL && pArrayListPassenger != NULL){
+            parser_PassengerToBinary(pFile, pArrayListPassenger);
+        }
+        fclose(pFile);
         retorno = 0;
     }
     

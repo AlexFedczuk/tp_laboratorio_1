@@ -16,6 +16,7 @@ typedef struct
 	float precio;
 	int tipoPasajero;
 	char codigoVuelo[4];
+	int estadoVuelo;
 	int isEmpty;
 
 }Passenger;

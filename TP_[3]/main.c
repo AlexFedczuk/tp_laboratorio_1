@@ -21,6 +21,8 @@
     
     NOTAS:
         Acordate de consultar a Gianni o otro de los chicos, si me ueden explicar otra vez cual es la forma "correcta de abrir un Archivo con fopen();"!
+        
+        CHEQUEAR QUE ESTAN CASTEADAS LAS LLAMADAS A FUNCIONES CON RETORNOS GENERICOS, tendria que agregarles por ej (Passenger*)!!!
 *****************************************************/
 int main()
 {
@@ -73,10 +75,10 @@ int main()
         switch(option)
         {
             case 1:
-                controller_loadFromText(ARCH,listaPasajeros);
+                controller_loadFromText(ARCH,listaPasajeros); // Ya estaria, FALTA PROBAR
                 break;
             case 2:
-                controller_loadFromBinary(ARCH, listaPasajeros);
+                controller_loadFromBinary(ARCH, listaPasajeros); // Ya estaria, FALTA PROBAR
                 break;
             case 3:
                 controller_addPassenger(listaPasajeros);
@@ -88,16 +90,16 @@ int main()
                 controller_removePassenger(listaPasajeros);
                 break;
             case 6:
-                controller_ListPassenger(listaPasajeros);
+                controller_ListPassenger(listaPasajeros); // La funcion para lista ya deberia estar lista, CORROBORAR
                 break;
             case 7:
                 controller_sortPassenger(listaPasajeros);
                 break;
             case 8:
-                controller_saveAsText(ARCH, listaPasajeros);
+                controller_saveAsText(ARCH, listaPasajeros); // Ya estaria, FALTA PROBAR
                 break;
             case 9:
-                controller_saveAsBinary(ARCH, listaPasajeros);
+                controller_saveAsBinary(ARCH, listaPasajeros); // Ya estaria, FALTA PROBAR
                 break;
             default:
                 printf("Saliendo del programa...\n");

@@ -260,3 +260,43 @@ int Passenger_CompareById(void* pUno, void* pDos){
 
 	return retorno;
 }
+
+int ListPassengers(LinkedList* pArrayListPassenger){
+    int retorno = -1;
+    int tam;
+    Passenger* pPasajero;
+    int auxId;
+    char auxNombre[50];
+    char auxApellido[50];
+    float auxPrecio;
+    char auxCodigoVuelo[4];
+    int auxTipoPasajero;
+    int auxEstadoVuelo;
+    int auxIsEmpty;
+    
+    if(pArrayListPassenger != NULL){
+        tam = ll_len(pArrayListPassenger);
+        
+        
+        printf("id,name,lastname,price,flycode,typePassenger,statusFlight\n");
+        for(int i = 0; i < tam; i++){
+            pPasajero = (Passenger*) ll_get(pArrayListPassenger, i);
+            
+            Passenger_getId(pPasajero, &auxId);
+            Passenger_getNombre(pPasajero, auxNombre);
+            Passenger_getApellido(pPasajero, auxApellido);
+            Passenger_getPrecio(pPasajero, &auxPrecio);
+            Passenger_getCodigoVuelo(pPasajero, auxCodigoVuelo);
+            Passenger_getTipoPasajero(pPasajero, &auxTipoPasajero);
+            Passenger_getEstadoVuelo(pPasajero, &auxEstadoVuelo);
+            Passenger_getIsEmpty(pPasajero, &auxIsEmpty);
+            
+            if(auxIsEmpty != 0){
+                printf("%d,%s,%s,%.2f,%s,%d,%d\n", id, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
+            }
+        }
+        retorno = 0;
+    }
+    
+    return retorno;
+}
