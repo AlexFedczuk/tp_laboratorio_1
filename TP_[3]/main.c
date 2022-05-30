@@ -87,13 +87,13 @@ int main()
                 controller_editPassenger(listaPasajeros);
                 break;
             case 5:
-                controller_removePassenger(listaPasajeros);
+                controller_removePassenger(listaPasajeros); // Supongo que ya estaria, pero faltaria probar dichas funciones...
                 break;
             case 6:
-                controller_ListPassenger(listaPasajeros); // La funcion para lista ya deberia estar lista, CORROBORAR
+                controller_ListPassenger(listaPasajeros); // La funcion para lista ya deberia estar lista, CORROBORAR!
                 break;
             case 7:
-                controller_sortPassenger(listaPasajeros);
+                controller_sortPassenger(listaPasajeros); // Aca ya habria una funcion de ordenamiento, alfabeticamente.
                 break;
             case 8:
                 controller_saveAsText(ARCH, listaPasajeros); // Ya estaria, FALTA PROBAR

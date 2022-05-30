@@ -53,6 +53,13 @@ int Passenger_getIsEmpty(Passenger* this,int* isEmpty);
 int Passenger_CompareByName(void* pUno, void* pDos);
 int Passenger_CompareById(void* pUno, void* pDos);
 
+Passenger_getIndex(Passenger* , &indice){
+    int retorno;
+    
+    if(pArrayListPassenger != NULL && indice != NULL)
+    return retorno;
+}
+
 
 
 #endif /* PASSENGER_H_ */

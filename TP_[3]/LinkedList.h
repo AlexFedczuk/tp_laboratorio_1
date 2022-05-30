@@ -58,7 +58,7 @@ int ll_set(LinkedList* this, int index, void* pElement);
 int ll_push(LinkedList* this, int index, void* pElement);
 
 // Esto da de baja Logica un pasajero.
-int ll_remove(LinkedList* this,int index);
+int ll_remove(LinkedList* this, int index);
 
 // Limpia/Inicializa todo los elementos de la lista, aun asi existe, por lo tanto se pueden seguir agregando entidades...
 int ll_clear(LinkedList* this);
