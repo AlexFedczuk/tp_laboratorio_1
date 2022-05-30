@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "LinkedList.h"
-#include "Passenger.h"
+#include "parser.h"
 
 /** \brief Parsea los datos de los pasajeros desde el archivo data.csv (modo texto).
  *
@@ -18,14 +15,15 @@ int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
     char auxApellido[50];
     char auxPrecio[50];
     char auxTipoPasajero[50];
-    char auxCodigoVuelo[50];
+    char auxCodigoVuelo[4];
+    char auxEstadoVuelo[50];
     Passenger* pPasajero;
     
     if(pFile != NULL && pArrayListPassenger != NULL){
         do{
-            fscanf("%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxId,auxNombre,auxApellido,auxPrecio,auxTipoPasajero,auxCodigoVuelo);
+            fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxId,auxNombre,auxApellido,auxPrecio,auxTipoPasajero,auxCodigoVuelo,auxEstadoVuelo);
             
-            pPasajero = Passenger_newParametrosCompletos(auxId, auxNombre, auxApellido, auxPrecio, auxTipoPasajero, auxCodigoVuelo);
+            pPasajero = Passenger_newParametrosCompletos(auxId, auxNombre, auxApellido, auxPrecio, auxTipoPasajero, auxCodigoVuelo,auxEstadoVuelo);
             
             ll_add(pArrayListPassenger, pPasajero);
         }while(!feof(pFile));
@@ -47,13 +45,13 @@ int parser_PassengerFromBinary(FILE* pFile, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
     Passenger* pPasajero;
-    Passenger* pAuxPasajero;
+    Passenger* pAuxPasajero; // warning: unused variable 'pAuxPasajero'
     
     if(pFile != NULL && pArrayListPassenger != NULL){
         do{
             pPasajero = Passenger_new();
             if(pPasajero != NULL){
-               if(fread(pasajero, sizeof(Passenger), 1, pFile)){
+               if(fread(pPasajero, sizeof(Passenger), 1, pFile)){
                    ll_add(pArrayListPassenger, pPasajero);
                }
             }else{
@@ -90,7 +88,7 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
     if(pFile != NULL && pArrayListPassenger != NULL){
             tam = ll_len(pArrayListPassenger);
             
-            fprintf("id,name,lastname,price,flycode,typePassenger,statusFlight");
+            fprintf(pFile,"id,name,lastname,price,flycode,typePassenger,statusFlight");
             for(int i = 0; i < tam; i++){
                 pPasajero = ll_get(pArrayListPassenger, i);
                 
@@ -102,7 +100,7 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
                 Passenger_getTipoPasajero(pPasajero, &auxTipoPasajero);
                 Passenger_getEstadoVuelo(pPasajero, &auxEstadoVuelo);
                 
-                fprintf(pFile,"%d,%s,%s,%f,%s,%d,%d", id, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
+                fprintf(pFile,"%d,%s,%s,%f,%s,%d,%d", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
             }
         retorno = 0;
     }

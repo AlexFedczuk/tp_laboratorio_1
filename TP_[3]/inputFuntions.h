@@ -4,6 +4,9 @@
  *  Created on: Apr 11, 2022
  *      Author: Alex Yago Fedczuk
  */
+#ifndef INPUT_FUNTIONS_H_
+#define INPUT_FUNTIONS_H_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
@@ -12,10 +15,6 @@
 #include <ctype.h>
 
 #define BUFFER_SIZE 4096
-
-#ifndef INPUT_FUNTIONS_H_
-#define INPUT_FUNTIONS_H_
-
 // Menues
 /**
   @brief Esta funcion se encarga de validar que se ingreso un valor de tipo entero por consola.

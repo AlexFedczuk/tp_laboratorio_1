@@ -4,8 +4,6 @@
  *  Created on: Apr 25, 2022
  *      Author: Alex Yago Fedczuk
  */
-#include <stdio.h>
-#include <string.h>
 #include "miBiblioteca.h"
 
 void mostrarMenu(){
@@ -22,7 +20,7 @@ void mostrarMenu(){
     printf("10. Salir\n\n");
 }
 
-int hardcodearEntidades(ePassenger* list, int len, int* contadorId){
+/*int hardcodearEntidades(ePassenger* list, int len, int* contadorId){
 	int idAux[5] = {*contadorId + 1,*contadorId + 2,*contadorId + 3,*contadorId + 4,*contadorId + 5};
 	char nameAux[5][50] = {"Ana Sara","Fara Fareeha","Bastion Metzen","Brigitte Lindholm","Coto Argentino"};
 	char lastNameAux[5][50] = {"Amari","Amari","Fortaleza","Reinhardt","Yo Te Conosco"};
@@ -50,7 +48,7 @@ int hardcodearEntidades(ePassenger* list, int len, int* contadorId){
 	result = calcularIntMayor(idAux, 5);
 
 	return result;
-}
+}*/
 
 int calcularIntMayor(int vec[], int len){
 	int result;
@@ -66,9 +64,9 @@ int calcularIntMayor(int vec[], int len){
 	return result;
 }
 
-float calcularTotal(ePassenger* list, int len){
+/*float calcularTotal(ePassenger* list, int len){
     float retorno = -1;
-    
+
     if(list != NULL && len > 0){
         retorno = 0;
         for(int i = 0; i < len; i++){
@@ -77,31 +75,31 @@ float calcularTotal(ePassenger* list, int len){
             }
         }
     }
-    
-    return retorno;
-}
 
-float calcularPromedio(ePassenger* list, int len, float total){
+    return retorno;
+}*/
+
+/*float calcularPromedio(ePassenger* list, int len, float total){
     float retorno = -1;
     int contador = 0;
-    
+
     if(list != NULL && len > 0){
         for(int i = 0; i < len; i++){
             if(list[i].isEmpty == 0){
                 contador++;
             }
         }
-        
+
         if(contador != 0){
             retorno = total / contador;
         }
     }
     return retorno;
-}
+}*/
 
-int calcularPasajerosMasPromedio(ePassenger* list, int len, float promedio){
+/*int calcularPasajerosMasPromedio(ePassenger* list, int len, float promedio){
     int contador = -1;
-    
+
     if(list != NULL && len > 0){
         contador = 0;
         for(int i = 0; i < len; i++){
@@ -111,15 +109,15 @@ int calcularPasajerosMasPromedio(ePassenger* list, int len, float promedio){
         }
     }
     return contador;
-}
+}*/
 
 int informarInformacion(float* total, float* promedio, int* cantidad){
     int retorno = -1;
     float totalAux,promedioAux;
     int cantidadAux;
-    
-    
-    
+
+
+
     if(total != NULL && promedio != NULL && cantidad != NULL){
         totalAux = *total;
         promedioAux = *promedio;

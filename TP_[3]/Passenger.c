@@ -4,8 +4,6 @@
  *  Created on: 19 may. 2022
  *      Author: Maru
  */
-#include <stdlib.h>
-#include <string.h>
 #include "Passenger.h"
 
 /** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo texto).
@@ -59,13 +57,26 @@ Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajer
  * \return Devuelve (NULL) si hubo un parametro invalido - la direccion de memoria reservada si Ok.
  *
  */
-Passenger* Passenger_newParametrosCompletos(char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr, char* codigoVueloStr){
+Passenger* Passenger_newParametrosCompletos(char* idStr,
+											char* nombreStr,
+											char* apellidoStr,
+											char* precioStr,
+											char* tipoPasajeroStr,
+											char* codigoVueloStr,
+											char* estadoVueloStr){
 	Passenger* unPasajero = NULL;
 	Passenger* auxPasajero;
 
 	auxPasajero = (Passenger*) malloc(sizeof(Passenger));
 
-	if(idStr != NULL && nombreStr != NULL && apellidoStr != NULL && precioStr != NULL && tipoPasajeroStr != NULL && codigoVueloStr != NULL && auxPasajero != NULL){
+	if(idStr != NULL &&
+			nombreStr != NULL &&
+			apellidoStr != NULL &&
+			precioStr != NULL &&
+			tipoPasajeroStr != NULL &&
+			codigoVueloStr != NULL &&
+			estadoVueloStr != NULL &&
+			auxPasajero != NULL){
 		unPasajero = auxPasajero;
 
         Passenger_setId(unPasajero, atoi(idStr));
@@ -74,6 +85,7 @@ Passenger* Passenger_newParametrosCompletos(char* idStr, char* nombreStr, char* 
         Passenger_setPrecio(unPasajero, atof(precioStr));
         Passenger_setTipoPasajero(unPasajero, atoi(tipoPasajeroStr));
         Passenger_setCodigoVuelo(unPasajero, codigoVueloStr);
+        Passenger_setEstadoVuelo(unPasajero, atoi(estadoVueloStr));
         Passenger_setIsEmpty(unPasajero, 0);
 	}
 
@@ -81,14 +93,10 @@ Passenger* Passenger_newParametrosCompletos(char* idStr, char* nombreStr, char* 
 }
 
 void Passenger_delete(Passenger* this){
-    int retorno = -1;
     
     if(this != NULL){
         free(this);
-        retorno = 0;
     }
-    
-    return retorno;
 }
 
 int Passenger_setId(Passenger* this,int id){
@@ -223,6 +231,25 @@ int Passenger_getIsEmpty(Passenger* this,int* isEmpty){
     return retorno;
 }
 
+int Passenger_setEstadoVuelo(Passenger* this, int estadoVuelo){
+    int retorno = -1;
+
+    if(this != NULL){
+        this->estadoVuelo = estadoVuelo;
+        retorno = 0;
+    }
+    return retorno;
+}
+int Passenger_getEstadoVuelo(Passenger* this, int* estadoVuelo){
+    int retorno = -1;
+
+    if(this != NULL){
+        *estadoVuelo = this->estadoVuelo;
+        retorno = 0;
+    }
+    return retorno;
+}
+
 int Passenger_CompareByName(void* pUno, void* pDos){
 	int retorno = -2;
 	Passenger* unPasajero;
@@ -261,7 +288,7 @@ int Passenger_CompareById(void* pUno, void* pDos){
 	return retorno;
 }
 
-int ListPassengers(LinkedList* pArrayListPassenger){
+int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
     int retorno = -1;
     int tam;
     Passenger* pPasajero;
@@ -292,7 +319,7 @@ int ListPassengers(LinkedList* pArrayListPassenger){
             Passenger_getIsEmpty(pPasajero, &auxIsEmpty);
             
             if(auxIsEmpty != 0){
-                printf("%d,%s,%s,%.2f,%s,%d,%d\n", id, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
+                printf("%d,%s,%s,%.2f,%s,%d,%d\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
             }
         }
         retorno = 0;
