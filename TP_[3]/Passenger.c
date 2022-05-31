@@ -18,6 +18,37 @@ Passenger* Passenger_new(){
     return malloc(sizeof(Passenger));
 }
 
+int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr, char* codigoVueloStr, char* estadoVueloStr){
+    int retorno = -1;
+    int auxIdInt = 1;
+    float auxPrecioFloat;
+    char auxCodigoVuelo[4];
+    int auxTipoPasajeroInt;
+    int auxEstadoVueloInt;
+    
+    if(idStr != NULL &&	nombreStr != NULL && apellidoStr != NULL && precioStr != NULL && tipoPasajeroStr != NULL && codigoVueloStr != NULL && estadoVueloStr != NULL){
+        if(strcmp(idStr, "1") != 0){
+            auxIdInt = Passenger_CalcularMaximoID(pArrayListPassenger);
+        }
+        PedirNombre("\nIngrese el nombre del pasajero: ", nombreStr, 50);
+        PedirNombre("\nIngrese el apellido del pasajero: ", apellidoStr, 50);
+        getNumeroFloat(&auxPrecioFloat, "\nIngrese el precio: ", "\nError! Valor ingresado invalido!\n", 0, 999999999, 0, BUFFER_SIZE);
+        getNumeroInt(&auxTipoPasajeroInt, "\nIngrese tipo de pasajero ´falta nombre´(0), ´falta nombre´(1) o ´falta nombre´(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        printf("\nIngrese el codigo de vuelo: ");
+        myGets(codigoVueloStr, 4);
+        getNumeroInt(&auxEstadoVueloInt, "\nIngrese el estado el vuelo ´falta nombre´(0), ´falta nombre´(1) o ´falta nombre´(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        
+        itoa(auxIdInt,idStr,50);
+        gcvt(auxPrecioFloat, 50, precioStr);
+        itoa(auxTipoPasajeroInt,tipoPasajeroStr,50);
+        itoa(auxEstadoVueloInt,estadoVueloStr,50);
+        
+        retorno = 0;
+    }
+    
+    return retorno;
+}
+
 /** \brief Guarda los datos pasados por parametros en la entidad Passenger que se este tratando.
  *
  * \param char* idStr, La direccion de memoria donde se encuentra el ID del pasajero.
@@ -319,5 +350,32 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
         retorno = 0;
     }
     
+    return retorno;
+}
+
+int Passenger_CalcularMaximoID(LinkedList* pArrayListPassenger){
+    int retorno = -1;
+    int len;
+    int idMax;
+    int auxId;
+    int auxIsEmpty;
+    Passenger* pPasajero;
+    
+    if(pArrayListPassenger != NULL && pPasajero != NULL){
+        len = ll_len(pArrayListPassenger);
+        
+        for(int i = 0; i < len; i++){
+            pPasajero = (Passenger*) ll_get(pArrayListPassenger, i);
+            
+            Passenger_getId(pPasajero, &auxId);
+            Passenger_getIsEmpty(pPasajero, &auxIsEmpty);
+            if(auxIsEmpty == 0){
+                if(i == 0 || idMax < auxId){
+                    idMax = auxId;
+                }
+            }
+        }
+        retorno = idMax;
+    }
     return retorno;
 }

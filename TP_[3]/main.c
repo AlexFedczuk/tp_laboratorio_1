@@ -11,7 +11,7 @@
 /****************************************************
  *
  * 			 !!!!ALERTA !!!!ALERTA ALERTAALERTAALERTA ALERTA ALERTA ALERTA ALERTAALERTA ALERTA ALERTA ALERTA!!!!
- * 			 		- Acordate de no tocar los archivos que NO son .c  o .h
+ * 			 		- Acordate de no tocar los archivos que NO son .c  o .h!
     Menu:
      1. Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).
      2. Cargar los datos de los pasajeros desde el archivo data.csv (modo binario).
@@ -45,13 +45,15 @@ int main()
         switch(option)
         {
             case 1:
+                // Ya hice una funt que valida la extension del archivo, PROBAR
                 controller_loadFromText(ARCH,listaPasajeros); // Ya estaria, FALTA PROBAR
                 break;
             case 2:
+                // Ya hice una funt que valida la extension del archivo, PROBAR
                 controller_loadFromBinary(ARCH, listaPasajeros); // Ya estaria, FALTA PROBAR
                 break;
             case 3:
-                controller_addPassenger(listaPasajeros); // me quede aca, SIN TERMINAR... 30-05-2022
+                controller_addPassenger(listaPasajeros); // Hice BASTANTES modificaciones aca, va a tomar tiempo corregir... (Puede que este listo)
                 break;
             case 4:
                 controller_editPassenger(listaPasajeros);

@@ -5,7 +5,7 @@ int controller_loadFromText(char* path, LinkedList* pArrayListPassenger)
     int retorno = -1;
     FILE* pArchivo;
     
-    if(path != NULL){
+    if(path != NULL && RevisarFormatoArchivo(path) == 0){
         pArchivo = fopen(path, "r");
         
         if(pArchivo != NULL && pArrayListPassenger != NULL){
@@ -28,7 +28,7 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListPassenger)
     int retorno = -1;
     FILE* pArchivo;
     
-    if(path != NULL){
+    if(path != NULL && RevisarFormatoArchivo(path) == 1){
         pArchivo = fopen(path, "rb");
         
         if(pArchivo != NULL && pArrayListPassenger != NULL){
@@ -50,29 +50,36 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
     Passenger* pPasajero; // warning: variable 'pPasajero' set but not used
+    char auxIdChar[50];
     char auxNombre[50];
     char auxApellido[50];
-    char auxPrecio[50];
+    char auxPrecioChar[50];
     char auxCodigoVuelo[4];
-    char auxTipoPasajero[50];
-    char auxEstadoVuelo[50];
-    
-    /*printf("\nIngrese el nombre del pasajero: ");
-    myGets(name, NAMES_LEN);*/
+    char auxTipoPasajeroChar[50];
+    char auxEstadoVueloChar[50];
+    char respuesta;
     
     if(pArrayListPassenger != NULL){
-        if(ll_len(pArrayListPassenger) == 1)
-        {
-            // Si hay solo UN pasajero en la lista agarro su ID y el nueo ID va a ser = ´id de UNICO pasajero´ + 1.
-        }else{
-            if(ll_len(pArrayListPassenger) > 1){
-                // Calculo cual es el ID mas grande y hago que el nuevo ID sea = ´el mas grande´ + 1.
+        do{
+            if(ll_len(pArrayListPassenger) >= 1)
+            {
+                Passenger_pedirDatosPasajero(pArrayListPassenger,auxIdChar,auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
+                pPasajero = Passenger_newParametrosCompletos(auxIdChar,auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
+                ll_add(pArrayListPassenger, pPasajero);
             }else{
-                // Si va a ser el PRIMER pasajero de la lista, hago que el ID sea = 1.
-            	pPasajero = Passenger_newParametrosCompletos("1",auxNombre,auxApellido,auxPrecio,auxTipoPasajero,auxCodigoVuelo,auxEstadoVuelo);
+                Passenger_pedirDatosPasajero(pArrayListPassenger,"1",auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
+                pPasajero = Passenger_newParametrosCompletos(auxIdChar,auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
+                ll_add(pArrayListPassenger, pPasajero);
             }
-        }
-        
+            
+            printf("\nDesea cargar otro pasajero(s/n)?: ");
+            //getUnCaracter(&respuesta,"\nDesea cargar otro pasajero(s/n)?: ", "\nError! Valor ingresado invalido!\n", 0, BUFFER_SIZE);
+            fflush(stdin);
+            scanf("%c", &respuesta);
+            respuesta = tolower(respuesta);
+        if(respuesta == 'n')
+            break;
+        }while(respuesta != 'n');
         retorno = 0;
     }else{
         printf("\nERROR! Sucedio algo en el controlador 02: 'controller_addPassenger'...\n");

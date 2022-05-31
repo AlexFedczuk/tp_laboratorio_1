@@ -33,6 +33,7 @@ typedef struct
  *
  */
 Passenger* Passenger_new();
+int Passenger_pedirDatosPasajero(char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr, char* codigoVueloStr, char* estadoVueloStr);
 Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajeroStr);
 Passenger* Passenger_newParametrosCompletos(char* idStr,
 											char* nombreStr,
@@ -74,5 +75,13 @@ int Passenger_CompareByName(void* pUno, void* pDos);
 int Passenger_CompareById(void* pUno, void* pDos);
 
 int Passenger_ListPasajeros(LinkedList* pArrayListPassenger);
+
+/** \brief Calcula el ID mas grande de todos los pasajeros en la lista.
+ *
+ * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
+ * \return Devuelve (-1) si hubo un parametro invalido - El numero del ID mas grande si Ok.
+ *
+ */
+int Passenger_CalcularMaximoID(LinkedList* pArrayListPassenger);
 
 #endif /* PASSENGER_H_ */

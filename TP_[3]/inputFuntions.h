@@ -162,4 +162,21 @@ int getChar(char *pResultado, int bufferLenght);
  */
 int esCaracter(char *cadena);
 
+/** \brief Verifica que lo que se esta pasando por nombreArchivo si es un .csv o un .dat.
+ *
+ * \param path char*, La direccion de memoria donde se encuentra el nombre del archivo y su extension.
+ * \return Devuelve (-1) si hubo un parametro invalido o si es un archivo con extension invalida - (0) si es un .csv o (1) si es un .dat.
+ *
+ */
+int RevisarFormatoArchivo(char* nombreArchivo);
+
+/**
+ * \brief Pide un nombre.
+ * \param char* mensjae, direccion de memoria donde se encuentrael mensaje para el usuario.
+ * \param char* nombre, direccion de memoria donde se guardara el nombre ingresado.
+ * \param int stringLen, tamanio de la cadena permitida.
+ * \return Retorna (-1) si se ingresa algun parametro invalido - (0) si Ok.
+ */
+int PedirNombre(char* mensjae, char* nombre, int stringLen);
+
 #endif /* INPUT_FUNTIONS_H_*/

@@ -410,3 +410,54 @@ int esCaracter(char *cadena){
 
   return retorno;
 }
+
+int RevisarFormatoArchivo(char* nombreArchivo){
+    int retorno = -1;
+    int len;
+    char auxVector[5];
+    int j = 0;
+    
+    if(nombreArchivo != NULL){
+        len = strlen(nombreArchivo);
+        //printf("\n");
+        for(int i = len - 4; i < len; i++){
+            //printf("nombreArchivo[%d] = %c\n",i, *(nombreArchivo + i));
+            auxVector[j] = *(nombreArchivo + i);
+            j++;
+        }
+        
+        /*len = strlen(auxVector);
+        printf("\n");
+        for(int i = 0; i < len; i++){
+            printf("auxVector[%d] = %c\n",i, auxVector[i]);
+        }*/
+        
+        if(strcmp(auxVector, ".csv") == 0){
+            printf("\nEs un archivo tipo texto: .csv\n");
+            retorno = 0;
+        }else{
+            if(strcmp(auxVector, ".dat") == 0){
+                printf("\nEs un archivo tipo binario: .dat\n");
+                retorno = 1;
+            }else{
+                printf("\nERROR! No es un archivo tipo texto, ni binario!\n");
+            }
+        }
+    }
+    
+    return retorno;
+}
+
+int PedirNombre(char* mensjae, char* nombre, int stringLen){
+    int retorno = -1;
+    
+    if(mensjae != NULL & nombre != NULL && stringLen > 0){
+        printf("%s", mensjae);
+        myGets(nombre, stringLen);
+        formalizarNombre(nombre, strlen(nombre));
+    }
+    
+    return retorno;
+}
+
+
