@@ -9,6 +9,9 @@
 #define ARCH "data.csv"
 
 /****************************************************
+ *
+ * 			 !!!!ALERTA !!!!ALERTA ALERTAALERTAALERTA ALERTA ALERTA ALERTA ALERTAALERTA ALERTA ALERTA ALERTA!!!!
+ * 			 		- Acordate de no tocar los archivos que NO son .c  o .h
     Menu:
      1. Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).
      2. Cargar los datos de los pasajeros desde el archivo data.csv (modo binario).

@@ -1,12 +1,5 @@
 #include "Controller.h"
 
-/** \brief Carga los datos de los pasajeros desde el archivo data.csv (modo texto).
- *
- * \param path char*, La direccion de memoria donde se encuentra el nombre del archivo.
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int controller_loadFromText(char* path, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -30,13 +23,6 @@ int controller_loadFromText(char* path, LinkedList* pArrayListPassenger)
     return retorno;
 }
 
-/** \brief Carga los datos de los pasajeros desde el archivo data.csv (modo binario).
- *
- * \param path char*, La direccion de memoria donde se encuentra el nombre del archivo..
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int controller_loadFromBinary(char* path, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -60,11 +46,6 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListPassenger)
     return retorno;
 }
 
-/** \brief Alta de pasajero
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int controller_addPassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -93,32 +74,26 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
         }
         
         retorno = 0;
+    }else{
+        printf("\nERROR! Sucedio algo en el controlador 02: 'controller_addPassenger'...\n");
     }
     
     return retorno;
 }
 
-/** \brief Modificar datos de pasajero
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int controller_editPassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
     
     if(pArrayListPassenger != NULL){
         retorno = 0;
+    }else{
+        printf("\nERROR! Sucedio algo en el controlador 02: 'controller_editPassenger'...\n");
     }
     
     return retorno;
 }
 
-/** \brief Baja de pasajero
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int controller_removePassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -133,16 +108,13 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
         // Pasajero = (Passenger*) ll_get(pArrayListPassenger, indice);
         ll_remove(pArrayListPassenger, indice);
         retorno = 0;
+    }else{
+        printf("\nERROR! Sucedio algo en el controlador 02: 'controller_removePassenger'...\n");
     }
     
     return retorno;
 }
 
-/** \brief Listar pasajeros
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int controller_ListPassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -150,16 +122,13 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
     if(pArrayListPassenger != NULL){
     	Passenger_ListPasajeros(pArrayListPassenger);
         retorno = 0;
+    }else{
+        printf("\nERROR! Sucedio algo en el controlador 02: 'controller_ListPassenger'...\n");
     }
     
     return retorno;
 }
 
-/** \brief Ordenar pasajeros
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int controller_sortPassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -169,18 +138,13 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
         getNumeroInt(&order, "\nIngrese que tipo de orden quiere que se muestre la lista A a Z (0) o Z a A (1): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
         ll_sort(pArrayListPassenger, Passenger_CompareByName, order);
         retorno = 0;
+    }else{
+        printf("\nERROR! Sucedio algo en el controlador 02: 'controller_sortPassenger'...\n");
     }
     
     return retorno;
 }
 
-/** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo texto).
- *
- * \param path char*, La direccion de memoria donde se encuentra el nombre del archivo.
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int controller_saveAsText(char* path, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -193,18 +157,13 @@ int controller_saveAsText(char* path, LinkedList* pArrayListPassenger)
         }
         fclose(pFile);
         retorno = 0;
+    }else{
+        printf("\nERROR! Sucedio algo en el controlador 02: 'controller_saveAsText'...\n");
     }
     
     return retorno;
 }
 
-/** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo binario).
- *
- * \param path char*, La direccion de memoria donde se encuentra el nombre del archivo.
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int controller_saveAsBinary(char* path, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -217,6 +176,8 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListPassenger)
         }
         fclose(pFile);
         retorno = 0;
+    }else{
+        printf("\nERROR! Sucedio algo en el controlador 02: 'controller_saveAsBinary'...\n");
     }
     
     return retorno;

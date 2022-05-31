@@ -1,12 +1,5 @@
 #include "parser.h"
 
-/** \brief Parsea los datos de los pasajeros desde el archivo data.csv (modo texto).
- *
- * \param path char*, La direccion de memoria donde se encuentra el archivo.
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -34,13 +27,6 @@ int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
     return retorno;
 }
 
-/** \brief Parsea los datos de los pasajeros desde el archivo data.csv (modo binario).
- *
- * \param path char*, La direccion de memoria donde se encuentra el archivo.
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int parser_PassengerFromBinary(FILE* pFile, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -65,13 +51,6 @@ int parser_PassengerFromBinary(FILE* pFile, LinkedList* pArrayListPassenger)
     return retorno;
 }
 
-/** \brief Parsea los datos de los pasajeros en memoria al archivo data.csv (modo texto).
- *
- * \param path char*, La direccion de memoria donde se encuentra el archivo.
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -103,17 +82,12 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
                 fprintf(pFile,"%d,%s,%s,%f,%s,%d,%d", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
             }
         retorno = 0;
+    }else{
+        printf("\nERROR! Sucedio algo en el parser 01: 'parser_PassengerToText'...\n");
     }
     return retorno;
 }
 
-/** \brief Parsea los datos de los pasajeros en memoria al archivo data.csv (modo binario).
- *
- * \param path char*, La direccion de memoria donde se encuentra el archivo.
- * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
- * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
- *
- */
 int parser_PassengerToBinary(FILE* pFile, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
@@ -127,6 +101,8 @@ int parser_PassengerToBinary(FILE* pFile, LinkedList* pArrayListPassenger)
                 fwrite(pPasajero, sizeof(Passenger), 1, pFile);
             }
         retorno = 0;
+    }else{
+        printf("\nERROR! Sucedio algo en el parser 01: 'parser_PassengerToBinary'...\n");
     }
     
     return retorno;

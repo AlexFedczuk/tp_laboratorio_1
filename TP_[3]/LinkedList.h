@@ -81,7 +81,6 @@ int ll_contains(LinkedList* this, void* pElement);
 // Aca compara dos listas y supongo que te dicen si son iguales?
 int ll_containsAll(LinkedList* this,LinkedList* this2);
 
-
 //
 LinkedList* ll_subList(LinkedList* this,int from,int to);
 

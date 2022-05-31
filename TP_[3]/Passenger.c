@@ -14,12 +14,6 @@
  *
  */
 
-/** \brief Reserva en memoria un espacio del tamanio de sizeof(Passenger).
- *
- * \param 
- * \return Devuelve el resultado que devuelve malloc NULL o la direccion de memoria reservada.
- *
- */
 Passenger* Passenger_new(){
     return malloc(sizeof(Passenger));
 }

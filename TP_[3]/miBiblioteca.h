@@ -17,6 +17,7 @@
 *   \return void
 */
 void mostrarMenu();
+
 /** \brief Esta funcion hardcodea x cantidad de entidades dentro de la lista indicada.
 *   \param list Passenger* Pointer to array of passenger
 *   \param len int Array length

@@ -26,6 +26,12 @@ typedef struct
 
 }Passenger;
 
+/** \brief Reserva en memoria un espacio del tamanio de sizeof(Passenger).
+ *
+ * \param
+ * \return Devuelve el resultado que devuelve malloc NULL o la direccion de memoria reservada.
+ *
+ */
 Passenger* Passenger_new();
 Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajeroStr);
 Passenger* Passenger_newParametrosCompletos(char* idStr,
