@@ -34,15 +34,17 @@ typedef struct
  *
  */
 Passenger* Passenger_new();
-int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr, char* codigoVueloStr, char* estadoVueloStr);
+//int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr, char* codigoVueloStr, char* estadoVueloStr);
+int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* respuesta);
 Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajeroStr);
-Passenger* Passenger_newParametrosCompletos(char* idStr,
+Passenger* Passenger_newParametrosCompletos(int id,
 											char* nombreStr,
 											char* apellidoStr,
 											char* precioStr,
 											char* tipoPasajeroStr,
 											char* codigoVueloStr,
 											char* estadoVueloStr);
+int Passenger_newParametrosCompletosAlta(Passenger* pPasajero,int id,char* nombre,char* apellido,float precio,int tipoPasajero,char* codigoVuelo,int estadoVuelo);
 
 // Aca le agrego el parametro de el puntero a donde apunta la entidad que quiero borrar.
 void Passenger_delete(Passenger* this);

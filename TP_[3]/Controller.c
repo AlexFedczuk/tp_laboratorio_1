@@ -10,6 +10,7 @@ int controller_loadFromText(char* path, LinkedList* pArrayListPassenger)
         
         if(pArchivo != NULL && pArrayListPassenger != NULL){
             parser_PassengerFromText(pArchivo, pArrayListPassenger);
+            printf("\nSe a cargado el archivo tipo texto.\n");
             retorno = 0;
         }else{
             printf("\nERROR! Sucedio algo en el controlador 01: 'controller_loadFromText'...\n");
@@ -33,6 +34,7 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListPassenger)
         
         if(pArchivo != NULL && pArrayListPassenger != NULL){
             parser_PassengerFromBinary(pArchivo, pArrayListPassenger);
+            printf("\nSe a cargado el archivo tipo binario.\n");
             retorno = 0;
         }else{
             printf("\nERROR! Sucedio algo en el controlador 01: 'controller_loadFromBinary'...\n");
@@ -46,10 +48,10 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListPassenger)
     return retorno;
 }
 
-int controller_addPassenger(LinkedList* pArrayListPassenger)
+/*int controller_addPassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
-    Passenger* pPasajero; // warning: variable 'pPasajero' set but not used
+
     char auxIdChar[50];
     char auxNombre[50];
     char auxApellido[50];
@@ -59,11 +61,14 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
     char auxEstadoVueloChar[50];
     char respuesta;
     
+    Passenger* pPasajero; // warning: variable 'pPasajero' set but not used
+
     if(pArrayListPassenger != NULL){
         do{
             if(ll_len(pArrayListPassenger) >= 1)
             {
                 Passenger_pedirDatosPasajero(pArrayListPassenger,auxIdChar,auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
+                printf("\nhasta llego0");
                 pPasajero = Passenger_newParametrosCompletos(auxIdChar,auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
                 ll_add(pArrayListPassenger, pPasajero);
             }else{
@@ -85,6 +90,22 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
         printf("\nERROR! Sucedio algo en el controlador 02: 'controller_addPassenger'...\n");
     }
     
+    return retorno;
+}*/
+
+int controller_addPassenger(LinkedList* pArrayListPassenger)
+{
+    int retorno = -1;
+    char respuesta;
+    if(pArrayListPassenger != NULL){
+    	do{
+    		Passenger_pedirDatosPasajero(pArrayListPassenger, &respuesta);
+    	}while(respuesta != 'n');
+
+    }else{
+        printf("\nERROR! Sucedio algo en el controlador 02: 'controller_addPassenger'...\n");
+    }
+
     return retorno;
 }
 
@@ -110,6 +131,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
     	Passenger_ListPasajeros(pArrayListPassenger);
     	Passenger_getIndicePasajero(pArrayListPassenger, &indice, "Ingrese el ID del pasajero que quiere remover de la lista: ");
         ll_remove(pArrayListPassenger, indice);
+        printf("\nSe a dado de baja el Pasajero indicado.\n");
         retorno = 0;
     }else{
         printf("\nERROR! Sucedio algo en el controlador 02: 'controller_removePassenger'...\n");
@@ -159,6 +181,7 @@ int controller_saveAsText(char* path, LinkedList* pArrayListPassenger)
             parser_PassengerToText(pFile, pArrayListPassenger);
         }
         fclose(pFile);
+        printf("\nSe a guardado el archivo como texto.\n");
         retorno = 0;
     }else{
         printf("\nERROR! Sucedio algo en el controlador 02: 'controller_saveAsText'...\n");
@@ -178,6 +201,7 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListPassenger)
             parser_PassengerToBinary(pFile, pArrayListPassenger);
         }
         fclose(pFile);
+        printf("\nSe a guardado el archivo como binario.\n");
         retorno = 0;
     }else{
         printf("\nERROR! Sucedio algo en el controlador 02: 'controller_saveAsBinary'...\n");

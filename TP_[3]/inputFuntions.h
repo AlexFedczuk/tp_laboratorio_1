@@ -13,6 +13,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include "miBiblioteca.h"
 
 #define BUFFER_SIZE 4096
 // Menues

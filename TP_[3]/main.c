@@ -47,14 +47,14 @@ int main()
         {
             case 1:
             	if(banderaLoad == 1)
-            		banderaLoad = controller_loadFromText(ARCH,listaPasajeros); // Listo
+            		banderaLoad = controller_loadFromText(ARCH,listaPasajeros); // Listo, pero tengo que mejorar el generador de IDs
                 break;
             case 2:
             	if(banderaLoad == 1)
-            		banderaLoad = controller_loadFromBinary(ARCH, listaPasajeros); // Listo
+            		banderaLoad = controller_loadFromBinary(ARCH, listaPasajeros); // Listo, pero tengo que mejorar el generador de IDs
                 break;
             case 3:
-                controller_addPassenger(listaPasajeros); // Hice BASTANTES modificaciones aca, va a tomar tiempo corregir... (Puede que este listo)
+                controller_addPassenger(listaPasajeros); // Listo.
                 break;
             case 4:
                 controller_editPassenger(listaPasajeros);
@@ -63,16 +63,16 @@ int main()
                 controller_removePassenger(listaPasajeros); // Listo.
                 break;
             case 6:
-                controller_ListPassenger(listaPasajeros); // Listo
+                controller_ListPassenger(listaPasajeros); // Listo.
                 break;
             case 7:
                 controller_sortPassenger(listaPasajeros); // Listo, solamente alfabeticamente.
                 break;
             case 8:
-                controller_saveAsText(ARCH, listaPasajeros); // Ya estaria, FALTA PROBAR
+                controller_saveAsText(ARCH, listaPasajeros); // Listo.
                 break;
             case 9:
-                controller_saveAsBinary(ARCH, listaPasajeros); // Ya estaria, FALTA PROBAR
+                controller_saveAsBinary(ARCH, listaPasajeros); // Listo.
                 break;
             default:
                 printf("Saliendo del programa...\n");

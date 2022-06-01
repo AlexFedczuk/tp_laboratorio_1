@@ -18,12 +18,13 @@ Passenger* Passenger_new(){
     return malloc(sizeof(Passenger));
 }
 
-int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr, char* codigoVueloStr, char* estadoVueloStr){
+/*int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr, char* codigoVueloStr, char* estadoVueloStr){
     int retorno = -1;
     int auxIdInt = 1;
     float auxPrecioFloat;
     int auxTipoPasajeroInt;
     int auxEstadoVueloInt;
+    int result;
     
     if(idStr != NULL &&	nombreStr != NULL && apellidoStr != NULL && precioStr != NULL && tipoPasajeroStr != NULL && codigoVueloStr != NULL && estadoVueloStr != NULL){
         if(strcmp(idStr, "1") != 0){
@@ -31,23 +32,100 @@ int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* idStr, c
         }
         PedirNombre("\nIngrese el nombre del pasajero: ", nombreStr, 50);
         fflush(stdin);
+        printf("\nnombre ingresado = %s", nombreStr);
+
         PedirNombre("\nIngrese el apellido del pasajero: ", apellidoStr, 50);
         fflush(stdin);
+        printf("\napellido ingresado = %s", apellidoStr);
+
         getNumeroFloat(&auxPrecioFloat, "\nIngrese el precio: ", "\nError! Valor ingresado invalido!\n", 0, 999999999, 0, BUFFER_SIZE);
         fflush(stdin);
+        printf("\nprecio ingresado = %f", auxPrecioFloat);
+
         getNumeroInt(&auxTipoPasajeroInt, "\nIngrese tipo de pasajero 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
         fflush(stdin);
+        printf("\ntipo pasajero ingresado = %d", auxTipoPasajeroInt);
+
         printf("\nIngrese el codigo de vuelo: ");
         myGets(codigoVueloStr, 4);
         fflush(stdin);
-        getNumeroInt(&auxEstadoVueloInt, "\nIngrese el estado el vuelo ´falta nombre´(0), ´falta nombre´(1) o ´falta nombre´(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        printf("\ncodigo de vuelo ingresado = %s", codigoVueloStr);
+
+        getNumeroInt(&auxEstadoVueloInt, "\nIngrese el estado el vuelo 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
         fflush(stdin);
-        
-        itoa(auxIdInt,idStr,50);
+        printf("\ntipo pasajero ingresado = %d", auxEstadoVueloInt);
+
+        printf("\nhasta llego1");
+        printf("\nidStr ingresado = %s", idStr);
+        printf("\nidInt calculado = %d", auxIdInt);
+        //result = sprintf(idStr, "%d", auxIdInt);
+        //strcpy(idStr, sprintf(str, "%d", num);); sprintf(idStr,"%d",auxIdInt);
+        printf("\nhasta llego3");
         gcvt(auxPrecioFloat, 50, precioStr);
-        itoa(auxTipoPasajeroInt,tipoPasajeroStr,50);
-        itoa(auxEstadoVueloInt,estadoVueloStr,50);
+        itoa(auxTipoPasajeroInt,tipoPasajeroStr,10);
+        itoa(auxEstadoVueloInt,estadoVueloStr,10);
+        printf("\nhasta llego2");
         
+        fflush(stdin);
+
+        retorno = 0;
+    }
+
+    return retorno;
+}*/
+
+int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* respuesta){
+    int retorno = -1;
+
+    int id;
+    char nombre[50];
+    char apellido[50];
+    float precio;
+    int tipoPasajero;
+    char codigoVuelo[4];
+    int estadoVuelo;
+
+    Passenger* pPasajero;
+    Passenger* auxPasajero;
+
+    auxPasajero = Passenger_new();
+
+    if(pArrayListPassenger != NULL && auxPasajero != NULL && respuesta != NULL){
+    	pPasajero = auxPasajero;
+
+    	if(ll_len(pArrayListPassenger) >= 1){
+    		id = Passenger_CalcularMaximoID(pArrayListPassenger);
+    	}else{
+    		id = 1;
+    	}
+
+
+    	PedirNombre("\nIngrese el nombre del pasajero: ", nombre, 50);
+    	fflush(stdin);
+
+    	PedirNombre("\nIngrese el apellido del pasajero: ", apellido, 50);
+    	fflush(stdin);
+
+    	getNumeroFloat(&precio, "\nIngrese el precio: ", "\nError! Valor ingresado invalido!\n", 0, 999999999, 0, BUFFER_SIZE);
+    	fflush(stdin);
+
+    	getNumeroInt(&tipoPasajero, "\nIngrese tipo de pasajero 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+    	fflush(stdin);
+
+    	printf("\nIngrese el codigo de vuelo: ");
+    	myGets(codigoVuelo, 4);
+    	fflush(stdin);
+
+    	getNumeroInt(&estadoVuelo, "\nIngrese el estado del vuelo 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+    	fflush(stdin);
+
+    	Passenger_newParametrosCompletosAlta(pPasajero,id,nombre,apellido,precio,tipoPasajero,codigoVuelo,estadoVuelo);
+
+    	ll_add(pArrayListPassenger, pPasajero);
+
+    	getUnCaracter(respuesta, "\nQuiere realizar otra Alta? (s/n): ", "\nError! Valor ingresado invalido!\n", 0, BUFFER_SIZE);
+    	fflush(stdin);
+
         retorno = 0;
     }
     
@@ -87,7 +165,7 @@ Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajer
  * \return Devuelve (NULL) si hubo un parametro invalido - la direccion de memoria reservada si Ok.
  *
  */
-Passenger* Passenger_newParametrosCompletos(char* idStr,
+Passenger* Passenger_newParametrosCompletos(int id,
 											char* nombreStr,
 											char* apellidoStr,
 											char* precioStr,
@@ -99,17 +177,10 @@ Passenger* Passenger_newParametrosCompletos(char* idStr,
 
 	auxPasajero = (Passenger*) malloc(sizeof(Passenger));
 
-	if(idStr != NULL &&
-			nombreStr != NULL &&
-			apellidoStr != NULL &&
-			precioStr != NULL &&
-			tipoPasajeroStr != NULL &&
-			codigoVueloStr != NULL &&
-			estadoVueloStr != NULL &&
-			auxPasajero != NULL){
+	if(nombreStr != NULL &&	apellidoStr != NULL && precioStr != NULL && tipoPasajeroStr != NULL && codigoVueloStr != NULL && estadoVueloStr != NULL && auxPasajero != NULL){
 		unPasajero = auxPasajero;
 
-        Passenger_setId(unPasajero, atoi(idStr));
+        Passenger_setId(unPasajero, id);
         Passenger_setNombre(unPasajero, nombreStr);
         Passenger_setApellido(unPasajero, apellidoStr);
         Passenger_setPrecio(unPasajero, atof(precioStr));
@@ -120,6 +191,25 @@ Passenger* Passenger_newParametrosCompletos(char* idStr,
 	}
 
 	return unPasajero;
+}
+
+int Passenger_newParametrosCompletosAlta(Passenger* pPasajero,int id,char* nombre,char* apellido,float precio,int tipoPasajero,char* codigoVuelo,int estadoVuelo){
+	int retorno = -1;
+
+	if(pPasajero != NULL){
+        Passenger_setId(pPasajero, id);
+        Passenger_setNombre(pPasajero, nombre);
+        Passenger_setApellido(pPasajero, apellido);
+        Passenger_setPrecio(pPasajero, precio);
+        Passenger_setTipoPasajero(pPasajero, tipoPasajero);
+        Passenger_setCodigoVuelo(pPasajero, codigoVuelo);
+        Passenger_setEstadoVuelo(pPasajero, estadoVuelo);
+        Passenger_setIsEmpty(pPasajero, 0);
+
+        retorno = 0;
+	}
+
+	return retorno;
 }
 
 void Passenger_delete(Passenger* this){
@@ -336,7 +426,7 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
         
         
         printf("  id,           name,       lastname,        price,         flycode, typePassenger, statusFlight\n");
-        for(int i = 0; i < 50; i++){
+        for(int i = 0; i < tam; i++){
             pPasajero = (Passenger*) ll_get(pArrayListPassenger, i);
             
             Passenger_getId(pPasajero, &auxId);
@@ -374,13 +464,13 @@ int Passenger_CalcularMaximoID(LinkedList* pArrayListPassenger){
             
             Passenger_getId(pPasajero, &auxId);
             Passenger_getIsEmpty(pPasajero, &auxIsEmpty);
-            if(auxIsEmpty == 0){
+            if(/*auxIsEmpty == 0*/1){
                 if(i == 0 || idMax < auxId){
                     idMax = auxId;
                 }
             }
         }
-        retorno = idMax;
+        retorno = idMax + 1;
     }
     return retorno;
 }

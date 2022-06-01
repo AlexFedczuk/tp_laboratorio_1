@@ -4,6 +4,7 @@ int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
     char auxId[50];
+    int id;
     char auxNombre[50];
     char auxApellido[50];
     char auxPrecio[50];
@@ -11,14 +12,20 @@ int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
     char auxCodigoVuelo[4];
     char auxEstadoVuelo[50];
     Passenger* pPasajero;
+    int bandera = 0;
     
     if(pFile != NULL && pArrayListPassenger != NULL){
+    	fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxId,auxNombre,auxApellido,auxPrecio,auxTipoPasajero,auxCodigoVuelo,auxEstadoVuelo);
         do{
-            fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxId,auxNombre,auxApellido,auxPrecio,auxTipoPasajero,auxCodigoVuelo,auxEstadoVuelo);
-            
-            pPasajero = Passenger_newParametrosCompletos(auxId, auxNombre, auxApellido, auxPrecio, auxTipoPasajero, auxCodigoVuelo,auxEstadoVuelo);
-            
-            ll_add(pArrayListPassenger, pPasajero);
+        	fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxId,auxNombre,auxApellido,auxPrecio,auxTipoPasajero,auxCodigoVuelo,auxEstadoVuelo);
+
+        	if(ll_len(pArrayListPassenger) >= 1){
+        	  	id = Passenger_CalcularMaximoID(pArrayListPassenger);
+        	}else{
+        	  	id = 1;
+        	}
+
+        	pPasajero = Passenger_newParametrosCompletos(id, auxNombre, auxApellido, auxPrecio, auxTipoPasajero, auxCodigoVuelo,auxEstadoVuelo);
         }while(!feof(pFile));
         retorno = 0;
     }else{
@@ -30,15 +37,26 @@ int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
 int parser_PassengerFromBinary(FILE* pFile, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
+    int bandera = 0;
+    int id;
     Passenger* pPasajero;
-    Passenger* pAuxPasajero; // warning: unused variable 'pAuxPasajero'
     
     if(pFile != NULL && pArrayListPassenger != NULL){
         do{
             pPasajero = Passenger_new();
             if(pPasajero != NULL){
                if(fread(pPasajero, sizeof(Passenger), 1, pFile)){
-                   ll_add(pArrayListPassenger, pPasajero);
+            	   if(bandera != 0){
+            		   if(ll_len(pArrayListPassenger) >= 1){
+            			   id = Passenger_CalcularMaximoID(pArrayListPassenger);
+            		   }else{
+            			   id = 1;
+            		   }
+            		   Passenger_setId(pPasajero, id);
+            	       ll_add(pArrayListPassenger, pPasajero);
+            	   }else{
+            		   bandera = 1;
+            	   }
                }
             }else{
                 printf("\nERROR! No se pudo conseguir memoria para agregar otro pasajero!\n");
@@ -67,7 +85,7 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
     if(pFile != NULL && pArrayListPassenger != NULL){
             tam = ll_len(pArrayListPassenger);
             
-            fprintf(pFile,"id,name,lastname,price,flycode,typePassenger,statusFlight");
+            fprintf(pFile,"id,name,lastname,price,flycode,typePassenger,statusFlight\n");
             for(int i = 0; i < tam; i++){
                 pPasajero = ll_get(pArrayListPassenger, i);
                 
@@ -79,7 +97,7 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
                 Passenger_getTipoPasajero(pPasajero, &auxTipoPasajero);
                 Passenger_getEstadoVuelo(pPasajero, &auxEstadoVuelo);
                 
-                fprintf(pFile,"%d,%s,%s,%f,%s,%d,%d", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
+                fprintf(pFile,"%d,%s,%s,%f,%s,%d,%d\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
             }
         retorno = 0;
     }else{
