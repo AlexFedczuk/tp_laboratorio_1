@@ -22,7 +22,6 @@ int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* idStr, c
     int retorno = -1;
     int auxIdInt = 1;
     float auxPrecioFloat;
-    char auxCodigoVuelo[4];
     int auxTipoPasajeroInt;
     int auxEstadoVueloInt;
     
@@ -31,12 +30,18 @@ int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* idStr, c
             auxIdInt = Passenger_CalcularMaximoID(pArrayListPassenger);
         }
         PedirNombre("\nIngrese el nombre del pasajero: ", nombreStr, 50);
+        fflush(stdin);
         PedirNombre("\nIngrese el apellido del pasajero: ", apellidoStr, 50);
+        fflush(stdin);
         getNumeroFloat(&auxPrecioFloat, "\nIngrese el precio: ", "\nError! Valor ingresado invalido!\n", 0, 999999999, 0, BUFFER_SIZE);
-        getNumeroInt(&auxTipoPasajeroInt, "\nIngrese tipo de pasajero ´falta nombre´(0), ´falta nombre´(1) o ´falta nombre´(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        fflush(stdin);
+        getNumeroInt(&auxTipoPasajeroInt, "\nIngrese tipo de pasajero 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        fflush(stdin);
         printf("\nIngrese el codigo de vuelo: ");
         myGets(codigoVueloStr, 4);
+        fflush(stdin);
         getNumeroInt(&auxEstadoVueloInt, "\nIngrese el estado el vuelo ´falta nombre´(0), ´falta nombre´(1) o ´falta nombre´(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        fflush(stdin);
         
         itoa(auxIdInt,idStr,50);
         gcvt(auxPrecioFloat, 50, precioStr);
@@ -315,7 +320,7 @@ int Passenger_CompareById(void* pUno, void* pDos){
 
 int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
     int retorno = -1;
-    int tam;
+    int tam; // Saque el tam del for, porque estoy testeando con unos pocos pasajeros.
     Passenger* pPasajero;
     int auxId;
     char auxNombre[50];
@@ -330,8 +335,8 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
         tam = ll_len(pArrayListPassenger);
         
         
-        printf("id,name,lastname,price,flycode,typePassenger,statusFlight\n");
-        for(int i = 0; i < tam; i++){
+        printf("  id,           name,       lastname,        price,         flycode, typePassenger, statusFlight\n");
+        for(int i = 0; i < 50; i++){
             pPasajero = (Passenger*) ll_get(pArrayListPassenger, i);
             
             Passenger_getId(pPasajero, &auxId);
@@ -343,8 +348,8 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
             Passenger_getEstadoVuelo(pPasajero, &auxEstadoVuelo);
             Passenger_getIsEmpty(pPasajero, &auxIsEmpty);
             
-            if(auxIsEmpty != 0){
-                printf("%d,%s,%s,%.2f,%s,%d,%d\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
+            if(/*auxIsEmpty != 0*/auxId > 0){
+                printf("%04d,%15s,%15s,   %10.2f,  %14s,             %1d,            %1d\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
             }
         }
         retorno = 0;
@@ -361,7 +366,7 @@ int Passenger_CalcularMaximoID(LinkedList* pArrayListPassenger){
     int auxIsEmpty;
     Passenger* pPasajero;
     
-    if(pArrayListPassenger != NULL && pPasajero != NULL){
+    if(pArrayListPassenger != NULL){
         len = ll_len(pArrayListPassenger);
         
         for(int i = 0; i < len; i++){
@@ -378,4 +383,27 @@ int Passenger_CalcularMaximoID(LinkedList* pArrayListPassenger){
         retorno = idMax;
     }
     return retorno;
+}
+
+int Passenger_getIndicePasajero(LinkedList* pArrayListPassenger, int* indice, char* mensaje){
+	int retorno = -1;
+	int idIngresado, len, auxId;
+	Passenger* pPasajero;
+
+	if(pArrayListPassenger != NULL && indice != NULL && mensaje != NULL){
+		len = ll_len(pArrayListPassenger);
+		getNumeroInt(&idIngresado, mensaje, "\nError! Valor ingresado invalido!\n", 1, len, 0, BUFFER_SIZE);
+
+		for(int i = 0; i < len; i++){
+			pPasajero = (Passenger*) ll_get(pArrayListPassenger, i);
+			Passenger_getId(pPasajero, &auxId);
+			if(auxId == idIngresado){
+				retorno = 0;
+				break;
+			}
+		}
+		*indice = ll_indexOf(pArrayListPassenger, pPasajero);
+	}
+
+	return retorno;
 }

@@ -127,3 +127,18 @@ int informarInformacion(float* total, float* promedio, int* cantidad){
     }
     return retorno;
 }
+
+int formalizarNombre(char* cadena, int len){
+    int retorno = -1;
+    if(cadena != NULL && len > 0){
+        for(int i = 0; i < len; i++){
+            if((i == 0 && isalpha(cadena[i])) || (cadena[i - 1] == ' ' && isalpha(cadena[i]))){
+                cadena[i] = toupper(cadena[i]);
+            }else{
+                cadena[i] = tolower(cadena[i]);
+            }
+        }
+        retorno = 0;
+    }
+    return retorno;
+}

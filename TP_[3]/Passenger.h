@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "LinkedList.h"
+#include "inputFuntions.h"
 
 typedef struct
 {
@@ -33,7 +34,7 @@ typedef struct
  *
  */
 Passenger* Passenger_new();
-int Passenger_pedirDatosPasajero(char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr, char* codigoVueloStr, char* estadoVueloStr);
+int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr, char* codigoVueloStr, char* estadoVueloStr);
 Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajeroStr);
 Passenger* Passenger_newParametrosCompletos(char* idStr,
 											char* nombreStr,
@@ -83,5 +84,7 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger);
  *
  */
 int Passenger_CalcularMaximoID(LinkedList* pArrayListPassenger);
+
+int Passenger_getIndicePasajero(LinkedList* pArrayListPassenger, int* indice, char* mensaje);
 
 #endif /* PASSENGER_H_ */

@@ -433,11 +433,11 @@ int RevisarFormatoArchivo(char* nombreArchivo){
         }*/
         
         if(strcmp(auxVector, ".csv") == 0){
-            printf("\nEs un archivo tipo texto: .csv\n");
+            //printf("\nEs un archivo tipo texto: .csv\n");
             retorno = 0;
         }else{
             if(strcmp(auxVector, ".dat") == 0){
-                printf("\nEs un archivo tipo binario: .dat\n");
+                //printf("\nEs un archivo tipo binario: .dat\n");
                 retorno = 1;
             }else{
                 printf("\nERROR! No es un archivo tipo texto, ni binario!\n");
@@ -451,7 +451,7 @@ int RevisarFormatoArchivo(char* nombreArchivo){
 int PedirNombre(char* mensjae, char* nombre, int stringLen){
     int retorno = -1;
     
-    if(mensjae != NULL & nombre != NULL && stringLen > 0){
+    if(mensjae != NULL && nombre != NULL && stringLen > 0){
         printf("%s", mensjae);
         myGets(nombre, stringLen);
         formalizarNombre(nombre, strlen(nombre));

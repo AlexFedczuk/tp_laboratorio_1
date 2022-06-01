@@ -11,6 +11,7 @@
 //#include "ArrayPassenger.h"
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #define LEN 2000 // El maximo es 2000 pasajeros!
 
 /** \brief Esta funcion muestra el menu de opciones del menu principal..
@@ -76,5 +77,12 @@ int calcularIntMayor(int vec[], int len);
 *   \return Devuele (-1) si hay un parametro invalido - (0) si Ok.
 */
 int informarInformacion(float* total, float* promedio, int* cantidad);
+
+/** \brief Formaliza la cadena de caracteres ingresada por parametros.
+* \param char* cadena, la cadena de caracteres a formalizar.
+* \param len int, el tamanio de la cadena.
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*/
+int formalizarNombre(char* cadena, int len);
 
 #endif /* MIBIBLIOTECA_H_ */

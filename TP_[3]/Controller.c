@@ -104,15 +104,11 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
 int controller_removePassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
-    int idIngresado;
-    int indice;
-    // Passenger* Pasajero;
+    int indice = -1;
     
     if(pArrayListPassenger != NULL){
     	Passenger_ListPasajeros(pArrayListPassenger);
-        getNumeroInt(&idIngresado, "Ingrese el ID del pasajero que quiere remover de la lista: ", "\nError! Valor ingresado invalido!\n", 1, ll_len(pArrayListPassenger), 0, BUFFER_SIZE);
-        indice = ll_indexOf(pArrayListPassenger, &idIngresado);
-        // Pasajero = (Passenger*) ll_get(pArrayListPassenger, indice);
+    	Passenger_getIndicePasajero(pArrayListPassenger, &indice, "Ingrese el ID del pasajero que quiere remover de la lista: ");
         ll_remove(pArrayListPassenger, indice);
         retorno = 0;
     }else{
@@ -142,7 +138,7 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
     int order;
     
     if(pArrayListPassenger != NULL){
-        getNumeroInt(&order, "\nIngrese que tipo de orden quiere que se muestre la lista A a Z (0) o Z a A (1): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+        getNumeroInt(&order, "\nIngrese que tipo de orden quiere que se muestre la lista A a Z (1) o Z a A (0): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
         ll_sort(pArrayListPassenger, Passenger_CompareByName, order);
         retorno = 0;
     }else{

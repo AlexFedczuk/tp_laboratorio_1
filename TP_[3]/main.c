@@ -36,6 +36,7 @@ int main()
 	setbuf(stdout, NULL);
     
     int option = 0;
+    int banderaLoad = 1;
     
     LinkedList* listaPasajeros = ll_newLinkedList();
 
@@ -45,12 +46,12 @@ int main()
         switch(option)
         {
             case 1:
-                // Ya hice una funt que valida la extension del archivo, PROBAR
-                controller_loadFromText(ARCH,listaPasajeros); // Ya estaria, FALTA PROBAR
+            	if(banderaLoad == 1)
+            		banderaLoad = controller_loadFromText(ARCH,listaPasajeros); // Listo
                 break;
             case 2:
-                // Ya hice una funt que valida la extension del archivo, PROBAR
-                controller_loadFromBinary(ARCH, listaPasajeros); // Ya estaria, FALTA PROBAR
+            	if(banderaLoad == 1)
+            		banderaLoad = controller_loadFromBinary(ARCH, listaPasajeros); // Listo
                 break;
             case 3:
                 controller_addPassenger(listaPasajeros); // Hice BASTANTES modificaciones aca, va a tomar tiempo corregir... (Puede que este listo)
@@ -59,13 +60,13 @@ int main()
                 controller_editPassenger(listaPasajeros);
                 break;
             case 5:
-                controller_removePassenger(listaPasajeros); // Supongo que ya estaria, pero faltaria probar dichas funciones...
+                controller_removePassenger(listaPasajeros); // Listo.
                 break;
             case 6:
-                controller_ListPassenger(listaPasajeros); // La funcion para lista ya deberia estar lista, CORROBORAR!
+                controller_ListPassenger(listaPasajeros); // Listo
                 break;
             case 7:
-                controller_sortPassenger(listaPasajeros); // Aca ya habria una funcion de ordenamiento, alfabeticamente.
+                controller_sortPassenger(listaPasajeros); // Listo, solamente alfabeticamente.
                 break;
             case 8:
                 controller_saveAsText(ARCH, listaPasajeros); // Ya estaria, FALTA PROBAR
