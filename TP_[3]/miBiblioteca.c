@@ -9,15 +9,26 @@
 void mostrarMenu(){
     printf("\nMenu pricipal\n");
     printf("1. Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).\n");
-    printf("2. Cargar los datos de los pasajeros desde el archivo data.csv (modo binario).\n");
+    printf("2. Cargar los datos de los pasajeros desde el archivo data.bin (modo binario).\n");
     printf("3. Alta de pasajero\n");
     printf("4. Modificar datos de pasajero\n");
     printf("5. Baja de pasajero\n");
     printf("6. Listar pasajeros\n");
     printf("7. Ordenar pasajeros\n");
     printf("8. Guardar los datos de los pasajeros en el archivo data.csv (modo texto).\n");
-    printf("9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario).\n");
+    printf("9. Guardar los datos de los pasajeros en el archivo data.bin (modo binario).\n");
     printf("10. Salir\n\n");
+}
+
+void mostrarMenuModificacion(){
+    printf("\n\tMenu de modificacion\n");
+    printf("\t1. Nombre.\n");
+    printf("\t2. Apellido.\n");
+    printf("\t3. Precio.\n");
+    printf("\t4. Tipo de pasajero.\n");
+    printf("\t5. Codigo de vuelo.\n");
+    printf("\t6. Estado de vuelo.\n");
+    printf("\t7. Salir\n\n");
 }
 
 /*int hardcodearEntidades(ePassenger* list, int len, int* contadorId){

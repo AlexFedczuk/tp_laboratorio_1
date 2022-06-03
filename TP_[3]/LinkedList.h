@@ -48,7 +48,7 @@ int test_addNode(LinkedList* this, int nodeIndex, void* pElement);
 // agrega un pasajero, tiene un puntero tipo void, eso es un puntero generico
 int ll_add(LinkedList* this, void* pElement);
 
-// Devuelve el "indice" de donde esta ubicado un pasajero por ejemplo
+// Devuelve la direccion de memoria donde esta ubicado un pasajero por ejemplo
 void* ll_get(LinkedList* this, int index);
 
 // Este sirve para modificar un dato de un pasajero

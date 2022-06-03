@@ -79,4 +79,13 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger);
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger);
 
+/** \brief Se encarga de evaluar si se puede cerrar o no el programa.
+ *
+ * \param int option, La opcion que ingreso el usuario para evaluar.
+ * \param int bandera, La banera que contiene el valor si Ok para cerrar el programa.
+ * \Void.
+ *
+ */
+void controller_exit(int option, int bandera);
+
 #endif /* CONTROLLER_H_ */

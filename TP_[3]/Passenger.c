@@ -255,6 +255,20 @@ int Passenger_getNombre(Passenger* this,char* nombre){
     }
     return retorno;
 }
+int Passenger_modificarNombre(Passenger* pPasajero){
+    int retorno = -1;
+    char nombre[50];
+    
+    if(pPasajero != NULL){
+        PedirNombre("\n\tIngrese el nuevo nombre del pasajero: ", nombre, 50);
+        fflush(stdin);
+        Passenger_setNombre(pPasajero, nombre);
+        printf("\n\tSe le a modificado el nombre al pasajero seleccionado.\n");
+        retorno = 0;
+    }
+    return retorno;
+    
+}
 
 int Passenger_setApellido(Passenger* this,char* apellido){
     int retorno = -1;
@@ -273,6 +287,20 @@ int Passenger_getApellido(Passenger* this,char* apellido){
         retorno = 0;
     }
     return retorno;
+}
+int Passenger_modificarApellido(Passenger* pPasajero){
+    int retorno = -1;
+    char apellido[50];
+    
+    if(pPasajero != NULL){
+        PedirNombre("\n\tIngrese el nuevo apellido del pasajero: ", apellido, 50);
+        fflush(stdin);
+        Passenger_setApellido(pPasajero, apellido);
+        printf("\n\tSe le a modificado el apellido al pasajero seleccionado.\n");
+        retorno = 0;
+    }
+    return retorno;
+    
 }
 
 int Passenger_setCodigoVuelo(Passenger* this,char* codigoVuelo){
@@ -293,6 +321,21 @@ int Passenger_getCodigoVuelo(Passenger* this,char* codigoVuelo){
     }
     return retorno;
 }
+int Passenger_modificarCodigoVuelo(Passenger* pPasajero){
+    int retorno = -1;
+    char codigoVuelo[50];
+    
+    if(pPasajero != NULL){
+        printf("\nIngrese el nuevo codigo de vuelo: ");
+        myGets(codigoVuelo, 4);
+        fflush(stdin);
+        Passenger_setCodigoVuelo(pPasajero, codigoVuelo);
+        printf("\n\tSe le a modificado el codigo de vuelo al pasajero seleccionado.\n");
+        retorno = 0;
+    }
+    return retorno;
+    
+}
 
 int Passenger_setTipoPasajero(Passenger* this,int tipoPasajero){
     int retorno = -1;
@@ -311,6 +354,20 @@ int Passenger_getTipoPasajero(Passenger* this,int* tipoPasajero){
         retorno = 0;
     }
     return retorno;
+}
+int Passenger_modificarTipoPasajero(Passenger* pPasajero){
+    int retorno = -1;
+    int tipoPasajero;
+    
+    if(pPasajero != NULL){
+        getNumeroInt(&tipoPasajero, "\n\tIngrese el nuevo tipo de pasajero 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        fflush(stdin);
+        Passenger_setTipoPasajero(pPasajero, tipoPasajero);
+        printf("\n\tSe le a modificado el Tipo de Pasajero.\n");
+        retorno = 0;
+    }
+    return retorno;
+    
 }
 
 int Passenger_setPrecio(Passenger* this,float precio){
@@ -331,6 +388,21 @@ int Passenger_getPrecio(Passenger* this,float* precio){
     }
     return retorno;
 }
+int Passenger_modificarPrecio(Passenger* pPasajero){
+    int retorno = -1;
+    float precio;
+    
+    if(pPasajero != NULL){
+        getNumeroFloat(&precio, "\n\tIngrese el nuevo precio: ", "\nError! Valor ingresado invalido!\n", 0, 999999999, 0, BUFFER_SIZE);
+        fflush(stdin);
+        Passenger_setPrecio(pPasajero, precio);
+        printf("\n\tSe le a modificado el precio al pasajero seleccionado.\n");
+        retorno = 0;
+    }
+    return retorno;
+    
+}
+
 
 int Passenger_setIsEmpty(Passenger* this,int isEmpty){
     int retorno = -1;
@@ -369,6 +441,21 @@ int Passenger_getEstadoVuelo(Passenger* this, int* estadoVuelo){
     }
     return retorno;
 }
+int Passenger_modificarEstadoVuelo(Passenger* pPasajero){
+    int retorno = -1;
+    int estadoVuelo;
+    
+    if(pPasajero != NULL){
+        getNumeroInt(&estadoVuelo, "\nIngrese el nuevo estado del vuelo 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        fflush(stdin);
+        Passenger_setEstadoVuelo(pPasajero, estadoVuelo);
+        printf("\n\tSe le a modificado el estado de vuelo al pasajero seleccionado.\n");
+        retorno = 0;
+    }
+    return retorno;
+    
+}
+
 
 int Passenger_CompareByName(void* pUno, void* pDos){
 	int retorno = -2;
@@ -493,6 +580,51 @@ int Passenger_getIndicePasajero(LinkedList* pArrayListPassenger, int* indice, ch
 			}
 		}
 		*indice = ll_indexOf(pArrayListPassenger, pPasajero);
+	}
+
+	return retorno;
+}
+
+int Passenger_modificarPasajero(LinkedList* pArrayListPassenger, int* indice){
+	int retorno = -1;
+	int opcion;
+	Passenger* pPasajero;
+	
+	if(pArrayListPassenger != NULL && indice != NULL){
+	    pPasajero = ll_get(pArrayListPassenger, indice);
+	    if(pPasajero != NULL){
+	        do{
+	            mostrarMenuModificacion();
+        	    getNumeroInt(&opcion, "\tIngrese una opcion del menu de modificacion: ", "\nError! Valor ingresado invalido!\n", 1, 7, 0, BUFFER_SIZE);
+        	    fflush(stdin);
+        	    
+        	    switch(opcion)
+        	    {
+        	        case 1:
+        	            Passenger_modificarNombre(pPasajero);
+            	        break;
+        	        case 2:
+            	        Passenger_modificarApellido(pPasajero);
+            	        break;
+        	        case 3:
+            	        Passenger_modificarPrecio(pPasajero);
+            	        break;
+        	        case 4:
+            	        Passenger_modificarTipoPasajero(pPasajero);
+            	        break;
+        	        case 5:
+            	        Passenger_modificarCodigoVuelo(pPasajero);
+            	        break;
+        	        case 6:
+            	        Passenger_modificarEstadoVuelo(Passenger* pPasajero);
+            	        break;
+        	        default:
+        	            printf("\n\tSaliendo del menu de modificacion.\n");
+        	            break;
+        	    }
+	        }while(opcion != 7);
+    	    retorno = 0;
+	    }
 	}
 
 	return retorno;

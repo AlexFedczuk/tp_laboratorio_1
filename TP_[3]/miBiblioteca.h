@@ -14,10 +14,15 @@
 #include <ctype.h>
 #define LEN 2000 // El maximo es 2000 pasajeros!
 
-/** \brief Esta funcion muestra el menu de opciones del menu principal..
+/** \brief Esta funcion muestra el menu de opciones del menu principal.
 *   \return void
 */
 void mostrarMenu();
+
+/** \brief Esta funcion muestra el menu de opciones del menu de modificaciones.
+*   \return void
+*/
+void mostrarMenuModificacion();
 
 /** \brief Esta funcion hardcodea x cantidad de entidades dentro de la lista indicada.
 *   \param list Passenger* Pointer to array of passenger

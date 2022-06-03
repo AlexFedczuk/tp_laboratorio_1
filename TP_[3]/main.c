@@ -29,7 +29,7 @@
         
         CHEQUEAR QUE ESTAN CASTEADAS LAS LLAMADAS A FUNCIONES CON RETORNOS GENERICOS, tendria que agregarles por ej (Passenger*)!!!
         
-        LO ULTIMO QUE ME QUEDE FUE EN LA "ALTA" DE PASAJEROS. TENGO QUE CODEAR PARA QUE SE PUEDAN PEDIR LOS DATOS POR CONSOLA...
+        Tengo que ver como arreglar el tema de ESTADO VUELO Y TIPO PASAJERO, ya que son INT, pero muestran una CADENA DE TEXTO.
 *****************************************************/
 int main()
 {
@@ -37,6 +37,7 @@ int main()
     
     int option = 0;
     int banderaLoad = 1;
+    int banderaSave = 1;
     
     LinkedList* listaPasajeros = ll_newLinkedList();
 
@@ -47,17 +48,17 @@ int main()
         {
             case 1:
             	if(banderaLoad == 1)
-            		banderaLoad = controller_loadFromText(ARCH,listaPasajeros); // Listo, pero tengo que mejorar el generador de IDs
+            		banderaLoad = controller_loadFromText(ARCH,listaPasajeros); // Listo.
                 break;
             case 2:
             	if(banderaLoad == 1)
-            		banderaLoad = controller_loadFromBinary(ARCH, listaPasajeros); // Listo, pero tengo que mejorar el generador de IDs
+            		banderaLoad = controller_loadFromBinary(ARCH, listaPasajeros); // Listo.
                 break;
             case 3:
                 controller_addPassenger(listaPasajeros); // Listo.
                 break;
             case 4:
-                controller_editPassenger(listaPasajeros);
+                controller_editPassenger(listaPasajeros);// listo, FALTA PROBAR!
                 break;
             case 5:
                 controller_removePassenger(listaPasajeros); // Listo.
@@ -69,16 +70,16 @@ int main()
                 controller_sortPassenger(listaPasajeros); // Listo, solamente alfabeticamente.
                 break;
             case 8:
-                controller_saveAsText(ARCH, listaPasajeros); // Listo.
+                banderaSave = controller_saveAsText(ARCH, listaPasajeros); // Listo.
                 break;
             case 9:
-                controller_saveAsBinary(ARCH, listaPasajeros); // Listo.
+                banderaSave = controller_saveAsBinary(ARCH, listaPasajeros); // Listo.
                 break;
             default:
-                printf("Saliendo del programa...\n");
+                controller_exit(option, banderaSave);// Listo.
                 break;
         }
-    }while(option != 10);
+    }while(option != 10 && banderaSave != 0);
 
 
     return 0;
