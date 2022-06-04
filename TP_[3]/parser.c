@@ -80,7 +80,9 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
     float auxPrecio;
     char auxCodigoVuelo[4];
     int auxTipoPasajero;
+    char tipoPasajeroChar[50];
     int auxEstadoVuelo;
+    char estadoVueloChar[50];
     
     if(pFile != NULL && pArrayListPassenger != NULL){
             tam = ll_len(pArrayListPassenger);
@@ -97,7 +99,35 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
                 Passenger_getTipoPasajero(pPasajero, &auxTipoPasajero);
                 Passenger_getEstadoVuelo(pPasajero, &auxEstadoVuelo);
                 
-                fprintf(pFile,"%d,%s,%s,%f,%s,%d,%d\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
+                if(auxTipoPasajero == 0){
+                    strcpy(tipoPasajeroChar, "FirstClass");
+                }else{
+                    if(auxTipoPasajero == 1){
+                        strcpy(tipoPasajeroChar, "ExecutiveClass");
+                    }else{
+                        if(auxTipoPasajero == 2){
+                            strcpy(tipoPasajeroChar, "EconomyClass");
+                        }else{
+                            strcpy(tipoPasajeroChar, " ");
+                        }
+                    }
+                }
+                
+                if(auxEstadoVuelo == 0){
+                    strcpy(estadoVueloChar, "Aterrizado");
+                }else{
+                    if(auxEstadoVuelo == 1){
+                        strcpy(estadoVueloChar, "En Horario");
+                    }else{
+                        if(auxEstadoVuelo == 2){
+                            strcpy(estadoVueloChar, "En Vuelo");
+                        }else{
+                            strcpy(estadoVueloChar, " ");
+                        }
+                    }
+                }
+                
+                fprintf(pFile,"%d,%s,%s,%f,%s,%s,%s\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, estadoVueloChar, estadoVueloChar);
             }
         retorno = 0;
     }else{
@@ -125,12 +155,3 @@ int parser_PassengerToBinary(FILE* pFile, LinkedList* pArrayListPassenger)
     
     return retorno;
 }
-
-
-
-
-
-
-
-
-

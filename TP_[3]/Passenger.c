@@ -108,15 +108,15 @@ int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* respuest
 
     	getNumeroFloat(&precio, "\nIngrese el precio: ", "\nError! Valor ingresado invalido!\n", 0, 999999999, 0, BUFFER_SIZE);
     	fflush(stdin);
-
-    	getNumeroInt(&tipoPasajero, "\nIngrese tipo de pasajero 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        
+    	getNumeroInt(&tipoPasajero, "\nIngrese tipo de pasajero 'FirstClass'(0), 'ExecutiveClass'(1) o 'EconomyClass'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
     	fflush(stdin);
 
     	printf("\nIngrese el codigo de vuelo: ");
     	myGets(codigoVuelo, 4);
     	fflush(stdin);
-
-    	getNumeroInt(&estadoVuelo, "\nIngrese el estado del vuelo 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+    	
+    	getNumeroInt(&estadoVuelo, "\nIngrese el estado del vuelo 'Aterrizado'(0), 'En Horario'(1) o 'En Vuelo'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
     	fflush(stdin);
 
     	Passenger_newParametrosCompletosAlta(pPasajero,id,nombre,apellido,precio,tipoPasajero,codigoVuelo,estadoVuelo);
@@ -132,14 +132,6 @@ int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* respuest
     return retorno;
 }
 
-/** \brief Guarda los datos pasados por parametros en la entidad Passenger que se este tratando.
- *
- * \param char* idStr, La direccion de memoria donde se encuentra el ID del pasajero.
- * \param char* nombreStr, La direccion de memoria donde se encuentra el nombre del pasajero.
- * \param char* tipoPasajeroStr, La direccion de memoria donde se encuentra el tipo de pasajero del pasajero.
- * \return Devuelve (NULL) si hubo un parametro invalido - la direccion de memoria reservada si Ok.
- *
- */
 Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajeroStr){
 	Passenger* unPasajero = NULL;
 	Passenger* auxPasajero;
@@ -157,21 +149,7 @@ Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajer
 	return unPasajero;
 }
 
-/** \brief Guarda los datos pasados por parametros en la entidad Passenger que se este tratando.
- *
- * \param char* idStr, La direccion de memoria donde se encuentra el ID del pasajero.
- * \param char* nombreStr, La direccion de memoria donde se encuentra el nombre del pasajero.
- * \param char* tipoPasajeroStr, La direccion de memoria donde se encuentra el tipo de pasajero del pasajero.
- * \return Devuelve (NULL) si hubo un parametro invalido - la direccion de memoria reservada si Ok.
- *
- */
-Passenger* Passenger_newParametrosCompletos(int id,
-											char* nombreStr,
-											char* apellidoStr,
-											char* precioStr,
-											char* tipoPasajeroStr,
-											char* codigoVueloStr,
-											char* estadoVueloStr){
+Passenger* Passenger_newParametrosCompletos(int id,char* nombreStr,char* apellidoStr,char* precioStr,char* tipoPasajeroStr,char* codigoVueloStr,char* estadoVueloStr){
 	Passenger* unPasajero = NULL;
 	Passenger* auxPasajero;
 
@@ -184,9 +162,34 @@ Passenger* Passenger_newParametrosCompletos(int id,
         Passenger_setNombre(unPasajero, nombreStr);
         Passenger_setApellido(unPasajero, apellidoStr);
         Passenger_setPrecio(unPasajero, atof(precioStr));
-        Passenger_setTipoPasajero(unPasajero, atoi(tipoPasajeroStr));
+        
+        if(strcmp(estadoVueloStr, "Aterrizado") == 0){
+            Passenger_setEstadoVuelo(unPasajero, 0);
+        }else{
+            if(strcmp(estadoVueloStr, "En Horario") == 0){
+                Passenger_setEstadoVuelo(unPasajero, 1);
+            }else{
+                if(strcmp(estadoVueloStr, "En Vuelo") == 0){
+                    Passenger_setEstadoVuelo(unPasajero, 2);
+                }else{
+                    Passenger_setEstadoVuelo(unPasajero, -1);
+                }
+            }
+        }
         Passenger_setCodigoVuelo(unPasajero, codigoVueloStr);
-        Passenger_setEstadoVuelo(unPasajero, atoi(estadoVueloStr));
+        if(strcmp(tipoPasajeroStr, "FirstClass") == 0){
+            Passenger_setTipoPasajero(unPasajero, 0);
+        }else{
+            if(strcmp(tipoPasajeroStr, "ExecutiveClass") == 0){
+                Passenger_setTipoPasajero(unPasajero, 1);
+            }else{
+                if(strcmp(tipoPasajeroStr, "EconomyClass") == 0){
+                    Passenger_setTipoPasajero(unPasajero, 2);
+                }else{
+                    Passenger_setTipoPasajero(unPasajero, -1);
+                }
+            }
+        }
         Passenger_setIsEmpty(unPasajero, 0);
 	}
 
@@ -360,7 +363,7 @@ int Passenger_modificarTipoPasajero(Passenger* pPasajero){
     int tipoPasajero;
     
     if(pPasajero != NULL){
-        getNumeroInt(&tipoPasajero, "\n\tIngrese el nuevo tipo de pasajero 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        getNumeroInt(&tipoPasajero, "\n\tIngrese el nuevo tipo de pasajero 'FirstClass'(0), 'ExecutiveClass'(1) o 'EconomyClass'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
         fflush(stdin);
         Passenger_setTipoPasajero(pPasajero, tipoPasajero);
         printf("\n\tSe le a modificado el Tipo de Pasajero.\n");
@@ -446,7 +449,7 @@ int Passenger_modificarEstadoVuelo(Passenger* pPasajero){
     int estadoVuelo;
     
     if(pPasajero != NULL){
-        getNumeroInt(&estadoVuelo, "\nIngrese el nuevo estado del vuelo 'falta nombre'(0), 'falta nombre'(1) o 'falta nombre'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
+        getNumeroInt(&estadoVuelo, "\nIngrese el nuevo estado del vuelo 'Aterrizado'(0), 'En Horario'(1) o 'En Vuelo'(2): ", "\nError! Valor ingresado invalido!\n", 0, 2, 0, BUFFER_SIZE);
         fflush(stdin);
         Passenger_setEstadoVuelo(pPasajero, estadoVuelo);
         printf("\n\tSe le a modificado el estado de vuelo al pasajero seleccionado.\n");
@@ -507,6 +510,8 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
     int auxTipoPasajero;
     int auxEstadoVuelo;
     int auxIsEmpty;
+    char tipoPasajero[50];
+    char estadoVuelo[50];
     
     if(pArrayListPassenger != NULL){
         tam = ll_len(pArrayListPassenger);
@@ -525,8 +530,36 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
             Passenger_getEstadoVuelo(pPasajero, &auxEstadoVuelo);
             Passenger_getIsEmpty(pPasajero, &auxIsEmpty);
             
+            if(auxTipoPasajero == 0){
+                strcpy(tipoPasajeroChar, "FirstClass");
+            }else{
+                if(auxTipoPasajero == 1){
+                    strcpy(tipoPasajeroChar, "ExecutiveClass");
+                }else{
+                    if(auxTipoPasajero == 2){
+                        strcpy(tipoPasajeroChar, "EconomyClass");
+                    }else{
+                        strcpy(tipoPasajeroChar, " ");
+                    }
+                }
+            }
+                
+            if(auxEstadoVuelo == 0){
+                strcpy(estadoVuelo, "Aterrizado");
+            }else{
+                if(auxEstadoVuelo == 1){
+                    strcpy(estadoVuelo, "En Horario");
+                }else{
+                    if(auxEstadoVuelo == 2){
+                        strcpy(estadoVuelo, "En Vuelo");
+                    }else{
+                        strcpy(estadoVuelo, " ");
+                    }
+                }
+            }
+            
             if(/*auxIsEmpty != 0*/auxId > 0){
-                printf("%04d,%15s,%15s,   %10.2f,  %14s,             %1d,            %1d\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
+                printf("%04d,%15s,%15s,   %10.2f,  %14s,             %s,            %s\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, tipoPasajero, estadoVuelo);
             }
         }
         retorno = 0;
