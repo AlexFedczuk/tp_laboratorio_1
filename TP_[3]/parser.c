@@ -3,29 +3,31 @@
 int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
+
     char auxId[50];
     int id;
     char auxNombre[50];
     char auxApellido[50];
     char auxPrecio[50];
     char auxTipoPasajero[50];
-    char auxCodigoVuelo[4];
+    char auxCodigoVuelo[50];
     char auxEstadoVuelo[50];
     Passenger* pPasajero;
     
     if(pFile != NULL && pArrayListPassenger != NULL){
     	fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxId,auxNombre,auxApellido,auxPrecio,auxTipoPasajero,auxCodigoVuelo,auxEstadoVuelo);
         do{
-        	fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxId,auxNombre,auxApellido,auxPrecio,auxTipoPasajero,auxCodigoVuelo,auxEstadoVuelo);
+        	fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxId,auxNombre,auxApellido,auxPrecio,auxCodigoVuelo,auxTipoPasajero,auxEstadoVuelo);
 
         	if(ll_len(pArrayListPassenger) >= 1){
         	  	id = Passenger_CalcularMaximoID(pArrayListPassenger);
         	}else{
         	  	id = 1;
         	}
-
         	pPasajero = Passenger_newParametrosCompletos(id, auxNombre, auxApellido, auxPrecio, auxTipoPasajero, auxCodigoVuelo,auxEstadoVuelo);
+        	//printf("pasajero->precio = %f\n", pPasajero->precio);
         	ll_add(pArrayListPassenger, pPasajero);
+        	//printf("despues de ll_add pasajero->precio = %f\n", pPasajero->precio);
         }while(!feof(pFile));
         retorno = 0;
     }else{
@@ -72,29 +74,39 @@ int parser_PassengerFromBinary(FILE* pFile, LinkedList* pArrayListPassenger)
 int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
-    Passenger* pPasajero;
+
+
     int tam;
     int auxId;
     char auxNombre[50];
     char auxApellido[50];
-    float auxPrecio;
+    float auxPrecio = -1;
     char auxCodigoVuelo[4];
     int auxTipoPasajero;
     char tipoPasajeroChar[50];
     int auxEstadoVuelo;
     char estadoVueloChar[50];
     
+    Passenger* pPasajero;
+
     if(pFile != NULL && pArrayListPassenger != NULL){
+    	printf("\nentro 1\n");
             tam = ll_len(pArrayListPassenger);
             
             fprintf(pFile,"id,name,lastname,price,flycode,typePassenger,statusFlight\n");
             for(int i = 0; i < tam; i++){
+            	//printf("\nentro 2, i = (%d)\n", i);
                 pPasajero = ll_get(pArrayListPassenger, i);
                 
+
+
                 Passenger_getId(pPasajero, &auxId);
                 Passenger_getNombre(pPasajero, auxNombre);
                 Passenger_getApellido(pPasajero, auxApellido);
-                Passenger_getPrecio(pPasajero, &auxPrecio);
+
+                //Passenger_getPrecio(pPasajero, &auxPrecio);
+                auxPrecio = pPasajero->precio; /*Aca esta el problema cuando quiero guardar los datos*/
+
                 Passenger_getCodigoVuelo(pPasajero, auxCodigoVuelo);
                 Passenger_getTipoPasajero(pPasajero, &auxTipoPasajero);
                 Passenger_getEstadoVuelo(pPasajero, &auxEstadoVuelo);
@@ -127,8 +139,9 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
                     }
                 }
                 
-                fprintf(pFile,"%d,%s,%s,%f,%s,%s,%s\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, estadoVueloChar, estadoVueloChar);
+                fprintf(pFile,"%d,%s,%s,%f,%s,%s,%s\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, tipoPasajeroChar, estadoVueloChar);
             }
+            printf("%04d,%15s,%15s,   %10.2f,  %14s,             %15s,            %s\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, tipoPasajeroChar, estadoVueloChar);
         retorno = 0;
     }else{
         printf("\nERROR! Sucedio algo en el parser 01: 'parser_PassengerToText'...\n");

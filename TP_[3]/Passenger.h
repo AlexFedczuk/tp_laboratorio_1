@@ -21,7 +21,7 @@ typedef struct
 	char apellido[50];
 	float precio;
 	int tipoPasajero;
-	char codigoVuelo[4];
+	char codigoVuelo[50]; // Lo modifique, ya que no entraban la cantidad de caracteres que figuraban en el archivo.scv, [4].
 	int estadoVuelo;
 	int isEmpty;
 

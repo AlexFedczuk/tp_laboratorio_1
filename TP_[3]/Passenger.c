@@ -163,6 +163,8 @@ Passenger* Passenger_newParametrosCompletos(int id,char* nombreStr,char* apellid
         Passenger_setApellido(unPasajero, apellidoStr);
         Passenger_setPrecio(unPasajero, atof(precioStr));
         
+        //printf("pasajero->precio = %f\n", unPasajero->precio);
+
         if(strcmp(estadoVueloStr, "Aterrizado") == 0){
             Passenger_setEstadoVuelo(unPasajero, 0);
         }else{
@@ -176,7 +178,9 @@ Passenger* Passenger_newParametrosCompletos(int id,char* nombreStr,char* apellid
                 }
             }
         }
+
         Passenger_setCodigoVuelo(unPasajero, codigoVueloStr);
+
         if(strcmp(tipoPasajeroStr, "FirstClass") == 0){
             Passenger_setTipoPasajero(unPasajero, 0);
         }else{
@@ -191,6 +195,8 @@ Passenger* Passenger_newParametrosCompletos(int id,char* nombreStr,char* apellid
             }
         }
         Passenger_setIsEmpty(unPasajero, 0);
+
+        //printf("\n\tcodigoVuelo: %s, tipoPasajero: %s (%d)\n",unPasajero->codigoVuelo,tipoPasajeroStr,unPasajero->tipoPasajero);
 	}
 
 	return unPasajero;
@@ -500,8 +506,7 @@ int Passenger_CompareById(void* pUno, void* pDos){
 
 int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
     int retorno = -1;
-    int tam; // Saque el tam del for, porque estoy testeando con unos pocos pasajeros.
-    Passenger* pPasajero;
+    int tam;
     int auxId;
     char auxNombre[50];
     char auxApellido[50];
@@ -513,18 +518,21 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
     char tipoPasajero[50];
     char estadoVuelo[50];
     
+    Passenger* pPasajero;
+
     if(pArrayListPassenger != NULL){
         tam = ll_len(pArrayListPassenger);
         
         
-        printf("  id,           name,       lastname,        price,         flycode, typePassenger, statusFlight\n");
+        printf("  id,           name,       lastname,        price,         flycode,               typePassenger,          statusFlight\n\n");
         for(int i = 0; i < tam; i++){
             pPasajero = (Passenger*) ll_get(pArrayListPassenger, i);
             
             Passenger_getId(pPasajero, &auxId);
             Passenger_getNombre(pPasajero, auxNombre);
             Passenger_getApellido(pPasajero, auxApellido);
-            Passenger_getPrecio(pPasajero, &auxPrecio);
+            //Passenger_getPrecio(pPasajero, &auxPrecio);
+            auxPrecio = pPasajero->precio;
             Passenger_getCodigoVuelo(pPasajero, auxCodigoVuelo);
             Passenger_getTipoPasajero(pPasajero, &auxTipoPasajero);
             Passenger_getEstadoVuelo(pPasajero, &auxEstadoVuelo);
@@ -558,8 +566,8 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
                 }
             }
             
-            if(/*auxIsEmpty != 0*/auxId > 0){
-                printf("%04d,%15s,%15s,   %10.2f,  %14s,             %s,            %s\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, tipoPasajero, estadoVuelo);
+            if(/*auxIsEmpty != 0*/1){
+                printf("%04d,%15s,%15s,   %10.2f,  %14s,             %15s,            %s\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, tipoPasajero, estadoVuelo);
             }
         }
         retorno = 0;

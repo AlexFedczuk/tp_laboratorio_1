@@ -9,9 +9,6 @@
 #define ARCH "data.csv"
 
 /****************************************************
- *
- * 			 !!!!ALERTA !!!!ALERTA ALERTAALERTAALERTA ALERTA ALERTA ALERTA ALERTAALERTA ALERTA ALERTA ALERTA!!!!
- * 			 		- Acordate de no tocar los archivos que NO son .c  o .h!
     Menu:
      1. Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).
      2. Cargar los datos de los pasajeros desde el archivo data.csv (modo binario).
@@ -23,13 +20,6 @@
      8. Guardar los datos de los pasajeros en el archivo data.csv (modo texto).
      9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario).
     10. Salir
-    
-    NOTAS:
-        Acordate de consultar a Gianni o otro de los chicos, si me ueden explicar otra vez cual es la forma "correcta de abrir un Archivo con fopen();"!
-        
-        CHEQUEAR QUE ESTAN CASTEADAS LAS LLAMADAS A FUNCIONES CON RETORNOS GENERICOS, tendria que agregarles por ej (Passenger*)!!!
-        
-        Tengo que ver como arreglar el tema de ESTADO VUELO Y TIPO PASAJERO, ya que son INT, pero muestran una CADENA DE TEXTO.
 *****************************************************/
 int main()
 {
@@ -44,6 +34,7 @@ int main()
     do{
         mostrarMenu();
         getNumeroInt(&option, "Ingrese una opcion del menu principal: ", "\nError! Valor ingresado invalido!\n", 1, 10, 0, BUFFER_SIZE);
+        //fflush(stdin); Si dejo este 'fflush' no deja ingresar a los 'cases'...
         switch(option)
         {
             case 1:
@@ -58,27 +49,31 @@ int main()
                 controller_addPassenger(listaPasajeros); // Listo.
                 break;
             case 4:
-                controller_editPassenger(listaPasajeros);// listo, FALTA PROBAR!
+            	if(ll_len(listaPasajeros) >= 1)
+            		controller_editPassenger(listaPasajeros);// Listo.
                 break;
             case 5:
-                controller_removePassenger(listaPasajeros); // Listo.
+            	if(ll_len(listaPasajeros) >= 1)
+            		controller_removePassenger(listaPasajeros); // Listo.
                 break;
             case 6:
-                controller_ListPassenger(listaPasajeros); // Listo.
+            	if(ll_len(listaPasajeros) >= 1)
+            		controller_ListPassenger(listaPasajeros); // Listo.
                 break;
             case 7:
-                controller_sortPassenger(listaPasajeros); // Listo, solamente alfabeticamente.
+            	if(ll_len(listaPasajeros) >= 1)
+            		controller_sortPassenger(listaPasajeros); // Listo, solamente alfabeticamente...
                 break;
             case 8:
-                banderaSave = controller_saveAsText(ARCH, listaPasajeros); // Listo.
+                banderaSave = controller_saveAsText(ARCH, listaPasajeros); // Por alguna razon no guarda el los "precios" correctos...
                 break;
             case 9:
                 banderaSave = controller_saveAsBinary(ARCH, listaPasajeros); // Listo.
                 break;
             default:
                 controller_exit(listaPasajeros, option, banderaSave, ARCH);// Listo.
-                break;
         }
+        fflush(stdin);
     }while(option != 10 && banderaSave != 0);
 
 

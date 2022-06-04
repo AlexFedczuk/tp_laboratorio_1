@@ -10,6 +10,7 @@ int controller_loadFromText(char* path, LinkedList* pArrayListPassenger)
         
         if(pArchivo != NULL && pArrayListPassenger != NULL){
             parser_PassengerFromText(pArchivo, pArrayListPassenger);
+            //printf("pasajero->precio = %f\n", pArrayListPassenger->precio);
             printf("\nSe a cargado el archivo tipo texto.\n");
             retorno = 0;
         }else{
@@ -47,51 +48,6 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListPassenger)
     
     return retorno;
 }
-
-/*int controller_addPassenger(LinkedList* pArrayListPassenger)
-{
-    int retorno = -1;
-
-    char auxIdChar[50];
-    char auxNombre[50];
-    char auxApellido[50];
-    char auxPrecioChar[50];
-    char auxCodigoVuelo[4];
-    char auxTipoPasajeroChar[50];
-    char auxEstadoVueloChar[50];
-    char respuesta;
-    
-    Passenger* pPasajero; // warning: variable 'pPasajero' set but not used
-
-    if(pArrayListPassenger != NULL){
-        do{
-            if(ll_len(pArrayListPassenger) >= 1)
-            {
-                Passenger_pedirDatosPasajero(pArrayListPassenger,auxIdChar,auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
-                printf("\nhasta llego0");
-                pPasajero = Passenger_newParametrosCompletos(auxIdChar,auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
-                ll_add(pArrayListPassenger, pPasajero);
-            }else{
-                Passenger_pedirDatosPasajero(pArrayListPassenger,"1",auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
-                pPasajero = Passenger_newParametrosCompletos(auxIdChar,auxNombre,auxApellido,auxPrecioChar,auxTipoPasajeroChar,auxCodigoVuelo,auxEstadoVueloChar);
-                ll_add(pArrayListPassenger, pPasajero);
-            }
-            
-            printf("\nDesea cargar otro pasajero(s/n)?: ");
-            //getUnCaracter(&respuesta,"\nDesea cargar otro pasajero(s/n)?: ", "\nError! Valor ingresado invalido!\n", 0, BUFFER_SIZE);
-            fflush(stdin);
-            scanf("%c", &respuesta);
-            respuesta = tolower(respuesta);
-        if(respuesta == 'n')
-            break;
-        }while(respuesta != 'n');
-        retorno = 0;
-    }else{
-        printf("\nERROR! Sucedio algo en el controlador 02: 'controller_addPassenger'...\n");
-    }
-    
-    return retorno;
-}*/
 
 int controller_addPassenger(LinkedList* pArrayListPassenger)
 {
