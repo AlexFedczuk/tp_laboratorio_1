@@ -76,7 +76,7 @@ int main()
                 banderaSave = controller_saveAsBinary(ARCH, listaPasajeros); // Listo.
                 break;
             default:
-                controller_exit(option, banderaSave);// Listo.
+                controller_exit(listaPasajeros, option, banderaSave, ARCH);// Listo.
                 break;
         }
     }while(option != 10 && banderaSave != 0);

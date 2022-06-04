@@ -86,6 +86,6 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger);
  * \Void.
  *
  */
-void controller_exit(int option, int bandera);
+void controller_exit(LinkedList* pArrayListPassenger, int option, int bandera, char* arch);
 
 #endif /* CONTROLLER_H_ */

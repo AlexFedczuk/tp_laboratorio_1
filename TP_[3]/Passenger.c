@@ -531,15 +531,15 @@ int Passenger_ListPasajeros(LinkedList* pArrayListPassenger){
             Passenger_getIsEmpty(pPasajero, &auxIsEmpty);
             
             if(auxTipoPasajero == 0){
-                strcpy(tipoPasajeroChar, "FirstClass");
+                strcpy(tipoPasajero, "FirstClass");
             }else{
                 if(auxTipoPasajero == 1){
-                    strcpy(tipoPasajeroChar, "ExecutiveClass");
+                    strcpy(tipoPasajero, "ExecutiveClass");
                 }else{
                     if(auxTipoPasajero == 2){
-                        strcpy(tipoPasajeroChar, "EconomyClass");
+                        strcpy(tipoPasajero, "EconomyClass");
                     }else{
-                        strcpy(tipoPasajeroChar, " ");
+                        strcpy(tipoPasajero, " ");
                     }
                 }
             }
@@ -618,12 +618,12 @@ int Passenger_getIndicePasajero(LinkedList* pArrayListPassenger, int* indice, ch
 	return retorno;
 }
 
-int Passenger_modificarPasajero(LinkedList* pArrayListPassenger, int* indice){
+int Passenger_modificarPasajero(LinkedList* pArrayListPassenger, int indice){
 	int retorno = -1;
 	int opcion;
 	Passenger* pPasajero;
 	
-	if(pArrayListPassenger != NULL && indice != NULL){
+	if(pArrayListPassenger != NULL){
 	    pPasajero = ll_get(pArrayListPassenger, indice);
 	    if(pPasajero != NULL){
 	        do{
@@ -649,7 +649,7 @@ int Passenger_modificarPasajero(LinkedList* pArrayListPassenger, int* indice){
             	        Passenger_modificarCodigoVuelo(pPasajero);
             	        break;
         	        case 6:
-            	        Passenger_modificarEstadoVuelo(Passenger* pPasajero);
+            	        Passenger_modificarEstadoVuelo(pPasajero);
             	        break;
         	        default:
         	            printf("\n\tSaliendo del menu de modificacion.\n");

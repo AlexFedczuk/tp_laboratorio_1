@@ -112,11 +112,12 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
 int controller_editPassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
-    int idIngresado;
+    int indice = -1;
     
     if(pArrayListPassenger != NULL){
         Passenger_ListPasajeros(pArrayListPassenger);
         Passenger_getIndicePasajero(pArrayListPassenger, &indice, "Ingrese el ID del pasajero que quiere modificar de la lista: ");
+        Passenger_modificarPasajero(pArrayListPassenger, indice);
         
         retorno = 0;
     }else{
@@ -214,12 +215,12 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListPassenger)
     return retorno;
 }
 
-void controller_exit(int option, int bandera){
-    if(option == 10 && banderaSave == 1){
-        printf("\nERROR! Para poder salir del programa debe guardar de alguna forma el archivo '%s'!\n", ARCH);
+void controller_exit(LinkedList* pArrayListPassenger, int option, int bandera, char* arch){
+    if(option == 10 && bandera == 1){
+        printf("\nERROR! Para poder salir del programa debe guardar de alguna forma el archivo '%s'!\n", arch);
     }else{
-        if(option == 10 && banderaSave == 0){
-            ll_deleteLinkedList(listaPasajeros);
+        if(option == 10 && bandera == 0){
+            ll_deleteLinkedList(pArrayListPassenger);
             printf("\nSaliendo del programa...\n");
         }
         

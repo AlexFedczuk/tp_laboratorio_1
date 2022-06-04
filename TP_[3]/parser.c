@@ -12,7 +12,6 @@ int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
     char auxCodigoVuelo[4];
     char auxEstadoVuelo[50];
     Passenger* pPasajero;
-    int bandera = 0;
     
     if(pFile != NULL && pArrayListPassenger != NULL){
     	fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxId,auxNombre,auxApellido,auxPrecio,auxTipoPasajero,auxCodigoVuelo,auxEstadoVuelo);
@@ -26,6 +25,7 @@ int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
         	}
 
         	pPasajero = Passenger_newParametrosCompletos(id, auxNombre, auxApellido, auxPrecio, auxTipoPasajero, auxCodigoVuelo,auxEstadoVuelo);
+        	ll_add(pArrayListPassenger, pPasajero);
         }while(!feof(pFile));
         retorno = 0;
     }else{

@@ -186,7 +186,7 @@ int Passenger_getCodigoVuelo(Passenger* this,char* codigoVuelo);
  * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
  *
  */
-int Passenger_modificarCodigoVuelo(Passenger* this,char* codigoVuelo);
+int Passenger_modificarCodigoVuelo(Passenger* this);
 
 /** \brief Se encarga de "setear" el tipo de pasajero.
  *
@@ -325,5 +325,14 @@ int Passenger_CalcularMaximoID(LinkedList* pArrayListPassenger);
  *
  */
 int Passenger_getIndicePasajero(LinkedList* pArrayListPassenger, int* indice, char* mensaje);
+
+/** \brief Modifica x dato del pasajero.
+ *
+ * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
+ * \param int indice, el indice donde esta el pasajero a modificar.
+ * \return Devuelve (-1) si hubo un parametro invalido - El numero del ID mas grande si Ok.
+ *
+ */
+int Passenger_modificarPasajero(LinkedList* pArrayListPassenger, int indice);
 
 #endif /* PASSENGER_H_ */
