@@ -282,6 +282,15 @@ int Passenger_getEstadoVuelo(Passenger* this, int* estadoVuelo);
  */
 int Passenger_modificarEstadoVuelo(Passenger* pPasajero);
 
+/** \brief Se encarga de ordenar por "ID" x elemento (pasajeros) por ejemplo.
+ *
+ * \param void* pUno, la direccion de memoria de x elemento uno.
+ * \param void* pDos, la direccion de memoria de x elemento dos.
+ * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
+ *
+ */
+int Passenger_CompareById(void* pUno, void* pDos);
+
 /** \brief Se encarga de ordenar por "nombre" x elemento (pasajeros) por ejemplo.
  *
  * \param void* pUno, la direccion de memoria de x elemento uno.
@@ -291,14 +300,50 @@ int Passenger_modificarEstadoVuelo(Passenger* pPasajero);
  */
 int Passenger_CompareByName(void* pUno, void* pDos);
 
-/** \brief Se encarga de ordenar por "ID" x elemento (pasajeros) por ejemplo.
+/** \brief Se encarga de ordenar por "apellido" x elemento (pasajeros) por ejemplo.
  *
  * \param void* pUno, la direccion de memoria de x elemento uno.
  * \param void* pDos, la direccion de memoria de x elemento dos.
  * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
  *
  */
-int Passenger_CompareById(void* pUno, void* pDos);
+int Passenger_CompareByLastName(void* pUno, void* pDos);
+
+/** \brief Se encarga de ordenar por "Precio" x elemento (pasajeros) por ejemplo.
+ *
+ * \param void* pUno, la direccion de memoria de x elemento uno.
+ * \param void* pDos, la direccion de memoria de x elemento dos.
+ * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
+ *
+ */
+int Passenger_CompareByPrice(void* pUno, void* pDos);
+
+/** \brief Se encarga de ordenar por "Codigo de Vuelo" x elemento (pasajeros) por ejemplo.
+ *
+ * \param void* pUno, la direccion de memoria de x elemento uno.
+ * \param void* pDos, la direccion de memoria de x elemento dos.
+ * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
+ *
+ */
+int Passenger_CompareByFlyCode(void* pUno, void* pDos);
+
+/** \brief Se encarga de ordenar por "Tipo de Pasajero" x elemento (pasajeros) por ejemplo.
+ *
+ * \param void* pUno, la direccion de memoria de x elemento uno.
+ * \param void* pDos, la direccion de memoria de x elemento dos.
+ * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
+ *
+ */
+int Passenger_CompareByTypePassenger(void* pUno, void* pDos);
+
+/** \brief Se encarga de ordenar por "Estado del Vuelo" x elemento (pasajeros) por ejemplo.
+ *
+ * \param void* pUno, la direccion de memoria de x elemento uno.
+ * \param void* pDos, la direccion de memoria de x elemento dos.
+ * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
+ *
+ */
+int Passenger_CompareByStatusFlight(void* pUno, void* pDos);
 
 /** \brief Lista los pasajeros de la linkedlist.
  *

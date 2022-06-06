@@ -6,7 +6,7 @@
 #include "miBiblioteca.h"
 #include "inputFuntions.h"
 
-#define ARCH "data.csv"
+#define ARCH "MOCK_DATA.csv"
 
 /****************************************************
     Menu:
@@ -20,6 +20,8 @@
      8. Guardar los datos de los pasajeros en el archivo data.csv (modo texto).
      9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario).
     10. Salir
+
+    NOTAS: TENGO QUE ARREGLAR EL TEMA DEL ID, deberia leer en el archivo cual es el ID mas grande y de ahi, hago que ese sea mi ID inicial en mi programa...
 *****************************************************/
 int main()
 {
@@ -28,10 +30,11 @@ int main()
     int option = 0;
     int banderaLoad = 1;
     int banderaSave = 1;
+    int banderaExit = 1;
     
     LinkedList* listaPasajeros = ll_newLinkedList();
 
-    do{
+    while(banderaExit == 1){
         mostrarMenu();
         getNumeroInt(&option, "Ingrese una opcion del menu principal: ", "\nError! Valor ingresado invalido!\n", 1, 10, 0, BUFFER_SIZE);
         //fflush(stdin); Si dejo este 'fflush' no deja ingresar a los 'cases'...
@@ -62,20 +65,22 @@ int main()
                 break;
             case 7:
             	if(ll_len(listaPasajeros) >= 1)
-            		controller_sortPassenger(listaPasajeros); // Listo, solamente alfabeticamente...
+            		controller_sortPassenger(listaPasajeros); // Listo.
                 break;
             case 8:
-                banderaSave = controller_saveAsText(ARCH, listaPasajeros); // Por alguna razon no guarda el los "precios" correctos...
+                banderaSave = controller_saveAsText(ARCH, listaPasajeros); // El problema era el archivo (.csv) que venia con el proyecto. 06-06-2022
                 break;
             case 9:
                 banderaSave = controller_saveAsBinary(ARCH, listaPasajeros); // Listo.
                 break;
+            case 10:
+            	banderaExit = controller_exit(listaPasajeros, banderaSave, ARCH);// Listo.
+            	break;
             default:
-                controller_exit(listaPasajeros, option, banderaSave, ARCH);// Listo.
+                break;
         }
         fflush(stdin);
-    }while(option != 10 && banderaSave != 0);
-
+    }
 
     return 0;
 }

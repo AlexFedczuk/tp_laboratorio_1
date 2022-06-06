@@ -103,10 +103,8 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
                 Passenger_getId(pPasajero, &auxId);
                 Passenger_getNombre(pPasajero, auxNombre);
                 Passenger_getApellido(pPasajero, auxApellido);
-
-                //Passenger_getPrecio(pPasajero, &auxPrecio);
-                auxPrecio = pPasajero->precio; /*Aca esta el problema cuando quiero guardar los datos*/
-
+                Passenger_getPrecio(pPasajero, &auxPrecio);
+                //auxPrecio = pPasajero->precio; /* Al parecer el error entre campos se debia al archivo original. 06-06-2022*/
                 Passenger_getCodigoVuelo(pPasajero, auxCodigoVuelo);
                 Passenger_getTipoPasajero(pPasajero, &auxTipoPasajero);
                 Passenger_getEstadoVuelo(pPasajero, &auxEstadoVuelo);

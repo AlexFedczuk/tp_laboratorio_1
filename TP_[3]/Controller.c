@@ -119,10 +119,51 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
 {
     int retorno = -1;
     int order;
+    int opcion = 0;
     
     if(pArrayListPassenger != NULL){
-        getNumeroInt(&order, "\nIngrese que tipo de orden quiere que se muestre la lista A a Z (1) o Z a A (0): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
-        ll_sort(pArrayListPassenger, Passenger_CompareByName, order);
+    	do{
+    		mostrarMenuOrdenamiento();
+    		getNumeroInt(&opcion, "\n\tIngrese que tipo de orden quiere ejecutar: ", "\nError! Valor ingresado invalido!\n", 1, 8, 0, BUFFER_SIZE);
+
+    		switch(opcion)
+    		{
+    			case 1:
+    				getNumeroInt(&order, "\n\tIngrese que tipo de orden quiere que se muestre la lista Menor a Maximo (1) o Maximo a Menor (0): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+    				ll_sort(pArrayListPassenger, Passenger_CompareById, order);
+    				break;
+    			case 2:
+    				getNumeroInt(&order, "\n\tIngrese que tipo de orden quiere que se muestre la lista A a Z (1) o Z a A (0): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+    				ll_sort(pArrayListPassenger, Passenger_CompareByName, order);
+    			    break;
+    			case 3:
+    				getNumeroInt(&order, "\n\tIngrese que tipo de orden quiere que se muestre la lista A a Z (1) o Z a A (0): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+    				ll_sort(pArrayListPassenger, Passenger_CompareByLastName, order);
+    			    break;
+    			case 4:
+    				getNumeroInt(&order, "\n\tIngrese que tipo de orden quiere que se muestre la lista Menor a Maximo (1) o Maximo a Menor (0): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+    				ll_sort(pArrayListPassenger, Passenger_CompareByPrice, order);
+    			    break;
+    			case 5:
+    				getNumeroInt(&order, "\n\tIngrese que tipo de orden quiere que se muestre la lista A a Z (1) o Z a A (0): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+    				ll_sort(pArrayListPassenger, Passenger_CompareByFlyCode, order);
+    			    break;
+    			case 6:
+    				getNumeroInt(&order, "\n\tIngrese que tipo de orden quiere que se muestre la lista A a Z (1) o Z a A (0): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+    				ll_sort(pArrayListPassenger, Passenger_CompareByTypePassenger, order);
+    			    break;
+    			case 7:
+    				getNumeroInt(&order, "\n\tIngrese que tipo de orden quiere que se muestre la lista A a Z (1) o Z a A (0): ", "\nError! Valor ingresado invalido!\n", 0, 1, 0, BUFFER_SIZE);
+    				ll_sort(pArrayListPassenger, Passenger_CompareByStatusFlight, order);
+    			    break;
+    			default:
+    				printf("\n\tSaliendo del menu de ordenamiento.\n");
+    				break;
+    		}
+    	}while(opcion != 8);
+
+
+
         retorno = 0;
     }else{
         printf("\nERROR! Sucedio algo en el controlador 02: 'controller_sortPassenger'...\n");
@@ -171,14 +212,18 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListPassenger)
     return retorno;
 }
 
-void controller_exit(LinkedList* pArrayListPassenger, int option, int bandera, char* arch){
-    if(option == 10 && bandera == 1){
+int controller_exit(LinkedList* pArrayListPassenger, int bandera, char* arch){
+	int retorno = 1;
+
+    if(bandera == 1){
         printf("\nERROR! Para poder salir del programa debe guardar de alguna forma el archivo '%s'!\n", arch);
     }else{
-        if(option == 10 && bandera == 0){
+        if(bandera == 0){
             ll_deleteLinkedList(pArrayListPassenger);
             printf("\nSaliendo del programa...\n");
+            retorno = 0;
         }
-        
     }
+
+    return retorno;
 }

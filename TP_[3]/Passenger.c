@@ -465,6 +465,28 @@ int Passenger_modificarEstadoVuelo(Passenger* pPasajero){
     
 }
 
+int Passenger_CompareById(void* pUno, void* pDos){
+	int retorno = -2;
+	int compara = 0;
+	Passenger* unPasajero;
+	Passenger* otroPasajero;
+
+	if(pUno != NULL && pDos != NULL){
+		unPasajero = (Passenger*) pUno;
+		otroPasajero = (Passenger*) pDos;
+
+		if(unPasajero->id > otroPasajero->id){
+			compara = 1;
+		}else{
+			if(unPasajero->id < otroPasajero->id){
+				compara = -1;
+			}
+		}
+		retorno = compara;
+	}
+
+	return retorno;
+}
 
 int Passenger_CompareByName(void* pUno, void* pDos){
 	int retorno = -2;
@@ -481,7 +503,22 @@ int Passenger_CompareByName(void* pUno, void* pDos){
 	return retorno;
 }
 
-int Passenger_CompareById(void* pUno, void* pDos){
+int Passenger_CompareByLastName(void* pUno, void* pDos){
+	int retorno = -2;
+	Passenger* unPasajero;
+	Passenger* otroPasajero;
+
+	if(pUno != NULL && pDos != NULL){
+		unPasajero = (Passenger*) pUno;
+		otroPasajero = (Passenger*) pDos;
+
+		retorno = strcmp(unPasajero->apellido, otroPasajero->apellido);// Esto puede devolver -1 o 0 o 1, segun sea la comparacion de las cadenas...
+	}
+
+	return retorno;
+}
+
+int Passenger_CompareByPrice(void* pUno, void* pDos){
 	int retorno = -2;
 	int compara = 0;
 	Passenger* unPasajero;
@@ -491,10 +528,71 @@ int Passenger_CompareById(void* pUno, void* pDos){
 		unPasajero = (Passenger*) pUno;
 		otroPasajero = (Passenger*) pDos;
 
-		if(unPasajero->nombre > otroPasajero->nombre){
+		if(unPasajero->precio > otroPasajero->precio){
 			compara = 1;
 		}else{
-			if(unPasajero->nombre < otroPasajero->nombre){
+			if(unPasajero->precio < otroPasajero->precio){
+				compara = -1;
+			}
+		}
+		retorno = compara;
+	}
+
+	return retorno;
+}
+
+int Passenger_CompareByFlyCode(void* pUno, void* pDos){
+	int retorno = -2;
+	Passenger* unPasajero;
+	Passenger* otroPasajero;
+
+	if(pUno != NULL && pDos != NULL){
+		unPasajero = (Passenger*) pUno;
+		otroPasajero = (Passenger*) pDos;
+
+		retorno = strcmp(unPasajero->codigoVuelo, otroPasajero->codigoVuelo);// Esto puede devolver -1 o 0 o 1, segun sea la comparacion de las cadenas...
+	}
+
+	return retorno;
+}
+
+int Passenger_CompareByTypePassenger(void* pUno, void* pDos){
+	int retorno = -2;
+	int compara = 0;
+	Passenger* unPasajero;
+	Passenger* otroPasajero;
+
+	if(pUno != NULL && pDos != NULL){
+		unPasajero = (Passenger*) pUno;
+		otroPasajero = (Passenger*) pDos;
+
+		if(unPasajero->tipoPasajero > otroPasajero->tipoPasajero){
+			compara = 1;
+		}else{
+			if(unPasajero->tipoPasajero < otroPasajero->tipoPasajero){
+				compara = -1;
+			}
+		}
+		retorno = compara;
+	}
+
+	return retorno;
+}
+
+int Passenger_CompareByStatusFlight(void* pUno, void* pDos){
+	int retorno = -2;
+	int compara = 0;
+	Passenger* unPasajero;
+	Passenger* otroPasajero;
+
+	if(pUno != NULL && pDos != NULL){
+		unPasajero = (Passenger*) pUno;
+		otroPasajero = (Passenger*) pDos;
+
+		if(unPasajero->estadoVuelo > otroPasajero->estadoVuelo){
+			compara = 1;
+		}else{
+			if(unPasajero->estadoVuelo < otroPasajero->estadoVuelo){
 				compara = -1;
 			}
 		}

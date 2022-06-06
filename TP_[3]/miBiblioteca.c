@@ -21,7 +21,7 @@ void mostrarMenu(){
 }
 
 void mostrarMenuModificacion(){
-    printf("\n\tMenu de modificacion\n");
+    printf("\n\tMenu de Modificacion\n");
     printf("\t1. Nombre.\n");
     printf("\t2. Apellido.\n");
     printf("\t3. Precio.\n");
@@ -29,6 +29,18 @@ void mostrarMenuModificacion(){
     printf("\t5. Codigo de vuelo.\n");
     printf("\t6. Estado de vuelo.\n");
     printf("\t7. Salir\n\n");
+}
+
+void mostrarMenuOrdenamiento(){
+	printf("\n\tMenu de Ordenamiento\n");
+	printf("\t1. ID.\n");
+	printf("\t2. Nombre.\n");
+	printf("\t3. Apellido.\n");
+	printf("\t4. Precio.\n");
+	printf("\t5. Tipo de pasajero.\n");
+	printf("\t6. Codigo de vuelo.\n");
+	printf("\t7. Estado de vuelo.\n");
+	printf("\t8. Salir\n\n");
 }
 
 /*int hardcodearEntidades(ePassenger* list, int len, int* contadorId){

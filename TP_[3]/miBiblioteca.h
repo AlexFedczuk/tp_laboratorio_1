@@ -24,6 +24,11 @@ void mostrarMenu();
 */
 void mostrarMenuModificacion();
 
+/** \brief Esta funcion muestra el menu de opciones del menu de ordenamiento.
+*   \return void
+*/
+void mostrarMenuOrdenamiento();
+
 /** \brief Esta funcion hardcodea x cantidad de entidades dentro de la lista indicada.
 *   \param list Passenger* Pointer to array of passenger
 *   \param len int Array length

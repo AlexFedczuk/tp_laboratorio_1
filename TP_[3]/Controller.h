@@ -83,9 +83,9 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger);
  *
  * \param int option, La opcion que ingreso el usuario para evaluar.
  * \param int bandera, La banera que contiene el valor si Ok para cerrar el programa.
- * \Void.
+ * \return Retorna (1) si no se guardo el archivo - (0) si se guardo y se puede salir del programa.
  *
  */
-void controller_exit(LinkedList* pArrayListPassenger, int option, int bandera, char* arch);
+int controller_exit(LinkedList* pArrayListPassenger, int bandera, char* arch);
 
 #endif /* CONTROLLER_H_ */
