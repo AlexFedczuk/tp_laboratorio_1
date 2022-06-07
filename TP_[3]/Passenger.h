@@ -44,7 +44,7 @@ Passenger* Passenger_new();
  * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
  *
  */
-int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* respuesta);
+int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* respuesta, int* idMaximo);
 
 /** \brief Se encarga de cargar los datos del pasajero a memoria.
  *

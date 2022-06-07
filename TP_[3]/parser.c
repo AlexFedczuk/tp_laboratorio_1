@@ -90,7 +90,6 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
     Passenger* pPasajero;
 
     if(pFile != NULL && pArrayListPassenger != NULL){
-    	printf("\nentro 1\n");
             tam = ll_len(pArrayListPassenger);
             
             fprintf(pFile,"id,name,lastname,price,flycode,typePassenger,statusFlight\n");
@@ -139,7 +138,6 @@ int parser_PassengerToText(FILE* pFile, LinkedList* pArrayListPassenger)
                 
                 fprintf(pFile,"%d,%s,%s,%f,%s,%s,%s\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, tipoPasajeroChar, estadoVueloChar);
             }
-            printf("%04d,%15s,%15s,   %10.2f,  %14s,             %15s,            %s\n", auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, tipoPasajeroChar, estadoVueloChar);
         retorno = 0;
     }else{
         printf("\nERROR! Sucedio algo en el parser 01: 'parser_PassengerToText'...\n");

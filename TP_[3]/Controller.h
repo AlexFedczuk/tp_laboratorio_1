@@ -31,7 +31,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger);
  * \return Devuelve (-1) si hubo un parametro invalido - 0 si Ok.
  *
  */
-int controller_addPassenger(LinkedList* pArrayListPassenger);
+int controller_addPassenger(LinkedList* pArrayListPassenger, int* idMaximo);
 
 /** \brief Modificar datos de pasajero
  * \param pArrayListPassenger LinkedList*, La direccion de memoria donde se encuentra la lista.
@@ -86,6 +86,6 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger);
  * \return Retorna (1) si no se guardo el archivo - (0) si se guardo y se puede salir del programa.
  *
  */
-int controller_exit(LinkedList* pArrayListPassenger, int bandera, char* arch);
+int controller_exit(LinkedList* pArrayListPassenger, int bandera, char* arch, char* idArch, int* idMaximo);
 
 #endif /* CONTROLLER_H_ */

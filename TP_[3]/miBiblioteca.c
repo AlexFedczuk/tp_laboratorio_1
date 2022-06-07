@@ -165,3 +165,41 @@ int formalizarNombre(char* cadena, int len){
     }
     return retorno;
 }
+
+int GetMaximumID(char* fileName){
+	int retorno = -1;
+	char idStr[10];
+	FILE* pArchivo = NULL;
+
+	if(fileName != NULL){
+		pArchivo = fopen(fileName, "r");
+		if(pArchivo != NULL){
+			do{
+				fscanf(pArchivo,"%[^\n]\n",idStr);
+			}while(!feof(pArchivo));
+
+			fclose(pArchivo);
+
+			retorno = atoi(idStr);
+		}
+	}
+
+	return retorno;
+}
+
+int SaveMaximumID(char* fileName, int* idMaximo){
+	int retorno = -1;
+	FILE* pArchivo = NULL;
+
+	if(fileName != NULL && idMaximo != NULL){
+		pArchivo = fopen(fileName, "w");
+
+		if(pArchivo != NULL){
+			fprintf(pArchivo,"%d\n", *idMaximo);
+
+			retorno = 0;
+		}
+		fclose(pArchivo);
+	}
+	return retorno;
+}

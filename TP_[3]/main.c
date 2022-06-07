@@ -7,6 +7,7 @@
 #include "inputFuntions.h"
 
 #define ARCH "MOCK_DATA.csv"
+#define ID_ARCH "idMaximo.csv"
 
 /****************************************************
     Menu:
@@ -21,7 +22,6 @@
      9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario).
     10. Salir
 
-    NOTAS: TENGO QUE ARREGLAR EL TEMA DEL ID, deberia leer en el archivo cual es el ID mas grande y de ahi, hago que ese sea mi ID inicial en mi programa...
 *****************************************************/
 int main()
 {
@@ -31,7 +31,9 @@ int main()
     int banderaLoad = 1;
     int banderaSave = 1;
     int banderaExit = 1;
-    
+    int idMaximo;
+
+    idMaximo = GetMaximumID(ID_ARCH);
     LinkedList* listaPasajeros = ll_newLinkedList();
 
     while(banderaExit == 1){
@@ -49,7 +51,7 @@ int main()
             		banderaLoad = controller_loadFromBinary(ARCH, listaPasajeros); // Listo.
                 break;
             case 3:
-                controller_addPassenger(listaPasajeros); // Listo.
+                controller_addPassenger(listaPasajeros, &idMaximo); // Listo.
                 break;
             case 4:
             	if(ll_len(listaPasajeros) >= 1)
@@ -68,13 +70,13 @@ int main()
             		controller_sortPassenger(listaPasajeros); // Listo.
                 break;
             case 8:
-                banderaSave = controller_saveAsText(ARCH, listaPasajeros); // El problema era el archivo (.csv) que venia con el proyecto. 06-06-2022
+                banderaSave = controller_saveAsText(ARCH, listaPasajeros); // Listo. El problema era el archivo (.csv) que venia con el proyecto. 06-06-2022
                 break;
             case 9:
                 banderaSave = controller_saveAsBinary(ARCH, listaPasajeros); // Listo.
                 break;
             case 10:
-            	banderaExit = controller_exit(listaPasajeros, banderaSave, ARCH);// Listo.
+            	banderaExit = controller_exit(listaPasajeros, banderaSave, ARCH, ID_ARCH, &idMaximo);// Listo.
             	break;
             default:
                 break;

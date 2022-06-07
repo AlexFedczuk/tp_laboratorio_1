@@ -49,13 +49,13 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListPassenger)
     return retorno;
 }
 
-int controller_addPassenger(LinkedList* pArrayListPassenger)
+int controller_addPassenger(LinkedList* pArrayListPassenger, int* idMaximo)
 {
     int retorno = -1;
     char respuesta;
     if(pArrayListPassenger != NULL){
     	do{
-    		Passenger_pedirDatosPasajero(pArrayListPassenger, &respuesta);
+    		Passenger_pedirDatosPasajero(pArrayListPassenger, &respuesta, idMaximo);
     	}while(respuesta != 'n');
 
     }else{
@@ -212,13 +212,14 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListPassenger)
     return retorno;
 }
 
-int controller_exit(LinkedList* pArrayListPassenger, int bandera, char* arch){
+int controller_exit(LinkedList* pArrayListPassenger, int bandera, char* arch, char* idArch, int* idMaximo){
 	int retorno = 1;
 
     if(bandera == 1){
         printf("\nERROR! Para poder salir del programa debe guardar de alguna forma el archivo '%s'!\n", arch);
     }else{
         if(bandera == 0){
+        	SaveMaximumID(idArch, idMaximo);
             ll_deleteLinkedList(pArrayListPassenger);
             printf("\nSaliendo del programa...\n");
             retorno = 0;

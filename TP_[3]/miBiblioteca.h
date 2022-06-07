@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include "LinkedList.h"
 #define LEN 2000 // El maximo es 2000 pasajeros!
 
 /** \brief Esta funcion muestra el menu de opciones del menu principal.
@@ -94,5 +96,18 @@ int informarInformacion(float* total, float* promedio, int* cantidad);
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
 */
 int formalizarNombre(char* cadena, int len);
+
+/** \brief Se fija en un archivo cual es el ID maximo y devuelve ese valor.
+* \param char* fileName, the name of the file.
+* \return int Return (-1) if Error - the number of the maximun ID if Ok.
+*/
+int GetMaximumID(char* fileName);
+
+/** \brief Guarda en un archivo el valor del ID mas grande.
+* \param char* fileName, the name of the file.
+* \param int* idMaximo, la direccion de memoria del ID mas grande.
+* \return int Return (-1) if Error - (0) if Ok.
+*/
+int SaveMaximumID(char* fileName, int* idMaximo);
 
 #endif /* MIBIBLIOTECA_H_ */

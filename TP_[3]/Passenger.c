@@ -74,7 +74,7 @@ Passenger* Passenger_new(){
     return retorno;
 }*/
 
-int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* respuesta){
+int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* respuesta, int* idMaximo){
     int retorno = -1;
 
     int id;
@@ -93,12 +93,8 @@ int Passenger_pedirDatosPasajero(LinkedList* pArrayListPassenger, char* respuest
     if(pArrayListPassenger != NULL && auxPasajero != NULL && respuesta != NULL){
     	pPasajero = auxPasajero;
 
-    	if(ll_len(pArrayListPassenger) >= 1){
-    		id = Passenger_CalcularMaximoID(pArrayListPassenger);
-    	}else{
-    		id = 1;
-    	}
-
+    	id = *idMaximo + 1;
+    	*idMaximo = id;
 
     	PedirNombre("\nIngrese el nombre del pasajero: ", nombre, 50);
     	fflush(stdin);
