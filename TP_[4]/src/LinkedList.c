@@ -123,8 +123,8 @@ int ll_add(LinkedList* this, void* pElement){
 
 void* ll_get(LinkedList* this, int index)
 {
-    Node* pNodo = NULL;
-    void* pRetorno = NULL;
+    Node* pNodo;
+    void* pRetorno;
 
     if(this != NULL && index > -1 && index < ll_len(this)){
         pNodo = getNode(this, index);
@@ -144,7 +144,7 @@ int ll_set(LinkedList* this, int index, void* pElement)// listo
     Node* pPreviosNode = NULL;
     Node* pNextNode = NULL;
 
-    if(this != NULL && index > -1 && index < ll_len(this) && pElement != NULL){
+    if(this != NULL && (index > -1 && index < ll_len(this))){
         pNewNode = (Node*) malloc(sizeof(Node));
 
         if(pNewNode != NULL){
@@ -169,8 +169,9 @@ int ll_set(LinkedList* this, int index, void* pElement)// listo
                     pNewNode->pNextNode = pNextNode;
                 }
             }
-            retorno = 0;
+
         }
+        retorno = 0;
     }
 
     return retorno;
@@ -201,8 +202,9 @@ int ll_remove(LinkedList* this, int index) // Elimina el elemento de un nodo o e
             	}
 
             }
-            retorno = 0;
+
         }
+        retorno = 0;
     }
 
     return retorno;
@@ -260,7 +262,7 @@ int ll_indexOf(LinkedList* this, void* pElement)
     int len;
     Node* pNode;
 
-    if(this != NULL && pElement != NULL){
+    if(this != NULL){
         len = ll_len(this);
 
         for(int i = 0; i < len; i++){
@@ -285,12 +287,11 @@ int ll_isEmpty(LinkedList* this)
     int len;
 
     if(this != NULL){
+    	retorno = 1;
         len = ll_len(this);
 
         if(len > 0){
             retorno = 0;
-        }else{
-            retorno = 1;
         }
     }
 
@@ -328,6 +329,7 @@ int ll_push(LinkedList* this, int index, void* pElement)// Ya esta, aunque estoy
 
                     pNextNode->pElement = pOldElement;
                 }
+                this->size++;
             }else{
                 pNode = getNode(this, i);
 
@@ -368,11 +370,11 @@ int ll_contains(LinkedList* this, void* pElement)
 {
     int retorno = -1;
 
-    if(this != NULL && pElement != NULL){
+    if(this != NULL){
+    	retorno = 1;
+
         if(ll_indexOf(this, pElement) == -1){
             retorno = 0;
-        }else{
-            retorno = 1;
         }
     }
 
@@ -467,7 +469,7 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 
             }
         }
-        retorno = 1;
+        retorno = 0; // Me decia que estaba mal si devolvia 1, el tester.
     }
 
     return retorno;
