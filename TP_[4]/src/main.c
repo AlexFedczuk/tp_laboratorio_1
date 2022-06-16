@@ -26,6 +26,7 @@
 
 int main(void)
 {
+	setbuf(stdout, NULL); // hay que probar ahora!
 
 	//startTesting(1);  // ll_newLinkedList, 100%.
 	//startTesting(2);  // ll_len, 100%.
