@@ -7,9 +7,8 @@
 #include <string.h>
 #include "../inc/LinkedList.h"
 
-
 /*
-Esto estaba cuando descargue el proyecto:
+ Esto estaba cuando descargue el proyecto:
 static Node* getNode(LinkedList* this, int nodeIndex);
 static int addNode(LinkedList* this, int nodeIndex,void* pElement);
 */
