@@ -4,7 +4,6 @@
  *  Created on: Apr 16, 2022
  *      Author: Alex Yago Fedczuk
  */
-
 #include "calculos.h"
 
 float aplicarDescuento(float numero, int descuento){
@@ -36,9 +35,8 @@ float pesosABitcoin(float pesos, float valorPesos){
 
     if(valorPesos != 0){
     	resultado = pesos / valorPesos;
-
     }
-
+    
     return resultado;
 }
 
