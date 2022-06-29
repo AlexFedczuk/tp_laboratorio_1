@@ -14,7 +14,7 @@
 
 int main()
 {
-	setbuf(stdout, NULL);
+    setbuf(stdout, NULL);
 
     int opcionMenu;
     int opcionUnoCargada;
@@ -44,12 +44,14 @@ int main()
         {
             case 1:
                 kmIngresados = pedirValorNoNegativo("Ingrese los Km: ");
+			
                 opcionUnoCargada = 1;
                 opcionTresCargada = 0;
                 break;
             case 2:
             	precioAereolineas = pedirValorNoNegativo("Ingrese el precio de vuelo Aereolineas: ");
             	precioLatam = pedirValorNoNegativo("Ingrese el precio de vuelo Latam: ");
+			
                 opcionDosCargada = 1;
                 opcionTresCargada = 0;
                 break;
@@ -114,11 +116,11 @@ int main()
             			aereolineasCredito,
             			aereolineasBitcoin,
             			aereolineasUnitario,
-            			diferencia);
+            			diferencia
+				);
                 break;
             default:
-            	if(opcionMenu < 1 || opcionMenu > 6)
-            	{
+            	if(opcionMenu < 1 || opcionMenu > 6){
             		printf("\nERROR! Ingrese una opcion del menu principal!\n");
             	}
                 system("pause");
