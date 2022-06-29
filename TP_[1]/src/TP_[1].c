@@ -20,6 +20,7 @@ int main()
     int opcionUnoCargada;
     int opcionDosCargada;
     int opcionTresCargada;
+	
     float kmIngresados;
     float precioLatam;
     float precioAereolineas;
