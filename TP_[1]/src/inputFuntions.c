@@ -4,7 +4,6 @@
  *  Created on: Apr 16, 2022
  *      Author: Alex Yago Fedczuk
  */
-
 #include "inputFuntions.h"
 
 bool parseInt(char *string, int *integer) {
