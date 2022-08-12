@@ -1,476 +1,524 @@
-// int ll_remove(LinkedList* this, int index); Elimina el elemento de un nodo o elimina un Nodo?
-// int ll_clear(LinkedList* this); Elimina (libera, free) el elemento de un nodo y elimina (libera, free) un Nodo?
-// int ll_push(LinkedList* this, int index, void* pElement); tengo que probarlo en un cas real!
-// void* ll_pop(LinkedList* this, int index); Deberia reservar un espaco en memoria para este nodo que voy a sacar de la lista, hay que probar en un caso real!
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../inc/LinkedList.h"
+//#include "LinkedList.h"
 
-/*
- Esto estaba cuando descargue el proyecto:
+
 static Node* getNode(LinkedList* this, int nodeIndex);
-static int addNode(LinkedList* this, int nodeIndex,void* pElement);
-*/
+static int addNode(LinkedList* this, int nodeIndex, void* pElement);
 
+/** \brief Crea un nuevo LinkedList en memoria de manera dinamica
+ *
+ *  \param void
+ *  \return LinkedList* Retorna (NULL) en el caso de no conseguir espacio en memoria
+ *                      o el puntero al espacio reservado
+ */
 LinkedList* ll_newLinkedList(void){
-    LinkedList* pLinkedList  = NULL;
+    LinkedList* this;
 
-    pLinkedList = (LinkedList*) malloc(sizeof(LinkedList*));
+	this = (LinkedList*) malloc(sizeof(void*));
 
-    if(pLinkedList != NULL){
-        pLinkedList->pFirstNode = NULL;
-        pLinkedList->size = 0;
+    if(this != NULL){
+    	this->pFirstNode = NULL;
+    	this->size = 0;
     }
 
-    return pLinkedList;
+    return this;
 }
 
+/** \brief Retorna la cantidad de elementos de la lista
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \return int Retorna (-1) si el puntero es NULL o la cantidad de elementos de la lista
+ *
+ */
 int ll_len(LinkedList* this){
     int retorno = -1;
 
     if(this != NULL){
-        retorno = this->size;
+    	retorno = this->size;
     }
 
     return retorno;
 }
 
 
-/*		Retorna un puntero al nodo que se encuentra en el índice especificado. Verificando que el
-	puntero this sea distinto de NULL y que index sea positivo e inferior al tamaño del array. Si la
-	verificación falla la función retorna (NULL) y si tiene éxito retorna el puntero al nodo. */
+/** \brief  Obtiene un nodo de la lista
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param nodeIndex int Indice del nodo a obtener
+ * \return Node* Retorna  (NULL) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
+                          (pNode) Si funciono correctamente
+ *
+ */
 static Node* getNode(LinkedList* this, int nodeIndex){
-    static Node* pNode = NULL;
-    int len = 0;
+	Node* pNode = NULL;
 
-    if(this != NULL && nodeIndex > -1 && nodeIndex < this->size){
-        len = ll_len(this);
+	if(this != NULL && nodeIndex >= 0 && nodeIndex < ll_len(this)){
+		pNode = this->pFirstNode;	// Asigno el primer nodo.
 
-        if(len > -1){
-            pNode = this->pFirstNode;
-
-            for(int i = 0; i < nodeIndex; i++){
-		    if(i == nodeIndex){
-			    pNode = pNode->pNextNode;
-		    }                
-            }
-        }
-    }
+		for(int i = 0; i < nodeIndex; i++){	//	Mientras el indice sea menor al nodo buscado.		
+			pNode = pNode->pNextNode;
+		}
+	}
 
     return pNode;
 }
 
-Node* test_getNode(LinkedList* this, int nodeIndex)
-{
+/** \brief  Permite realizar el test de la funcion getNode la cual es privada
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param nodeIndex int Indice del nodo a obtener
+ * \return Node* Retorna  (NULL) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
+                          (pElement) Si funciono correctamente
+ *
+ */
+Node* test_getNode(LinkedList* this, int nodeIndex){
     return getNode(this, nodeIndex);
 }
 
-static int addNode(LinkedList* this, int nodeIndex, void* pElement)
-{
-    static int retorno = -1;
-    int len;
-    Node* newNode = NULL;
-    Node* previousNode = NULL;
-    Node* pNextNode = NULL;
 
-    if(this != NULL && (nodeIndex > -1 && nodeIndex < this->size) && pElement != NULL){
-        len = ll_len(this);
+/** \brief Agrega y enlaza un nuevo nodo a la lista
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param nodeIndex int Ubicacion donde se agregara el nuevo nodo
+ * \param pElement void* Puntero al elemento a ser contenido por el nuevo nodo
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
+                        ( 0) Si funciono correctamente
+ *
+ */
+static int addNode(LinkedList* this, int nodeIndex, void* pElement){
+    int retorno = -1;
+	int len;
+    Node* pNode = NULL;
+    Node* auxNode = NULL;
 
-        if(len >= nodeIndex){
-            newNode = (Node*) malloc(sizeof(Node));
+	if(this != NULL && len >= 0 && nodeIndex >= 0 && nodeIndex <= len){
+		len = ll_len(this);
+		pNode = (Node*) malloc(sizeof(Node));
 
-            if(newNode != NULL){
-                newNode->pElement = pElement;
+		if(pNode != NULL){
+			pNode->pElement = pElement;
+			pNode->pNextNode = NULL;
 
-                if(/*this->pFirstNode == NULL ||*/ nodeIndex == 0){
-                    if(this->pFirstNode == NULL)
-                        this->size++;
-			
-                    this->pFirstNode = newNode;
-                    pNextNode = getNode(this, nodeIndex + 1);
-                    newNode->pNextNode = pNextNode;
+			if(!nodeIndex){
+				pNode->pNextNode = this->pFirstNode;
+				this->pFirstNode = pNode;
+			}else{
+				auxNode = getNode(this, nodeIndex - 1);
 
-                }else{
-                    previousNode = getNode(this, nodeIndex - 1);
-                    pNextNode = getNode(this, nodeIndex + 1);
-			
-                    if(previousNode->pNextNode == NULL)
-                        this->size++;
+				if(auxNode != NULL){
+					pNode->pNextNode = auxNode->pNextNode;
+					auxNode->pNextNode = pNode;
+				}
+			}
 
-                    previousNode->pNextNode = newNode;
-                    newNode->pNextNode = pNextNode;
-                }
-                retorno = 0;
-            }
-        }
-    }
+			this->size++;
+			retorno = 0;
+		}
+	}
 
     return retorno;
 }
 
-int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
-{
-    return addNode(this,nodeIndex,pElement);
+/** \brief Permite realizar el test de la funcion addNode la cual es privada
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param nodeIndex int Ubicacion donde se agregara el nuevo nodo
+ * \param pElement void* Puntero al elemento a ser contenido por el nuevo nodo
+  * \return int Retorna  (-1) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
+                        ( 0) Si funciono correctamente
+ *
+ */
+int test_addNode(LinkedList* this, int nodeIndex, void* pElement){
+    return addNode(this, nodeIndex, pElement);
 }
 
+
+/** \brief  Agrega un elemento a la lista
+ * \param this LinkedList* Puntero a la lista
+ * \param pElement void* Puntero al elemento a ser agregado
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
+                        ( 0) Si funciono correctamente
+ *
+ */
 int ll_add(LinkedList* this, void* pElement){
     int retorno = -1;
 
-    if(this != NULL && pElement != NULL){
-        addNode(this, ll_len(this), pElement);
-        retorno = 0;
+    if(this != NULL){
+    	retorno = addNode(this, ll_len(this), pElement);
     }
 
     return retorno;
 }
 
-void* ll_get(LinkedList* this, int index)
-{
-    Node* pNodo;
-    void* pRetorno;
+/** \brief Permite realizar el test de la funcion addNode la cual es privada
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param index int Ubicacion del elemento a obtener
+ * \return void* Retorna    (NULL) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
+                            (pElement) Si funciono correctamente
+ *
+ */
+void* ll_get(LinkedList* this, int index){
+    void* retorno = NULL;
+    Node* pNode = NULL;
 
-    if(this != NULL && index > -1 && index < ll_len(this)){
-        pNodo = getNode(this, index);
+    if(this != NULL && index >= 0 && index < ll_len(this)){
+    	pNode = getNode(this, index);
 
-        if(pNodo != NULL){
-            pRetorno = pNodo->pElement;
-        }
-    }
-
-    return pRetorno;
-}
-
-int ll_set(LinkedList* this, int index, void* pElement)
-{
-    int retorno = -1;
-    Node* pNewNode = NULL;
-    Node* pPreviosNode = NULL;
-    Node* pNextNode = NULL;
-
-    if(this != NULL && (index > -1 && index < ll_len(this))){
-        pNewNode = (Node*) malloc(sizeof(Node));
-
-        if(pNewNode != NULL){
-            pNewNode->pElement = pElement;
-
-            /*if(this->pFirstNode == NULL){
-                addNode(this, index, pElement);
-            }else{*/
-                if(index == 0){
-                    pNewNode->pNextNode = this->pFirstNode->pNextNode;
-                    free(this->pFirstNode);
-                    this->pFirstNode = pNewNode;
-                }else{
-                    pPreviosNode = getNode(this, index - 1);
-                    pNextNode = getNode(this, index + 1);
-
-                    if(pPreviosNode != NULL)
-                    	free(pPreviosNode->pNextNode);
-
-                    pPreviosNode->pNextNode = pNewNode;
-                    pNewNode->pNextNode = pNextNode;
-                }
-            //}
-
-        }
-        retorno = 0;
+    	if(pNode != NULL){
+    		retorno = pNode->pElement;
+    	}
     }
 
     return retorno;
 }
 
-int ll_remove(LinkedList* this, int index) // Elimina el elemento de un nodo o elimina un Nodo?
-{
+
+/** \brief Modifica un elemento de la lista
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param index int Ubicacion del elemento a modificar
+ * \param pElement void* Puntero al nuevo elemento
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
+                        ( 0) Si funciono correctamente
+ *
+ */
+int ll_set(LinkedList* this, int index, void* pElement){
     int retorno = -1;
-    Node* pNode;
-    Node* pPreviosNode;
-    Node* pNextNode;
+    Node* pNode = NULL;
 
-    if(this != NULL && index > -1 && index < ll_len(this)){
-        pNode = getNode(this, index);
-        pPreviosNode = getNode(this, index - 1);
-        pNextNode = getNode(this, index + 1);
+    if(this != NULL && index >= 0 && index < ll_len(this))
+    {
+    	pNode = getNode(this, index);
 
-        if(pNode != NULL){
-            if(index == 0){
-                this->pFirstNode = pNextNode;
-                free(pNode);
-                this->size--;
-            }else{
-            	if(pPreviosNode != NULL){
-			pPreviosNode->pNextNode = pNextNode;
-            		free(pNode);
-            		this->size--;
-            	}
-
-            }
-
-        }
-        retorno = 0;
+    	if(pNode != NULL)
+    	{
+    		pNode->pElement = pElement;
+    		retorno = 0;
+    	}
     }
 
     return retorno;
 }
 
-int ll_clear(LinkedList* this)// Elimina (libera, free) el elemento de un nodo y elimina (libera, free) un Nodo?
-{
+
+/** \brief Elimina un elemento de la lista
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param index int Ubicacion del elemento a eliminar
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
+                        ( 0) Si funciono correctamente
+ *
+ */
+int ll_remove(LinkedList* this, int index){
     int retorno = -1;
-    Node* pNode;
+    Node* pNode = NULL;
+    Node* auxNode = NULL;
+
+    if(this != NULL && index >= 0 && index < ll_len(this)){
+    	pNode = getNode(this, index);
+
+    	if(pNode != NULL){
+			if(index == 0){
+				this->pFirstNode = pNode->pNextNode;
+			}else{
+				auxNode = getNode(this, index-1);
+
+				if(auxNode != NULL){
+					auxNode->pNextNode = pNode->pNextNode;
+				}
+			}
+
+			free(pNode);
+
+			this->size--;
+			retorno = 0;
+    	}
+    }
+
+    return retorno;
+}
+
+
+/** \brief Elimina todos los elementos de la lista
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
+                        ( 0) Si funciono correctamente
+ *
+ */
+int ll_clear(LinkedList* this){
+    int retorno = -1;
+    int len;
 
     if(this != NULL){
-        for(int i = ll_len(this); i > 0; i--){
-            pNode = getNode(this, i);
+    	len = ll_len(this);
 
-            if(pNode != NULL){
-                if(i == 0){
-                    this->pFirstNode = NULL;
-                    this->size = 0;
-                }else{
-                    this->size--;
-                }
-                free(pNode);
-            }
-        }
-        retorno = 0;
+    	while(len > 0){
+			ll_remove(this, len - 1);
+			len--;
+    	}
+
+    	retorno = 0;
     }
+
     return retorno;
 }
 
-int ll_deleteLinkedList(LinkedList* this)
-{
+
+/** \brief Elimina todos los elementos de la lista y la lista
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
+                        ( 0) Si funciono correctamente
+ *
+ */
+int ll_deleteLinkedList(LinkedList* this){
     int retorno = -1;
-    int isEmpty;
-    int clear;
 
     if(this != NULL){
-    	isEmpty = ll_isEmpty(this);
-    	clear = ll_clear(this);
-    	free(this);
-
-        if(isEmpty == 1 && clear == 0){
-		retorno = 1;
-        }else{
-		retorno = 0;
-        }
+    	if(ll_clear(this) == 0){
+			free(this);
+			retorno = 0;
+    	}
     }
 
     return retorno;
 }
 
+/** \brief Busca el indice de la primer ocurrencia del elemento pasado como parametro
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param pElement void* Puntero al elemento
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
+                        (indice del elemento) Si funciono correctamente
+ *
+ */
 int ll_indexOf(LinkedList* this, void* pElement)
 {
     int retorno = -1;
     int len;
-    Node* pNode;
+    Node* pNode = NULL;
 
     if(this != NULL){
-        len = ll_len(this);
+    	len = ll_len(this);
 
-        for(int i = 0; i < len; i++){
-            pNode = getNode(this, i);
+    	while(len > 0){
+    		pNode = getNode(this, len - 1);
 
-            if(pNode != NULL){
-                if(pNode->pElement == pElement){
-                    retorno = i;
-                    break;
-                }
-            }
-        }
+    		if(pNode != NULL){
+    			if(pNode->pElement == pElement){
+    				retorno = len - 1;
+    				break;
+    			}
+    		}
+    		len--;
+    	}
     }
 
     return retorno;
 }
 
-int ll_isEmpty(LinkedList* this)
-{
+/** \brief Indica si la lista esta o no vacia
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
+                        ( 0) Si la lista NO esta vacia
+                        ( 1) Si la lista esta vacia
+ *
+ */
+int ll_isEmpty(LinkedList* this){
     int retorno = -1;
-    int len;
 
     if(this != NULL){
-    	retorno = 1;
-        len = ll_len(this);
+		retorno = 1;
 
-        if(len > 0){
-            retorno = 0;
-        }
+    	if(ll_len(this) > 0){
+    		retorno = 0;
+    	}
     }
 
     return retorno;
 }
 
-int ll_push(LinkedList* this, int index, void* pElement)// Me parece que tengo que agregar un nodo a la lista, en el medio de esta funcion...
-{
+/** \brief Inserta un nuevo elemento en la lista en la posicion indicada
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param nodeIndex int Ubicacion donde se agregara el nuevo elemento
+ * \param pElement void* Puntero al nuevo elemento
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
+                        ( 0) Si funciono correctamente
+ *
+ */
+int ll_push(LinkedList* this, int index, void* pElement){
     int retorno = -1;
-    int len;
-    int flag = index;
-    Node* pNode;
-    Node* pNextNode;
-    void* pOldElement = NULL;
-    void* pOldElement2 = NULL;
 
-    if(this != NULL && (index > -1 && index < ll_len(this)) && pElement != NULL){
-        len = ll_len(this);
-
-        for(int i = index; i < len; i++){
-            if(i == flag){
-
-                pNode = getNode(this, i);
-
-                if(pNode != NULL){
-                    pOldElement = pNode->pElement;
-
-                    pNode->pElement = pElement;
-                }
-
-                pNextNode = getNode(this, i + 1);
-
-                if(pNextNode != NULL){
-                    pOldElement2 = pNextNode->pElement;
-
-                    pNextNode->pElement = pOldElement;
-                }
-                this->size++;
-            }else{
-                pNode = getNode(this, i);
-
-                if(pNode != NULL){
-                    pOldElement = pNode->pElement;
-
-                    pNode->pElement = pOldElement2;
-                }
-
-                pNextNode = getNode(this, i + 1);
-
-                if(pNextNode != NULL){
-                    pOldElement2 = pNextNode->pElement;
-
-                    pNextNode->pElement = pOldElement;
-                }
-            }
-        }
-        retorno = 0;
+    if(this != NULL && index >= 0 && index <= ll_len(this)){
+		retorno = addNode(this, index, pElement);
     }
 
     return retorno;
 }
 
-void* ll_pop(LinkedList* this, int index)
-{
+
+/** \brief Elimina el elemento de la posicion indicada y retorna su puntero
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param nodeIndex int Ubicacion del elemento eliminar
+ * \return void* Retorna    (NULL) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
+                            (pElement) Si funciono correctamente
+ *
+ */
+void* ll_pop(LinkedList* this, int index){
     void* retorno = NULL;
 
-    if(this != NULL && index > -1 && index < ll_len(this)){
-        retorno = ll_get(this, index);
-        ll_remove(this, index);
+    if(this != NULL && index >= 0 && index < ll_len(this)){
+    	retorno = ll_get(this, index);
+		ll_remove(this, index);
     }
 
     return retorno;
 }
 
-int ll_contains(LinkedList* this, void* pElement)
-{
+
+/** \brief  Determina si la lista contiene o no el elemento pasado como parametro
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param pElement void* Puntero del elemento a verificar
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
+                        ( 1) Si contiene el elemento
+                        ( 0) si No contiene el elemento
+*/
+int ll_contains(LinkedList* this, void* pElement){
     int retorno = -1;
 
     if(this != NULL){
-    	retorno = 1;
+		retorno = 1;
 
-        if(ll_indexOf(this, pElement) == -1){
-            retorno = 0;
-        }
+    	if(ll_indexOf(this, pElement) == -1){
+			retorno = 0;
+    	}
     }
 
     return retorno;
 }
 
-int ll_containsAll(LinkedList* this, LinkedList* this2)
-{
+/** \brief  Determina si todos los elementos de la lista (this2)
+            estan contenidos en la lista (this)
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param this2 LinkedList* Puntero a la lista
+ * \return int Retorna  (-1) Error: si alguno de los punteros a las listas son NULL
+                        ( 1) Si los elementos de (this2) estan contenidos en la lista (this)
+                        ( 0) si los elementos de (this2) NO estan contenidos en la lista (this)
+*/
+int ll_containsAll(LinkedList* this, LinkedList* this2){
     int retorno = -1;
-    int len;
-    Node* pNodo;
+    void* pElement = NULL;
 
     if(this != NULL && this2 != NULL){
-        retorno = 1;
+		retorno = 1;
 
-        len = ll_len(this2);
+    	for(int i = 0; i < ll_len(this2); i++){
+    		pElement = ll_get(this2, i);
 
-        for(int i = 0; i < len; i++){
-            pNodo = ll_get(this2, i);
-
-            if(ll_contains(this, pNodo->pElement) == 0){
-                retorno = 0;
-                break;
-            }
-        }
+			if(ll_contains(this, pElement) == 0){
+				retorno = 0;
+				break;
+			}
+    	}
     }
 
     return retorno;
 }
 
+/** \brief Crea y retorna una nueva lista con los elementos indicados
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \param from int Indice desde el cual se copian los elementos en la nueva lista
+ * \param to int Indice hasta el cual se copian los elementos en la nueva lista (no incluido)
+ * \return LinkedList* Retorna  (NULL) Error: si el puntero a la listas es NULL
+                                o (si el indice from es menor a 0 o mayor al len de la lista)
+                                o (si el indice to es menor o igual a from o mayor al len de la lista)
+                         (puntero a la nueva lista) Si ok
+*/
 LinkedList* ll_subList(LinkedList* this, int from, int to)
 {
-    int len;
-    LinkedList* cloneArray;
-    Node* pNodo;
+    LinkedList* cloneArray = NULL;
+    void* pElement = NULL;
 
-    if(this != NULL && (from > -1 && from < to) && to > from){
-        len = ll_len(this);
-        cloneArray = ll_newLinkedList();
+    if(this != NULL && (from >= 0 && from <= ll_len(this)) && (to >= 0 && to <= ll_len(this)) && from <= to){
+    	cloneArray = ll_newLinkedList();
 
-        if(cloneArray != NULL && to <= len){
-            for(int i = from; i < to; i++){
-                pNodo = getNode(this, i);
+    	if(cloneArray != NULL){
+    		for(int i = from; i < to; i++){
+    			pElement = ll_get(this, i);
 
-                if(pNodo != NULL)
-                    ll_add(cloneArray, pNodo);
-            }
-        }
+    			if(pElement != NULL){
+					ll_add(cloneArray, pElement);
+    			}
+    		}
+    	}
     }
 
     return cloneArray;
 }
 
-LinkedList* ll_clone(LinkedList* this)
-{
-    int len;
-    LinkedList* cloneArray;
 
-    if(this != NULL && cloneArray != NULL){
-        len = ll_len(this);
-        cloneArray = ll_subList(this, 0, len);
+
+/** \brief Crea y retorna una nueva lista con los elementos de la lista pasada como parametro
+ *
+ * \param this LinkedList* Puntero a la lista
+ * \return LinkedList* Retorna  (NULL) Error: si el puntero a la listas es NULL
+                                (puntero a la nueva lista) Si ok
+*/
+LinkedList* ll_clone(LinkedList* this){
+    LinkedList* cloneArray = NULL;
+
+    if(this != NULL){
+    	cloneArray = ll_subList(this, 0, ll_len(this));
     }
 
     return cloneArray;
 }
 
-int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
-{
+
+/** \brief Ordena los elementos de la lista utilizando la funcion criterio recibida como parametro
+ * \param this LinkedList* Puntero a la lista
+ * \param pFunc (*pFunc) Puntero a la funcion criterio
+ * \param order int  [1] Indica orden ascendente - [0] Indica orden descendente
+ * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
+                        ( 0) Si ok
+ */
+int ll_sort(LinkedList* this, int (*pFunc)(void* , void*), int order){
     int retorno = -1;
     int len;
-    int result;
-    void* pAuxElemt;
+    void* pElement1 = NULL;
+    void* pElement2 = NULL;
+	int funtionResult;
 
-    if(this != NULL && pFunc != NULL && (order == 0 || order == 1)){
-        len = ll_len(this);
+    if(this != NULL && pFunc != NULL && (order == 0 || order == 1))
+    {
+    	len = ll_len(this);
 
-        for(int i = 0; i < len; i++){
-            for(int j = i + 1; j < len; j++){
+		for(int i = 0; i < len - 1; i++){
+			for(int j = i + 1; j < len; j++){
+				pElement1 = ll_get(this, i);
+				pElement2 = ll_get(this, j);
 
-                result = pFunc(ll_get(this, i), ll_get(this, j));
-                if(result == 1 && order == 1){
-                    pAuxElemt = ll_get(this, i);
-                    ll_set(this, i, ll_get(this, j));
-                    ll_set(this, j, pAuxElemt);
-                }else{
-                    if(result == -1 && order == 0){
-                        pAuxElemt = ll_get(this, j);
-                        ll_set(this, j, ll_get(this, i));
-                        ll_set(this, i, pAuxElemt);
-                    }
-                }
+				funtionResult = pFunc(pElement1, pElement2);
 
-            }
-        }
-        retorno = 0; // Me decia que estaba mal si devolvia 1, el tester.
+				if( (funtionResult < 0 && order == 0) || (funtionResult > 0 && order == 1)){
+					ll_set(this, i, pElement2);
+					ll_set(this, j, pElement1);
+				}
+			}
+		}
+
+		retorno = 0;
     }
 
     return retorno;
